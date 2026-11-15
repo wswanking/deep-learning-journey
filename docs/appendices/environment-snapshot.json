@@ -1,0 +1,306 @@
+{
+  "schema_version": 1,
+  "collected_at": "2026-11-15T20:24:27.4977298+08:00",
+  "timezone": "Asia/Shanghai",
+  "powershell_version": "7.6.9",
+  "inspection_status": "complete",
+  "hardware": {
+    "os": {
+      "caption": "Microsoft Windows 11 专业版",
+      "version": "10.0.26200",
+      "build": "26200",
+      "architecture": "64 位",
+      "total_memory_bytes": 16890716160,
+      "free_memory_bytes": 1250852864
+    },
+    "cpu": [
+      {
+        "Name": "13th Gen Intel(R) Core(TM) i9-13900H",
+        "NumberOfCores": 14,
+        "NumberOfLogicalProcessors": 20,
+        "MaxClockSpeed": 2600
+      }
+    ],
+    "memory_modules": [
+      {
+        "Capacity": 2147483648,
+        "Speed": 6400
+      },
+      {
+        "Capacity": 2147483648,
+        "Speed": 6400
+      },
+      {
+        "Capacity": 2147483648,
+        "Speed": 6400
+      },
+      {
+        "Capacity": 2147483648,
+        "Speed": 6400
+      },
+      {
+        "Capacity": 2147483648,
+        "Speed": 6400
+      },
+      {
+        "Capacity": 2147483648,
+        "Speed": 6400
+      },
+      {
+        "Capacity": 2147483648,
+        "Speed": 6400
+      },
+      {
+        "Capacity": 2147483648,
+        "Speed": 6400
+      }
+    ],
+    "gpu": [
+      {
+        "Name": "Intel(R) Iris(R) Xe Graphics",
+        "DriverVersion": "31.0.101.4502",
+        "AdapterRAM": 1073741824
+      }
+    ],
+    "disks": [
+      {
+        "DeviceID": "C:",
+        "Size": 213586538496,
+        "FreeSpace": 40507215872
+      },
+      {
+        "DeviceID": "D:",
+        "Size": 788295315456,
+        "FreeSpace": 604257775616
+      }
+    ]
+  },
+  "tools": {
+    "git": {
+      "status": "found_on_path",
+      "path": "C:\\Program Files\\Git\\cmd\\git.exe"
+    },
+    "python": {
+      "status": "found_on_path",
+      "path": "C:\\Users\\22515\\AppData\\Local\\Programs\\Python\\Python311\\python.exe"
+    },
+    "python3": {
+      "status": "found_on_path",
+      "path": "C:\\Users\\22515\\AppData\\Local\\Microsoft\\WindowsApps\\python3.exe"
+    },
+    "py": {
+      "status": "found_on_path",
+      "path": "C:\\Windows\\py.exe"
+    },
+    "pip": {
+      "status": "found_on_path",
+      "path": "C:\\Users\\22515\\AppData\\Local\\Programs\\Python\\Python311\\Scripts\\pip.exe"
+    },
+    "uv": {
+      "status": "not_found_on_path",
+      "path": null
+    },
+    "conda": {
+      "status": "not_found_on_path",
+      "path": null
+    },
+    "nvidia-smi": {
+      "status": "not_found_on_path",
+      "path": null
+    },
+    "nvcc": {
+      "status": "not_found_on_path",
+      "path": null
+    },
+    "node": {
+      "status": "found_on_path",
+      "path": "C:\\Program Files\\nodejs\\node.exe"
+    },
+    "npm": {
+      "status": "found_on_path",
+      "path": "C:\\Program Files\\nodejs\\npm.ps1"
+    },
+    "pandoc": {
+      "status": "not_found_on_path",
+      "path": null
+    },
+    "quarto": {
+      "status": "not_found_on_path",
+      "path": null
+    },
+    "xelatex": {
+      "status": "not_found_on_path",
+      "path": null
+    },
+    "tectonic": {
+      "status": "not_found_on_path",
+      "path": null
+    },
+    "dot": {
+      "status": "not_found_on_path",
+      "path": null
+    }
+  },
+  "python": {
+    "status": "passed",
+    "executable": "C:\\Users\\22515\\AppData\\Local\\Programs\\Python\\Python311\\python.exe",
+    "version": "3.11.5",
+    "bits": "64bit",
+    "is_virtualenv": false,
+    "packages": {
+      "pip": {
+        "status": "available",
+        "version": "23.2.1"
+      },
+      "numpy": {
+        "status": "not_installed",
+        "version": null
+      },
+      "torch": {
+        "status": "not_installed",
+        "version": null
+      },
+      "torchvision": {
+        "status": "not_installed",
+        "version": null
+      },
+      "transformers": {
+        "status": "not_installed",
+        "version": null
+      },
+      "datasets": {
+        "status": "not_installed",
+        "version": null
+      },
+      "accelerate": {
+        "status": "not_installed",
+        "version": null
+      },
+      "matplotlib": {
+        "status": "not_installed",
+        "version": null
+      },
+      "jupyter": {
+        "status": "not_installed",
+        "version": null
+      },
+      "psutil": {
+        "status": "not_installed",
+        "version": null
+      },
+      "venv": {
+        "status": "available",
+        "version": null
+      }
+    }
+  },
+  "cpu_smoke": {
+    "python_version": "3.11.5",
+    "python_executable": "C:\\Users\\22515\\AppData\\Local\\Programs\\Python\\Python311\\python.exe",
+    "baseline": {
+      "status": "passed",
+      "backend": "Python standard library, CPU",
+      "matrix_product": [
+        [
+          19.0,
+          22.0
+        ],
+        [
+          43.0,
+          50.0
+        ]
+      ],
+      "max_gradient_error": 1.2580017028085422E-09,
+      "training": {
+        "samples": 5,
+        "steps": 200,
+        "learning_rate": 0.1,
+        "initial_mse": 9.0,
+        "final_mse": 1.9721522630525296E-32,
+        "weight": 2.0,
+        "bias": 0.9999999999999998
+      },
+      "elapsed_seconds": 0.00031640008091926575
+    },
+    "numpy": {
+      "status": "not_installed"
+    },
+    "torch": {
+      "status": "not_installed",
+      "cuda_available": null
+    },
+    "status": "passed"
+  },
+  "nvidia": {
+    "status": "not_found_on_path_or_standard_locations",
+    "gpus": [],
+    "note": "Win32_VideoController AdapterRAM is not a reliable dedicated/shared VRAM budget."
+  },
+  "proxy": {
+    "windows_enabled": true,
+    "safe_server": "127.0.0.1:7890",
+    "pac_configured": false,
+    "environment_proxy_present": false,
+    "git_proxy_configured": false
+  },
+  "chinese_fonts": {
+    "msyh.ttc": true,
+    "simhei.ttf": true,
+    "simsun.ttc": true
+  },
+  "project_virtualenv_exists": false,
+  "cuda_path_environment_present": false,
+  "network_probed": true,
+  "network": [
+    {
+      "mode": "direct",
+      "url": "https://github.com/wswanking/deep-learning-journey",
+      "http_status": 200,
+      "success": true
+    },
+    {
+      "mode": "direct",
+      "url": "https://pypi.org/simple/numpy/",
+      "http_status": 200,
+      "success": true
+    },
+    {
+      "mode": "direct",
+      "url": "https://download.pytorch.org/whl/cpu/torch/",
+      "http_status": 200,
+      "success": true
+    },
+    {
+      "mode": "direct",
+      "url": "https://huggingface.co/",
+      "http_status": null,
+      "success": false,
+      "error": "A task was canceled."
+    },
+    {
+      "mode": "proxy",
+      "url": "https://github.com/wswanking/deep-learning-journey",
+      "http_status": 200,
+      "success": true
+    },
+    {
+      "mode": "proxy",
+      "url": "https://pypi.org/simple/numpy/",
+      "http_status": 200,
+      "success": true
+    },
+    {
+      "mode": "proxy",
+      "url": "https://download.pytorch.org/whl/cpu/torch/",
+      "http_status": 200,
+      "success": true
+    },
+    {
+      "mode": "proxy",
+      "url": "https://huggingface.co/",
+      "http_status": 200,
+      "success": true
+    }
+  ],
+  "issues": []
+}

@@ -1,0 +1,25 @@
+{
+  "name": "deep-learning-journey",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Markdown tutorial publishing with vector figures and offline math.",
+  "engines": {
+    "node": ">=22.13"
+  },
+  "scripts": {
+    "build:html": "node scripts/build.mjs --format html",
+    "build:pdf": "node scripts/build.mjs --format pdf",
+    "build:sample": "node scripts/build.mjs --format all --sample",
+    "test": "node --test tests/build.test.mjs"
+  },
+  "dependencies": {
+    "@mdit/plugin-katex": "1.2.0",
+    "@xmldom/xmldom": "0.9.12",
+    "highlight.js": "11.12.0",
+    "katex": "0.19.1",
+    "markdown-it": "15.0.3",
+    "pdf-lib": "1.17.1",
+    "playwright-core": "1.65.1"
+  }
+}

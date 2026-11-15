@@ -1,0 +1,4 @@
+# Candidate dependencies; not installed or locked during INF-01.
+# Run from the repository root inside the project virtual environment.
+numpy
+matplotlib

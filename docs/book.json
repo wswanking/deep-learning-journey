@@ -1,0 +1,18 @@
+{
+  "title": "Deep Learning Journey",
+  "subtitle": "从神经网络到大语言模型与多模态",
+  "language": "zh-CN",
+  "chapters": [],
+  "samples": [
+    {
+      "id": "layout",
+      "title": "中文、公式与结构图",
+      "source": "docs/samples/01-layout.md"
+    },
+    {
+      "id": "vectors",
+      "title": "矢量曲线、热图与跨章导航",
+      "source": "docs/samples/02-vectors.md"
+    }
+  ]
+}
