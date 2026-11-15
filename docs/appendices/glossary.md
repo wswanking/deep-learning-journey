@@ -130,7 +130,7 @@
 | --- | --- | --- |
 | 多层感知机 | multilayer perceptron，MLP | [第07章](../chapters/07-multilayer-perceptron.md)；由多个可学习层与非线性运算组成的基础网络 |
 | 反向传播 | backpropagation | [第08章](../chapters/08-backpropagation.md)；按链式法则沿计算图累加梯度 |
-| 卷积神经网络 | convolutional neural network，CNN | 第11章；用于局部结构等任务的网络，后续解释 |
+| 卷积神经网络 | convolutional neural network，CNN | [第11章](../chapters/11-convolutional-networks.md)；共享局部运算并组合特征的网络 |
 | 循环神经网络 | recurrent neural network，RNN | 第13章；逐步处理序列并维护状态的网络，后续解释 |
 | token与分词 | token / tokenization | 第14章；模型处理文本的单位及划分过程，后续解释 |
 | 注意力 | attention | 第15章；按输入相关性组合信息的机制，后续解释 |
@@ -212,3 +212,17 @@
 | Kaiming初始化 | Kaiming initialization | 依据连接数和ReLU等非线性设定权重尺度，需注意假设与二阶矩解释 |
 | Xavier初始化 | Xavier / Glorot initialization | 依据输入和输出连接数共同设定初始权重尺度 |
 | 样本标准差 | sample standard deviation | 描述本次多运行指标离散程度；少量种子不能直接支持显著性结论 |
+
+
+### 第11章：图像局部结构与共享运算
+
+完整图文与实验见[卷积神经网络](../chapters/11-convolutional-networks.md)。
+
+| 术语 | 英文 | 本教程含义 |
+| --- | --- | --- |
+| 互相关 | cross-correlation | 核按原方向与局部窗口逐元素相乘再求和；PyTorch卷积层采用此式 |
+| 参数共享 | parameter sharing | 多个位置使用同一组权重，反向梯度汇合全部使用位置的贡献 |
+| 步幅与膨胀 | stride / dilation | 分别控制窗口起点间隔与核内采样间隔 |
+| 理论感受野 | theoretical receptive field | 计算图允许影响某单元的原输入范围，不等于实际贡献相同或均非零 |
+| 平移等变 | translation equivariance | 输入移动使输出对应移动；需说明边界、采样和合法位移 |
+| 池化 | pooling | 按窗口作固定汇总，通常无可训练参数，也会丢掉部分信息 |
