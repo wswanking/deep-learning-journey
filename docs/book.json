@@ -17,6 +17,146 @@
       "id": "02",
       "title": "导数、梯度与链式法则",
       "source": "docs/chapters/02-calculus.md"
+    },
+    {
+      "id": "03",
+      "title": "概率、统计与信息论",
+      "source": "docs/chapters/03-probability.md"
+    },
+    {
+      "id": "04",
+      "title": "数值计算与优化入门",
+      "source": "docs/chapters/04-numerical-optimization.md"
+    },
+    {
+      "id": "05",
+      "title": "机器学习问题与线性基线",
+      "source": "docs/chapters/05-machine-learning.md"
+    },
+    {
+      "id": "06",
+      "title": "神经元与感知机",
+      "source": "docs/chapters/06-perceptron.md"
+    },
+    {
+      "id": "07",
+      "title": "多层感知机与前向传播",
+      "source": "docs/chapters/07-multilayer-perceptron.md"
+    },
+    {
+      "id": "08",
+      "title": "计算图、反向传播与自动微分",
+      "source": "docs/chapters/08-backpropagation.md"
+    },
+    {
+      "id": "09",
+      "title": "训练循环与优化算法",
+      "source": "docs/chapters/09-training-and-optimizers.md"
+    },
+    {
+      "id": "10",
+      "title": "泛化、正则化与实验方法",
+      "source": "docs/chapters/10-generalization.md"
+    },
+    {
+      "id": "11",
+      "title": "卷积神经网络",
+      "source": "docs/chapters/11-convolutional-networks.md"
+    },
+    {
+      "id": "12",
+      "title": "残差连接、归一化与迁移学习",
+      "source": "docs/chapters/12-residual-and-normalization.md"
+    },
+    {
+      "id": "13",
+      "title": "序列建模与 RNN、LSTM、GRU",
+      "source": "docs/chapters/13-sequence-models.md"
+    },
+    {
+      "id": "14",
+      "title": "文本表示、词嵌入与分词",
+      "source": "docs/chapters/14-tokenization-and-embeddings.md"
+    },
+    {
+      "id": "15",
+      "title": "注意力机制",
+      "source": "docs/chapters/15-attention.md"
+    },
+    {
+      "id": "16",
+      "title": "Transformer 与模型家族",
+      "source": "docs/chapters/16-transformer.md"
+    },
+    {
+      "id": "17",
+      "title": "表示学习与自编码器",
+      "source": "docs/chapters/17-representation-learning.md"
+    },
+    {
+      "id": "18",
+      "title": "生成模型：VAE 与 GAN",
+      "source": "docs/chapters/18-vae-and-gan.md"
+    },
+    {
+      "id": "19",
+      "title": "扩散模型入门",
+      "source": "docs/chapters/19-diffusion-models.md"
+    },
+    {
+      "id": "20",
+      "title": "语言模型目标、数据与预训练",
+      "source": "docs/chapters/20-language-model-pretraining.md"
+    },
+    {
+      "id": "21",
+      "title": "从零训练微型语言模型",
+      "source": "docs/chapters/21-tiny-language-model.md"
+    },
+    {
+      "id": "22",
+      "title": "指令微调与数据构造",
+      "source": "docs/chapters/22-instruction-tuning.md"
+    },
+    {
+      "id": "23",
+      "title": "参数高效微调：LoRA 与 QLoRA",
+      "source": "docs/chapters/23-parameter-efficient-tuning.md"
+    },
+    {
+      "id": "24",
+      "title": "偏好学习与对齐",
+      "source": "docs/chapters/24-preference-alignment.md"
+    },
+    {
+      "id": "25",
+      "title": "LLM 推理、采样与效率",
+      "source": "docs/chapters/25-language-model-inference.md"
+    },
+    {
+      "id": "26",
+      "title": "检索增强生成",
+      "source": "docs/chapters/26-retrieval-augmented-generation.md"
+    },
+    {
+      "id": "27",
+      "title": "模型评估与失败分析",
+      "source": "docs/chapters/27-model-evaluation.md"
+    },
+    {
+      "id": "28",
+      "title": "多模态表示与 CLIP",
+      "source": "docs/chapters/28-multimodal-representations.md"
+    },
+    {
+      "id": "29",
+      "title": "视觉语言模型与多模态指令",
+      "source": "docs/chapters/29-vision-language-models.md"
+    },
+    {
+      "id": "30",
+      "title": "综合实践与学习复盘",
+      "source": "docs/chapters/30-capstone.md"
     }
   ],
   "samples": [
