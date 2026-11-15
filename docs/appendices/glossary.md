@@ -254,3 +254,16 @@
 | 截断BPTT | truncated BPTT | 保留边界状态数值并断开更早求导联系，改变跨边界梯度 |
 | 细胞状态 | cell state | LSTM中与外部隐藏状态区分的记忆通道，带门控的加法更新 |
 | 门控 | gating | 由输入和状态计算连续保留/写入比例；须核对不同实现的命名与公式位置 |
+
+
+### 第14章：文本的离散表示与嵌入
+
+完整图文与实验见[第14章](../chapters/14-tokenization-and-embeddings.md)。
+
+| 术语 | 英文 | 本教程含义 |
+| --- | --- | --- |
+| 码点与字素簇 | code point / grapheme cluster | 分别是字符编码空间的位置和用户感知字符的边界单位；不等同于UTF-8字节或token |
+| 字节对编码 | byte pair encoding，BPE | 反复合并高频相邻符号并冻结合并顺序的子词算法；词表与正规化共同构成协议 |
+| 嵌入表 | embedding table | 按离散ID选择可训练矩阵的行；重复ID汇合该行的梯度 |
+| 静态与上下文表示 | static / contextual representation | 前者同一ID查得同一向量，后者还由合法可见的上下文决定 |
+| 跳字目标 | skip-gram objective | 用中心词预测窗口内上下文的目标；本章采用小词表完整softmax |

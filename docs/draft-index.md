@@ -1,7 +1,7 @@
 # 全部章节开发与草稿索引
 
 > 更新日期：2026-11-15。这里展示全部31章的开发入口；完成状态以章节计划为准。
-> 第00～13章已验收；其余章节并行完善或处于骨架阶段，草稿不进入默认全书。
+> 第00～14章已验收；其余章节并行完善或处于骨架阶段，草稿不进入默认全书。
 
 [正式阅读入口](../README.md) · [章节计划](chapter-plan.md) · [写作规范](authoring-guide.md) · [导航约定](navigation.md)
 
@@ -28,7 +28,7 @@
 - [11：卷积神经网络](chapters/11-convolutional-networks.md)（已验收）
 - [12：残差连接、归一化与迁移学习](chapters/12-residual-and-normalization.md)（已验收）
 - [13：序列建模与 RNN、LSTM、GRU](chapters/13-sequence-models.md)（已验收）
-- [14：文本表示、词嵌入与分词](chapters/14-tokenization-and-embeddings.md) — 草稿骨架
+- [14：文本表示、词嵌入与分词](chapters/14-tokenization-and-embeddings.md)（已验收）
 - [15：注意力机制](chapters/15-attention.md) — 草稿骨架
 - [16：Transformer 与模型家族](chapters/16-transformer.md) — 草稿骨架
 - [17：表示学习与自编码器](chapters/17-representation-learning.md) — 草稿骨架
