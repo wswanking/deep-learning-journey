@@ -12,6 +12,11 @@
       "id": "01",
       "title": "线性代数与张量",
       "source": "docs/chapters/01-linear-algebra.md"
+    },
+    {
+      "id": "02",
+      "title": "导数、梯度与链式法则",
+      "source": "docs/chapters/02-calculus.md"
     }
   ],
   "samples": [

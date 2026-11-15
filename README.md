@@ -6,6 +6,7 @@
 
 - [第00章：学习路线与本机实验环境](docs/chapters/00-learning-and-environment.md)
 - [第01章：线性代数与张量](docs/chapters/01-linear-algebra.md)
+- [第02章：导数、梯度与链式法则](docs/chapters/02-calculus.md)
 
 更多章节见[全部章节开发与草稿索引](docs/draft-index.md)；第04～06章并行完善，第07～30章骨架已建立。31章任务和验收依据见[章节计划](docs/chapter-plan.md)。
 
@@ -29,7 +30,7 @@
 | 内容 | 状态 |
 | --- | --- |
 | INF-01～03 | 环境调研、导出工具、公共符号/术语/导航已完成 |
-| 第00～01章 | 已验收；逐章CPU实验与HTML/PDF通过 |
+| 第00～02章 | 已验收；逐章CPU实验与HTML/PDF通过 |
 | 后续章节 | 第04～06章并行完善，其余骨架已建立 |
 | CPU训练环境 | Python 3.11.5、NumPy 2.4.6、PyTorch 2.15.0+cpu实测通过 |
 
