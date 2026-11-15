@@ -129,7 +129,7 @@
 | 名称 | 英文或缩写 | 主讲章与当前阅读范围 |
 | --- | --- | --- |
 | 多层感知机 | multilayer perceptron，MLP | [第07章](../chapters/07-multilayer-perceptron.md)；由多个可学习层与非线性运算组成的基础网络 |
-| 反向传播 | backpropagation | 第08章；高效计算网络参数梯度的过程，后续解释 |
+| 反向传播 | backpropagation | [第08章](../chapters/08-backpropagation.md)；按链式法则沿计算图累加梯度 |
 | 卷积神经网络 | convolutional neural network，CNN | 第11章；用于局部结构等任务的网络，后续解释 |
 | 循环神经网络 | recurrent neural network，RNN | 第13章；逐步处理序列并维护状态的网络，后续解释 |
 | token与分词 | token / tokenization | 第14章；模型处理文本的单位及划分过程，后续解释 |
@@ -168,3 +168,17 @@
 | 双曲正切 | hyperbolic tangent，tanh | 输出在负1与正1之间的平滑激活，定义与导数见本章 |
 | 表达能力 | representational capacity | 模型结构允许表示哪些函数，需与参数学习和新数据上的表现区分 |
 | 参数量 | parameter count | 独立可训练数值位置的数量；不由批次大小决定 |
+
+
+### 第08章：图与反向求导
+
+完整图文与实验见[反向传播与自动微分](../chapters/08-backpropagation.md)。
+
+| 术语 | 英文 | 本教程含义 |
+| --- | --- | --- |
+| 计算图 | computational graph | 记录变量与运算依赖的有向图，数值由本次前向给出 |
+| 反向传播 | backpropagation | 以链式法则沿反向依赖累加标量损失对各变量的梯度 |
+| 局部导数 | local derivative | 对当前运算直接输入求导；共享依赖还需汇合所有路径贡献 |
+| 叶张量 | leaf tensor | 在当前跟踪图中由用户直接构造或按接口规则视为叶的张量；参数通常是叶 |
+| 向量与Jacobian的乘积 | vector-Jacobian product，VJP | 给定输出侧权重后求该标量组合对输入的梯度，列向量写作Jacobian转置乘权重 |
+| 梯度缓冲区 | gradient buffer | 参数的.grad累计位置；建立新图不会自动清除旧值 |

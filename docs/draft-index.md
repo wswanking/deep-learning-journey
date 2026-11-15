@@ -1,7 +1,7 @@
 # 全部章节开发与草稿索引
 
 > 更新日期：2026-11-15。这里展示全部31章的开发入口；完成状态以章节计划为准。
-> 第00～07章已验收；其余章节并行完善或处于骨架阶段，草稿不进入默认全书。
+> 第00～08章已验收；其余章节并行完善或处于骨架阶段，草稿不进入默认全书。
 
 [正式阅读入口](../README.md) · [章节计划](chapter-plan.md) · [写作规范](authoring-guide.md) · [导航约定](navigation.md)
 
@@ -22,7 +22,7 @@
 - [05：机器学习问题与线性基线](chapters/05-machine-learning.md)（已验收）
 - [06：神经元与感知机](chapters/06-perceptron.md)（已验收）
 - [07：多层感知机与前向传播](chapters/07-multilayer-perceptron.md)（已验收）
-- [08：计算图、反向传播与自动微分](chapters/08-backpropagation.md) — 草稿骨架
+- [08：计算图、反向传播与自动微分](chapters/08-backpropagation.md)（已验收）
 - [09：训练循环与优化算法](chapters/09-training-and-optimizers.md) — 草稿骨架
 - [10：泛化、正则化与实验方法](chapters/10-generalization.md) — 草稿骨架
 - [11：卷积神经网络](chapters/11-convolutional-networks.md) — 草稿骨架
