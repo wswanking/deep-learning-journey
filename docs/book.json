@@ -7,6 +7,11 @@
       "id": "00",
       "title": "学习路线与本机实验环境",
       "source": "docs/chapters/00-learning-and-environment.md"
+    },
+    {
+      "id": "01",
+      "title": "线性代数与张量",
+      "source": "docs/chapters/01-linear-algebra.md"
     }
   ],
   "samples": [
