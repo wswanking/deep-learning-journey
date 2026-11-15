@@ -319,3 +319,16 @@
 | 后验坍塌 | posterior collapse | 近似后验忽略输入而接近先验的现象，需结合重建与KL等证据判断 |
 | 对抗训练 | generative adversarial training | 判别器与生成器交替优化各自目标，更新时必须明确梯度边界 |
 | 模式坍塌 | mode collapse | 生成分布只覆盖少数模式；本章常量生成器是容量受限失败对照，不证明正常GAN必然坍塌 |
+
+
+### 第19章：逐步加噪与去噪生成
+
+完整图文与实验见[第19章](../chapters/19-diffusion-models.md)。
+
+| 术语 | 英文 | 本教程含义 |
+| --- | --- | --- |
+| 扩散前向过程 | forward diffusion process | 按预定噪声计划逐步扰动数据的Markov链，单时刻边缘另有闭式采样 |
+| 噪声预测 | noise prediction | 以扰动样本和时间为条件估计所加噪声，最优条件均值一般不等于本次随机噪声 |
+| 后验均值参数化 | reverse mean parameterization | 以噪声网络输出代入反向高斯均值，方差策略和边界另行规定 |
+| 简化去噪目标 | simplified denoising objective | 省略原变分目标时间相关权重的噪声MSE，需与完整似然目标区分 |
+| 经验投影距离 | empirical projected Wasserstein distance | 本章对固定方向的一维等量经验样本排序距离取平均，不是精确二维距离或似然 |
