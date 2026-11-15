@@ -10,6 +10,7 @@
 - [第03章：概率、统计与信息论](docs/chapters/03-probability.md)
 - [第04章：数值计算与优化入门](docs/chapters/04-numerical-optimization.md)
 - [第05章：机器学习问题与线性基线](docs/chapters/05-machine-learning.md)
+- [第06章：神经元与感知机](docs/chapters/06-perceptron.md)
 
 更多章节见[全部章节开发与草稿索引](docs/draft-index.md)；后续各章持续并行完善，骨架已建立。31章任务和验收依据见[章节计划](docs/chapter-plan.md)。
 
@@ -33,7 +34,7 @@
 | 内容 | 状态 |
 | --- | --- |
 | INF-01～03 | 环境调研、导出工具、公共符号/术语/导航已完成 |
-| 第00～05章 | 已验收；逐章CPU实验与HTML/PDF通过 |
+| 第00～06章 | 已验收；逐章CPU实验与HTML/PDF通过 |
 | 后续章节 | 持续并行完善；实际进度见章节计划 |
 | CPU训练环境 | Python 3.11.5、NumPy 2.4.6、PyTorch 2.15.0+cpu实测通过 |
 
