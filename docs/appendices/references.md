@@ -60,3 +60,15 @@
 第06章起按章节任务增补具体教材部分；Transformer、LLM、多模态采用对应大学课程、原始论文及官方实现。尚未逐章核验的论文不在本目录冒充已采用来源。新增来源时记录实际采用的版本、具体定义或图的位置、官方链接和核验日期，并解释它补充了花书未覆盖的哪部分内容。
 
 本目录仅维护共享来源身份和用途。原理是否解释充分、公式是否正确、实验是否可复现，仍须在对应章节独立验收。
+
+## 6. 已实现章节补充来源
+
+| 来源 | 精确入口与用途 |
+| --- | --- |
+| MIT 6.041SC，Fall 2013，John Tsitsiklis | [Lecture 2：Conditioning and Bayes' Rule](https://ocw.mit.edu/courses/6-041sc-probabilistic-systems-analysis-and-applied-probability-fall-2013/pages/unit-i/lecture-2/)、[Lecture 3：Independence](https://ocw.mit.edu/courses/6-041sc-probabilistic-systems-analysis-and-applied-probability-fall-2013/pages/unit-i/lecture-3/)；第03章的条件概率、Bayes与独立 |
+| MIT 18.335J，Spring 2019，Steven G. Johnson | [Week 1 / Lecture 2](https://ocw.mit.edu/courses/18-335j-introduction-to-numerical-methods-spring-2019/pages/week-1/)、[Week 2 / Lecture 3](https://ocw.mit.edu/courses/18-335j-introduction-to-numerical-methods-spring-2019/pages/week-2/)；第04章的浮点表示、求和与稳定性动机 |
+| Cornell CS4780，Fall 2018 | [Lecture 3：The Perceptron](https://www.cs.cornell.edu/courses/cs4780/2018fa/lectures/lecturenote03.html)；第06章的更新、偏置增广与收敛证明 |
+| Stanford CS231n 官方课程笔记 | [Neural Networks, Part 1](https://cs231n.github.io/neural-networks-1/)；第07章的逐层组织、前向计算与表达能力，页面未固定课程年份，按2026-11-15核验版本引用 |
+| scikit-learn 官方实践 | [Common pitfalls and recommended practices](https://scikit-learn.org/stable/common_pitfalls.html) §12.1～12.2；第05章预处理隔离与数据泄漏原则，实验无需安装该包 |
+
+以上入口在相应章节实现时核验；定义与数值例子仍以各章的具体引用、推导和实验为准。

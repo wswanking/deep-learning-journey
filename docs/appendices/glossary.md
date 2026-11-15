@@ -122,13 +122,13 @@
 
 主要阅读依据：[DL-ML、D2L-LINEAR、D2L-SOFTMAX](references.md)。
 
-## 8. 后续章节名称预告
+## 8. 模型与后续主题名称
 
 这些名称只用于理解路线，不作为第00～05章的推导前提，详细定义、数学、图示与实验在标明章节实现。
 
 | 名称 | 英文或缩写 | 主讲章与当前阅读范围 |
 | --- | --- | --- |
-| 多层感知机 | multilayer perceptron，MLP | 第07章；由多个可学习层与非线性运算组成的基础网络，后续解释 |
+| 多层感知机 | multilayer perceptron，MLP | [第07章](../chapters/07-multilayer-perceptron.md)；由多个可学习层与非线性运算组成的基础网络 |
 | 反向传播 | backpropagation | 第08章；高效计算网络参数梯度的过程，后续解释 |
 | 卷积神经网络 | convolutional neural network，CNN | 第11章；用于局部结构等任务的网络，后续解释 |
 | 循环神经网络 | recurrent neural network，RNN | 第13章；逐步处理序列并维护状态的网络，后续解释 |
@@ -140,3 +140,31 @@
 | 多模态 | multimodal | 第28～30章；结合文本、图像等不同类型信息的建模主题，后续解释 |
 
 后续章节实施时添加原始论文、大学课程和官方文档的精确来源；本表的名称预告不替代那些章节的引用核验。
+
+## 9. 神经网络补充术语
+
+### 第06章：阈值分类与更新
+
+完整图文与实验见[神经元与感知机](../chapters/06-perceptron.md)。
+
+| 术语 | 英文 | 本教程含义 |
+| --- | --- | --- |
+| 感知机 | perceptron | 用仿射分数和硬阈值分类，并按标签与分数的违例逐样本更新参数 |
+| 激活函数 | activation function | 将一个单元的预激活分数转成输出的函数，具体形式由模型规定 |
+| 线性可分 | linear separability | 在当前表示中存在严格分开全部有限训练样本的仿射分隔器 |
+| 符号间隔 | signed functional margin | 本章定义为标签乘分数；参数缩放会改变它，不能直接当作几何距离 |
+| 增广向量 | augmented vector | 在输入末尾加常数1，将偏置与权重合并到同一个内积 |
+| 一轮与一次更新 | epoch / parameter update | 一轮扫描全部样本；一次更新实际修改参数，二者的计数不同 |
+
+### 第07章：非线性表示与前向
+
+完整图文与实验见[多层感知机](../chapters/07-multilayer-perceptron.md)。
+
+| 术语 | 英文 | 本教程含义 |
+| --- | --- | --- |
+| 隐藏层 | hidden layer | 输入与最终输出之间的内部表示，数值可以逐项查看 |
+| 前向传播 | forward propagation | 按计算依赖从输入求得各层及最终输出，不自动更新参数 |
+| 整流线性单元 | rectified linear unit，ReLU | 取输入与0的较大者；分段线性，整体通常不可合并为一个仿射函数 |
+| 双曲正切 | hyperbolic tangent，tanh | 输出在负1与正1之间的平滑激活，定义与导数见本章 |
+| 表达能力 | representational capacity | 模型结构允许表示哪些函数，需与参数学习和新数据上的表现区分 |
+| 参数量 | parameter count | 独立可训练数值位置的数量；不由批次大小决定 |
