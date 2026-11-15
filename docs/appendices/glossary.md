@@ -131,7 +131,7 @@
 | 多层感知机 | multilayer perceptron，MLP | [第07章](../chapters/07-multilayer-perceptron.md)；由多个可学习层与非线性运算组成的基础网络 |
 | 反向传播 | backpropagation | [第08章](../chapters/08-backpropagation.md)；按链式法则沿计算图累加梯度 |
 | 卷积神经网络 | convolutional neural network，CNN | [第11章](../chapters/11-convolutional-networks.md)；共享局部运算并组合特征的网络 |
-| 循环神经网络 | recurrent neural network，RNN | 第13章；逐步处理序列并维护状态的网络，后续解释 |
+| 循环神经网络 | recurrent neural network，RNN | [第13章](../chapters/13-sequence-models.md)；共享状态递推处理序列 |
 | token与分词 | token / tokenization | 第14章；模型处理文本的单位及划分过程，后续解释 |
 | 注意力 | attention | 第15章；按输入相关性组合信息的机制，后续解释 |
 | Transformer | Transformer | 第16章；以注意力等模块构成的网络架构，后续解释 |
@@ -240,3 +240,17 @@
 | 运行缓冲 | running buffer | 参与模型行为但不是优化器梯度参数的状态，如BN均值与方差 |
 | 冻结与微调 | feature extraction / fine-tuning | 分别固定部分参数、或从已有参数继续更新；还需明确模块模式和缓冲策略 |
 | 负迁移 | negative transfer | 复用已有参数在给定目标任务协议下反而比从零基线表现更差 |
+
+
+### 第13章：时间状态与门控
+
+完整图文与实验见[序列建模与RNN、LSTM、GRU](../chapters/13-sequence-models.md)。
+
+| 术语 | 英文 | 本教程含义 |
+| --- | --- | --- |
+| 隐藏状态 | hidden state | 按共享递推更新的历史表示，固定维度不保证无损记忆任意长序列 |
+| 时间展开 | unrolling | 将同一递推的多次调用展开成无环图，参数在时间位置间共享 |
+| 通过时间反向传播 | backpropagation through time，BPTT | 沿展开图累积各时间位置对共享参数的梯度 |
+| 截断BPTT | truncated BPTT | 保留边界状态数值并断开更早求导联系，改变跨边界梯度 |
+| 细胞状态 | cell state | LSTM中与外部隐藏状态区分的记忆通道，带门控的加法更新 |
+| 门控 | gating | 由输入和状态计算连续保留/写入比例；须核对不同实现的命名与公式位置 |
