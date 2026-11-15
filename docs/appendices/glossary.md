@@ -306,3 +306,16 @@
 | 瓶颈 | bottleneck | 限制表示维数或其他资源的中间层；连续低维并不自动等于存储字节减少 |
 | 表示不唯一 | non-identifiability of representation | 编码坐标经可逆变换并相应调整解码器可保持同一重建函数 |
 | 去噪自编码器 | denoising autoencoder | 输入经扰动而目标保持干净样本，目标与普通自重建不同 |
+
+
+### 第18章：变分推断与对抗学习
+
+完整图文与实验见[第18章](../chapters/18-vae-and-gan.md)。
+
+| 术语 | 英文 | 本教程含义 |
+| --- | --- | --- |
+| 证据下界 | evidence lower bound，ELBO | 期望对数似然减后验近似到先验的KL；与对数证据的间隙是另一种KL |
+| 重参数化 | reparameterization | 将参数化随机采样写成固定噪声的可微变换，使指定路径可求导 |
+| 后验坍塌 | posterior collapse | 近似后验忽略输入而接近先验的现象，需结合重建与KL等证据判断 |
+| 对抗训练 | generative adversarial training | 判别器与生成器交替优化各自目标，更新时必须明确梯度边界 |
+| 模式坍塌 | mode collapse | 生成分布只覆盖少数模式；本章常量生成器是容量受限失败对照，不证明正常GAN必然坍塌 |
