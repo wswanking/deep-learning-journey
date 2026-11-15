@@ -122,7 +122,7 @@ $$
 这部分定义持续验收标准。INF-02 工具链已落地，实际用法和边界见[构建说明](build-guide.md)。
 
 - 同一份 Markdown 和资源生成两个版本，不分别维护 HTML/PDF 正文。
-- 首次运行 `npm ci --ignore-scripts` 准备依赖后，从仓库根目录使用 `scripts/build.ps1 -Format html` 或 `scripts/build.ps1 -Format pdf` 构建已完成正式章节；当前尚无正式完成章，用 `-Sample` 验证样张，单章草稿使用 `-Chapter`。
+- 首次运行 `npm ci --ignore-scripts` 准备依赖后，从仓库根目录使用 `scripts/build.ps1 -Format html` 或 `scripts/build.ps1 -Format pdf` 构建已完成正式章节；独立样张用 `-Sample`，单章草稿使用 `-Chapter`；正式全书只汇编完成清单。
 - 支持单章草稿和按完成清单顺序生成全书；真实源文件登记到 book.json，章节验收后再勾选，不把样张和待办混入正式全书。
 - 输出包含目录、章节导航/书签、代码高亮、数学公式和图示。
 - SVG 配图在 HTML 中保持矢量显示，PDF 使用矢量嵌入或矢量转换；禁止在构建中将配图栅格化。排版样张必须包含中文标签、箭头、曲线、热图及公式的矢量图，检查输出对象并放大观察清晰度。

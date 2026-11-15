@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="730" viewBox="0 0 900 730" role="img" aria-labelledby="c00-work-title c00-work-desc">
+  <title id="c00-work-title">图00-2：本机实验的环境、训练与推理工作流</title>
+  <desc id="c00-work-desc">环境中的解释器、依赖、设备和版本支持两条计算路径。训练时输入样本的x进入模型，预测和目标y进入损失，损失对应的更新规则改变参数并重复。推理时新输入进入使用固定已训练参数的模型，输出预测，无参数更新。</desc>
+  <defs>
+    <marker id="c00-work-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#3e668e"/></marker>
+  </defs>
+  <rect width="900" height="730" rx="16" fill="#f7f9fc"/>
+  <g font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" fill="#172c44">
+    <text x="30" y="42" font-size="28" font-weight="700">同一个模型：训练调整参数，推理使用参数</text>
+    <rect x="30" y="65" width="840" height="80" rx="12" fill="#e8eef6" stroke="#8b9fb5" stroke-width="2"/>
+    <text x="50" y="96" font-size="24" font-weight="700">执行环境：Python解释器、依赖库、CPU设备、版本</text>
+    <text x="50" y="127" font-size="21" fill="#364e68">环境支持两条路径；环境可用仍需由实际运算验证。</text>
+    <rect x="30" y="170" width="840" height="300" rx="12" fill="#eef5ff" stroke="#5f8dbe" stroke-width="2"/>
+    <text x="50" y="202" font-size="24" font-weight="700">训练：已知样本，反复调整参数 w、b</text>
+    <rect x="50" y="255" width="200" height="95" rx="10" fill="#ffffff" stroke="#5f8dbe" stroke-width="2"/>
+    <rect x="335" y="255" width="220" height="95" rx="10" fill="#ffffff" stroke="#5f8dbe" stroke-width="2"/>
+    <rect x="640" y="255" width="210" height="95" rx="10" fill="#ffffff" stroke="#5f8dbe" stroke-width="2"/>
+    <rect x="335" y="390" width="220" height="55" rx="10" fill="#dceafd" stroke="#3e668e" stroke-width="2"/>
+    <g fill="none" stroke="#3e668e" stroke-width="3" marker-end="url(#c00-work-arrow)">
+      <path d="M 250 302 H 330"/>
+      <path d="M 555 302 H 635"/>
+      <path d="M 150 255 V 229 H 745 V 250"/>
+      <path d="M 745 350 V 418 H 560"/>
+      <path d="M 445 390 V 355"/>
+    </g>
+    <g font-size="23" font-weight="700" text-anchor="middle">
+      <text x="150" y="289">训练数据</text>
+      <text x="445" y="289">模型 f<tspan baseline-shift="sub" font-size="17">θ</tspan><tspan baseline-shift="baseline">(x)</tspan></text>
+      <text x="745" y="289">预测与目标比较</text>
+      <text x="445" y="425">按规则更新参数</text>
+    </g>
+    <g font-size="21" fill="#364e68" text-anchor="middle">
+      <text x="150" y="327">样本对 (x, y)</text>
+      <text x="445" y="327">当前参数 θ</text>
+      <text x="745" y="327">计算损失</text>
+      <text x="291" y="337">输入 x</text>
+      <text x="598" y="337">预测 ŷ</text>
+      <text x="680" y="395">按更新规则</text>
+    </g>
+    <rect x="325" y="215" width="275" height="27" fill="#eef5ff"/>
+    <text x="463" y="237" text-anchor="middle" font-size="21" fill="#364e68">标签 y：用于损失比较</text>
+    <rect x="30" y="495" width="840" height="165" rx="12" fill="#edf7f1" stroke="#6c9d82" stroke-width="2"/>
+    <text x="50" y="529" font-size="24" font-weight="700">推理：给定新输入，参数 θ 保持固定</text>
+    <rect x="50" y="553" width="200" height="75" rx="10" fill="#ffffff" stroke="#6c9d82" stroke-width="2"/>
+    <rect x="335" y="553" width="220" height="75" rx="10" fill="#ffffff" stroke="#6c9d82" stroke-width="2"/>
+    <rect x="640" y="553" width="210" height="75" rx="10" fill="#ffffff" stroke="#6c9d82" stroke-width="2"/>
+    <g fill="none" stroke="#3e668e" stroke-width="3" marker-end="url(#c00-work-arrow)">
+      <path d="M 250 591 H 330"/>
+      <path d="M 555 591 H 635"/>
+    </g>
+    <g font-size="23" text-anchor="middle">
+      <text x="150" y="599">新输入 x</text>
+      <text x="445" y="585">模型 f<tspan baseline-shift="sub" font-size="17">θ</tspan><tspan baseline-shift="baseline">(x)</tspan></text>
+      <text x="445" y="615" font-size="21" fill="#364e68">使用已训练参数</text>
+      <text x="745" y="599">输出预测 ŷ</text>
+    </g>
+    <text x="30" y="701" font-size="22" fill="#364e68">实验记录：环境 + 数据 + 模型 + 配置 + 原始输出 + 结果解释</text>
+  </g>
+</svg>

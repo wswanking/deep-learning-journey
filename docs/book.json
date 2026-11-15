@@ -2,7 +2,13 @@
   "title": "Deep Learning Journey",
   "subtitle": "从神经网络到大语言模型与多模态",
   "language": "zh-CN",
-  "chapters": [],
+  "chapters": [
+    {
+      "id": "00",
+      "title": "学习路线与本机实验环境",
+      "source": "docs/chapters/00-learning-and-environment.md"
+    }
+  ],
   "samples": [
     {
       "id": "layout",

@@ -1,68 +1,71 @@
-# 初始依赖方案：Windows / CPU
+# Windows / CPU 训练依赖
 
-> INF-01 交付；2026-11-15。这里区分已验证的基础环境与尚未安装的候选训练依赖。
-> 详细实测见 [本机环境报告](../docs/appendices/environment.md)。
+> 实际安装和验证日期：2026-11-15。默认使用项目独立环境。
+> [框架实测记录](../docs/appendices/framework-validation.md) · [原始结果](../docs/appendices/framework-validation.json) · [历史硬件调研](../docs/appendices/environment.md)
 
-## 1. 已验证的最小环境
+## 1. 已验证环境
 
-Python 3.11.5（64 位）、pip 23.2.1、PowerShell 7.6.9。环境调研和标准库 CPU 示例不需要第三方 Python 包：
+Windows 11 64位、Python 3.11.5、NumPy 2.4.6、Matplotlib 3.11.2、PyTorch 2.15.0+cpu。CPU数组运算、float64自动微分和200步小回归训练实际通过，pip check无依赖冲突。项目环境位于仓库 .venv，不需要激活脚本或修改执行策略。
 
-```powershell
-python -B scripts/cpu-smoke.py
-& ./scripts/check-environment.ps1
-```
+requirements/cpu-lock.txt 是本次成功安装后的完整版本记录，含 pip/setuptools；cpu.in 与 torch-cpu.in 保留顶层依赖意图。初次调研时框架未安装的历史JSON继续保留。
 
-两个脚本本机执行通过。当前选择的 Python 尚无 NumPy、Matplotlib、PyTorch，项目虚拟环境尚未创建。
+## 2. 新建或重建环境
 
-## 2. 计划采用的基础训练环境
-
-- 用现有 Python 3.11 创建独立项目 `.venv`。
-- 数值与矢量绘图：`cpu.in` 中的 NumPy、Matplotlib。
-- 自动微分与训练：`torch-cpu.in` 中的 CPU 版 PyTorch，使用官方 CPU wheel 索引。
-- 优先使用 Windows 64 位预编译 wheel，不为教学基础环境自行编译 CUDA 或 PyTorch。
-- 图像相关依赖和 LLM 依赖等到相关章节再添加，并核对版本兼容性。
-
-这两份 `.in` 是候选包清单，**不是锁文件，也未在本机安装验证**。版本在实际安装、CPU 验证通过后记录锁定，不能把未执行的安装命令写成成功记录。
-
-以下是后续准备环境时使用的命令，本次没有执行：
+从仓库根目录执行；使用专供本项目的环境：
 
 ```powershell
 py -3.11 -m venv .venv
-
-# 直接调用环境解释器，不要求修改系统执行策略或激活脚本。
-& ./.venv/Scripts/python.exe -m pip install --upgrade pip
-& ./.venv/Scripts/python.exe -m pip install -r requirements/cpu.in
-& ./.venv/Scripts/python.exe -m pip install -r requirements/torch-cpu.in
-
-# 安装后的验收：
-& ./.venv/Scripts/python.exe -B scripts/cpu-smoke.py --with-frameworks
-& ./scripts/check-environment.ps1 -PythonPath ./.venv/Scripts/python.exe
-
-# 仅在实际验证通过后生成实测依赖记录：
-& ./.venv/Scripts/python.exe -m pip freeze |
-    Set-Content -LiteralPath requirements/cpu-lock.txt -Encoding utf8
+& ./.venv/Scripts/python.exe -m pip install --only-binary=:all: --extra-index-url https://download.pytorch.org/whl/cpu -r requirements/cpu-lock.txt
 ```
 
-如果安装命令的网络请求失败，应重新核对现有代理，并只为该次 pip 调用显式传入代理参数。不要将本机某次代理地址硬写进共享依赖文件，不修改全局代理或降低 TLS 校验。
+默认包索引提供普通依赖，PyTorch官方CPU索引提供带 +cpu 标识的wheel。锁定范围是Python 3.11 / Windows x64 / CPU；其他系统、Python版本或加速设备需另行核对wheel。锁文件已与实际环境及pip check对照，尚未在第二台机器复建。
 
-后续锁定清单应说明 Python 版本、Windows/CPU 平台和 PyTorch 官方 CPU 索引；单独的版本列表不能代替安装来源说明。
+开发阶段重新选择版本时，可使用原始顶层清单；重选后必须重新验收和更新锁文件：
 
-## 3. 暂不预装的依赖与待验证项
+```powershell
+& ./.venv/Scripts/python.exe -m pip install --only-binary=:all: -r requirements/cpu.in
+& ./.venv/Scripts/python.exe -m pip install --only-binary=:all: -r requirements/torch-cpu.in
+```
 
-| 范围 | 后续安排 |
+下载失败时先核对网络配置，必要时仅为该次调用传入代理；代理地址不写入共享文件，不修改全局代理或降低TLS校验。
+
+## 3. 验收方法
+
+```powershell
+& ./.venv/Scripts/python.exe -m pip check
+& ./.venv/Scripts/python.exe -B scripts/cpu-smoke.py --with-frameworks
+& ./scripts/check-environment.ps1 -PythonPath ./.venv/Scripts/python.exe
+```
+
+检查JSON中的baseline、numpy、torch三个分支分别为passed；缺少可选包时该分支记为not_installed，不能仅凭总状态判断框架就绪。本次CPU wheel的CUDA接口不可用。
+
+标准库基线无需第三方包，可单独执行：
+
+```powershell
+py -3.11 -B scripts/cpu-smoke.py
+```
+
+依赖版本变更并完成验证后再更新记录：
+
+```powershell
+& ./.venv/Scripts/python.exe -m pip freeze --all | Set-Content -LiteralPath requirements/cpu-lock.txt -Encoding utf8
+```
+
+## 4. 后续按章节准备的依赖
+
+| 范围 | 安排 |
 | --- | --- |
-| torchvision | CNN 数据与视觉实验需要时添加，先核对与 torch 的匹配关系 |
-| transformers / datasets / accelerate | LLM 章节按模型和内存预算添加，并做实际导入/运行验证 |
-| Jupyter | 可选，教程默认保留可独立运行的脚本入口 |
-| CUDA / NVIDIA GPU 路线 | 当前硬件未发现 NVIDIA 设备，不作为默认基础环境 |
-| XPU / DirectML / 量化后端 | 未验证，不承诺本机可用 |
-| HTML/PDF 工具链 | INF-02 已完成：项目本地 npm 依赖，见下一节 |
+| torchvision | 视觉实验需要时添加，核对与torch匹配关系 |
+| transformers / datasets / accelerate | LLM章节按模型和内存预算添加，实际导入和运行 |
+| Jupyter | 可选；教程保留独立脚本入口 |
+| CUDA / XPU / DirectML / 量化后端 | 按硬件和框架实测验证，当前未作为默认路线 |
+| 大型数据、权重与缓存 | 放入明确的本机输出目录，避免加入Git |
 
-本次只验证标准库 CPU 路线。表中的候选依赖和安装流程均不代表框架环境已经可运行。
+本机硬件报告仅发现Intel Iris Xe；其他加速后端尚未验证。扩大实践规模前复查内存。
 
-## 4. 已验证的文档构建依赖
+## 5. 文档构建依赖
 
-文档工具链独立于 Python 训练环境，使用 Node.js 22.13+、已有 Edge/Chrome 和项目本地 npm 包。实际版本由根目录 package.json、package-lock.json 锁定；本机 Node.js 24.19.0、npm 12.0.2、Edge 156.0.4314.42 已验证。
+文档构建使用本地Node依赖、已有Edge/Chrome，锁定于package.json和package-lock.json：
 
 ```powershell
 npm ci --ignore-scripts
@@ -70,10 +73,10 @@ npm ci --ignore-scripts
 npm test
 ```
 
-锁文件已在独立空目录重建通过，13项检查通过。文档依赖的安装不代表 NumPy/PyTorch 已安装。详见[构建说明](../docs/build-guide.md)和[验收记录](../docs/appendices/build-validation.md)。
+它与Python训练环境分别安装；单章及全书导出见[构建说明](../docs/build-guide.md)。
 
-## 5. 官方依据
+## 6. 官方依据
 
-- [Python venv](https://docs.python.org/3.11/library/venv.html)
-- [PyTorch 官方安装说明](https://pytorch.org/get-started/locally/)
-- [NumPy 官方安装说明](https://numpy.org/install/)
+- [Python 3.11 venv](https://docs.python.org/3.11/library/venv.html)
+- [PyTorch安装与CPU平台选择](https://pytorch.org/get-started/locally/)
+- [NumPy安装](https://numpy.org/install/)

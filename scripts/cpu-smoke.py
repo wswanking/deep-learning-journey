@@ -82,8 +82,13 @@ def optional_numpy():
 def optional_torch():
     if importlib.util.find_spec("torch") is None:
         return {"status": "not_installed", "cuda_available": None}
+    started = time.perf_counter()
     import torch
     torch.set_num_threads(2)
+    product = torch.tensor([[1, 2], [3, 4]]) @ torch.tensor([[5, 6], [7, 8]])
+    if product.tolist() != [[19, 22], [43, 50]]:
+        raise RuntimeError("PyTorch CPU matrix multiplication failed")
+    training_started = time.perf_counter()
     x = torch.tensor([-2.0, -1.0, 0.0, 1.0, 2.0], dtype=torch.float64, device="cpu")
     y = 2.0 * x + 1.0
     w = torch.zeros((), dtype=torch.float64, requires_grad=True)
@@ -102,6 +107,16 @@ def optional_torch():
     return {
         "status": "passed",
         "version": torch.__version__,
+        "device": "cpu",
+        "dtype": "float64",
+        "threads": torch.get_num_threads(),
+        "matrix_product": product.tolist(),
+        "samples": 5,
+        "steps": 200,
+        "learning_rate": 0.1,
+        "initial_mse": 9.0,
+        "training_elapsed_seconds": time.perf_counter() - training_started,
+        "elapsed_seconds_including_import": time.perf_counter() - started,
         "cuda_build": torch.version.cuda,
         "cuda_available": bool(torch.cuda.is_available()),
         "final_mse": final_mse,

@@ -1,5 +1,7 @@
 # Windows 本机环境调研
 
+> 本报告保留首次调研时点；后续项目.venv安装与实际CPU验证见[框架复测记录](framework-validation.md)。
+
 > 任务：INF-01；状态：已完成调研与标准库 CPU 最小验证。
 > 实测时间：2026-11-15 20:24（Asia/Shanghai）。
 > 原始记录：[environment-snapshot.json](environment-snapshot.json)。

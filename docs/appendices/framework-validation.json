@@ -1,0 +1,73 @@
+{
+  "python_version": "3.11.5",
+  "python_executable": "D:\\code\\workspace\\deep-learning-journey\\.venv\\Scripts\\python.exe",
+  "baseline": {
+    "status": "passed",
+    "backend": "Python standard library, CPU",
+    "matrix_product": [
+      [
+        19.0,
+        22.0
+      ],
+      [
+        43.0,
+        50.0
+      ]
+    ],
+    "max_gradient_error": 1.2580017028085422E-09,
+    "training": {
+      "samples": 5,
+      "steps": 200,
+      "learning_rate": 0.1,
+      "initial_mse": 9.0,
+      "final_mse": 1.9721522630525296E-32,
+      "weight": 2.0,
+      "bias": 0.9999999999999998
+    },
+    "elapsed_seconds": 0.0002697003073990345
+  },
+  "numpy": {
+    "status": "passed",
+    "version": "2.4.6",
+    "matrix_product": [
+      [
+        19,
+        22
+      ],
+      [
+        43,
+        50
+      ]
+    ]
+  },
+  "torch": {
+    "status": "passed",
+    "version": "2.15.0+cpu",
+    "device": "cpu",
+    "dtype": "float64",
+    "threads": 2,
+    "matrix_product": [
+      [
+        19,
+        22
+      ],
+      [
+        43,
+        50
+      ]
+    ],
+    "samples": 5,
+    "steps": 200,
+    "learning_rate": 0.1,
+    "initial_mse": 9.0,
+    "training_elapsed_seconds": 0.02267610002309084,
+    "elapsed_seconds_including_import": 1.7460798001848161,
+    "cuda_build": null,
+    "cuda_available": false,
+    "final_mse": 1.9721522630525296E-32,
+    "weight": 2.0,
+    "bias": 0.9999999999999998
+  },
+  "status": "passed",
+  "validated_at": "2026-11-15T21:31:26.8017986+08:00"
+}

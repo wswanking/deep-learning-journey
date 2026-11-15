@@ -28,7 +28,7 @@ code,pre{font-family:Consolas,"Cascadia Mono",monospace}
 :not(pre)>code{background:#eef2f6;color:#24426a;padding:2px 4px;border-radius:3px;font-size:.88em}
 pre{background:#f6f8fa;border:1px solid #e0e6ee;border-radius:5px;padding:16px;font-size:12px;line-height:1.65;white-space:pre-wrap;overflow-wrap:anywhere;tab-size:4}
 pre code{background:none;padding:0}
-.katex{font-size:1.08em}.katex-display{margin:20px 0;overflow-x:auto;overflow-y:hidden;padding:4px 0}
+.katex{font-size:1.08em;white-space:nowrap}.katex-display{margin:20px 0;overflow-x:auto;overflow-y:hidden;padding:4px 0}
 .vector-figure{display:block;margin:20px 0 22px;text-align:center;break-inside:avoid}
 .vector-figure>svg{display:block;width:100%;height:auto;max-height:175mm;margin:0 auto}
 .figure-caption{display:block;font-size:11px;line-height:1.6;color:var(--muted);margin:8px 0}
@@ -58,6 +58,6 @@ pre code{background:none;padding:0}
  .katex-display{overflow:visible;margin:4mm 0;break-inside:avoid}
  .vector-figure{margin:4mm 0}.figure-caption{font-size:8pt;margin-top:2mm}
  blockquote{margin:4mm 0;padding:1mm 4mm;break-inside:avoid}
- .chapter-nav{font-size:8pt;margin-top:7mm;padding-top:3mm;break-inside:avoid}
+ .chapter-nav{display:none}
  a{color:inherit}.hljs{background:transparent}
 }
