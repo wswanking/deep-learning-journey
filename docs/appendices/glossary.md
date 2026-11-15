@@ -182,3 +182,18 @@
 | 叶张量 | leaf tensor | 在当前跟踪图中由用户直接构造或按接口规则视为叶的张量；参数通常是叶 |
 | 向量与Jacobian的乘积 | vector-Jacobian product，VJP | 给定输出侧权重后求该标量组合对输入的梯度，列向量写作Jacobian转置乘权重 |
 | 梯度缓冲区 | gradient buffer | 参数的.grad累计位置；建立新图不会自动清除旧值 |
+
+
+### 第09章：训练与更新状态
+
+完整图文与实验见[训练循环与优化器](../chapters/09-training-and-optimizers.md)。
+
+| 术语 | 英文 | 本教程含义 |
+| --- | --- | --- |
+| 小批次 | mini-batch | 一次梯度估计所用的样本组；批次大小、更新数和看过样本数须分别报告 |
+| 动量 | momentum | 将当前梯度与历史缓冲结合的更新方法，需注明采用的缓冲约定 |
+| Adam | adaptive moment estimation | 用梯度及其平方的指数平均并作初始偏差校正的逐坐标更新方法 |
+| AdamW | decoupled weight decay | 在Adam更新中将参数衰减与梯度历史分开处理 |
+| 学习率调度 | learning-rate schedule | 按更新步或轮改变学习率的规则，需明确计数与端点 |
+| 全局范数裁剪 | global gradient norm clipping | 按全部待裁剪梯度合并后的范数统一缩放，不等于逐分量截断 |
+| 训练检查点 | training checkpoint | 为继续同一训练保存模型、优化器、计数、采样及随机状态等上下文 |
