@@ -1,0 +1,40 @@
+{"id":"document-00-0","group_id":"family-00","text":"the cat is near the window.\nit stays there.\n"}
+{"id":"document-00-1","group_id":"family-00","text":"near the window, the cat waits.\nit is quiet.\n"}
+{"id":"document-00-2","group_id":"family-00","text":"today the cat waits near a window.\n"}
+{"id":"document-01-0","group_id":"family-01","text":"the dog is near the window.\nit stays there.\n"}
+{"id":"document-01-1","group_id":"family-01","text":"near the window, the dog waits.\nit is quiet.\n"}
+{"id":"document-01-2","group_id":"family-01","text":"today the dog waits near a window.\n"}
+{"id":"document-02-0","group_id":"family-02","text":"the bird is near the window.\nit stays there.\n"}
+{"id":"document-02-1","group_id":"family-02","text":"near the window, the bird waits.\nit is quiet.\n"}
+{"id":"document-02-2","group_id":"family-02","text":"today the bird waits near a window.\n"}
+{"id":"document-03-0","group_id":"family-03","text":"the fish is near the window.\nit stays there.\n"}
+{"id":"document-03-1","group_id":"family-03","text":"near the window, the fish waits.\nit is quiet.\n"}
+{"id":"document-03-2","group_id":"family-03","text":"today the fish waits near a window.\n"}
+{"id":"document-04-0","group_id":"family-04","text":"the fox is near the window.\nit stays there.\n"}
+{"id":"document-04-1","group_id":"family-04","text":"near the window, the fox waits.\nit is quiet.\n"}
+{"id":"document-04-2","group_id":"family-04","text":"today the fox waits near a window.\n"}
+{"id":"document-05-0","group_id":"family-05","text":"the bear is near the window.\nit stays there.\n"}
+{"id":"document-05-1","group_id":"family-05","text":"near the window, the bear waits.\nit is quiet.\n"}
+{"id":"document-05-2","group_id":"family-05","text":"today the bear waits near a window.\n"}
+{"id":"document-06-0","group_id":"family-06","text":"the pear is near the window.\nit stays there.\n"}
+{"id":"document-06-1","group_id":"family-06","text":"near the window, the pear waits.\nit is quiet.\n"}
+{"id":"document-06-2","group_id":"family-06","text":"today the pear waits near a window.\n"}
+{"id":"document-07-0","group_id":"family-07","text":"the apple is near the window.\nit stays there.\n"}
+{"id":"document-07-1","group_id":"family-07","text":"near the window, the apple waits.\nit is quiet.\n"}
+{"id":"document-07-2","group_id":"family-07","text":"today the apple waits near a window.\n"}
+{"id":"document-08-0","group_id":"family-08","text":"the plum is near the window.\nit stays there.\n"}
+{"id":"document-08-1","group_id":"family-08","text":"near the window, the plum waits.\nit is quiet.\n"}
+{"id":"document-08-2","group_id":"family-08","text":"today the plum waits near a window.\n"}
+{"id":"document-09-0","group_id":"family-09","text":"the peach is near the window.\nit stays there.\n"}
+{"id":"document-09-1","group_id":"family-09","text":"near the window, the peach waits.\nit is quiet.\n"}
+{"id":"document-09-2","group_id":"family-09","text":"today the peach waits near a window.\n"}
+{"id":"document-10-0","group_id":"family-10","text":"the grape is near the window.\nit stays there.\n"}
+{"id":"document-10-1","group_id":"family-10","text":"near the window, the grape waits.\nit is quiet.\n"}
+{"id":"document-10-2","group_id":"family-10","text":"today the grape waits near a window.\n"}
+{"id":"document-11-0","group_id":"family-11","text":"the melon is near the window.\nit stays there.\n"}
+{"id":"document-11-1","group_id":"family-11","text":"near the window, the melon waits.\nit is quiet.\n"}
+{"id":"document-11-2","group_id":"family-11","text":"today the melon waits near a window.\n"}
+{"id":"duplicate-exact","group_id":"family-00","text":"the cat is near the window.\nit stays there.\n"}
+{"id":"duplicate-whitespace","group_id":"family-01","text":"the dog is near the window. \r\nit stays there. \r\n "}
+{"id":"drop-empty","group_id":"empty","text":" \r\n "}
+{"id":"drop-too-short","group_id":"short","text":"x"}

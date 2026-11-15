@@ -332,3 +332,15 @@
 | 后验均值参数化 | reverse mean parameterization | 以噪声网络输出代入反向高斯均值，方差策略和边界另行规定 |
 | 简化去噪目标 | simplified denoising objective | 省略原变分目标时间相关权重的噪声MSE，需与完整似然目标区分 |
 | 经验投影距离 | empirical projected Wasserstein distance | 本章对固定方向的一维等量经验样本排序距离取平均，不是精确二维距离或似然 |
+
+
+### 第20章：语言数据与条件目标
+
+完整图文与实验见[第20章](../chapters/20-language-model-pretraining.md)。
+
+| 术语 | 英文 | 本教程含义 |
+| --- | --- | --- |
+| 自回归语言建模 | autoregressive language modeling | 按约定顺序用合法历史预测下一项，首项、结束与上下文范围须声明 |
+| 教师强制 | teacher forcing | 训练或评价时提供真实历史目标；与自由生成使用自身输出不同 |
+| 困惑度 | perplexity，PPL | 平均目标负对数概率的指数；分词、位置范围与归约不同不能直接排名 |
+| 分组划分 | grouped split | 将关联文档或变体绑定同一集合，需另说明近重覆盖的边界 |
