@@ -280,3 +280,16 @@
 | 因果掩码 | causal mask | 阻止某位置读取其目标任务不允许看到的未来键；不等同于padding规则 |
 | 全屏蔽行 | fully masked row | 没有合法键的查询行；直接对全负无穷作softmax会出现未定义值，需显式处理 |
 | 注意力权重 | attention weight | 给定查询、键和掩码得到的归一化系数，本身不保证唯一解释预测 |
+
+
+### 第16章：Transformer块与目标
+
+完整图文与实验见[第16章](../chapters/16-transformer.md)。
+
+| 术语 | 英文 | 本教程含义 |
+| --- | --- | --- |
+| 多头注意力 | multi-head attention | 分别投影并计算多个读取结果，拼接后再作输出投影 |
+| 位置编码 | positional encoding | 为序列表示提供位置关系；本章解释正弦构造，不保证任意长外推 |
+| 前馈子层 | position-wise feed-forward network，FFN | 对各位置应用共享参数的非线性映射，不把序列位置混为特征轴 |
+| 归一化的位置 | Pre-LN / Post-LN | 分别在子层输入侧或残差相加后归一化，两种块的函数与梯度不同 |
+| 目标右移 | shifted targets | 用当前及此前输入预测下一token，使监督位置与因果可见关系一致 |
