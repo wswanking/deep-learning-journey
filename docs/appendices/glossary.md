@@ -197,3 +197,18 @@
 | 学习率调度 | learning-rate schedule | 按更新步或轮改变学习率的规则，需明确计数与端点 |
 | 全局范数裁剪 | global gradient norm clipping | 按全部待裁剪梯度合并后的范数统一缩放，不等于逐分量截断 |
 | 训练检查点 | training checkpoint | 为继续同一训练保存模型、优化器、计数、采样及随机状态等上下文 |
+
+
+### 第10章：泛化与正则化
+
+完整图文与实验见[泛化与正则化](../chapters/10-generalization.md)。
+
+| 术语 | 英文 | 本教程含义 |
+| --- | --- | --- |
+| 正则化 | regularization | 用约束、随机扰动或训练选择等方式影响模型拟合，需要验证实际效果 |
+| L2惩罚 | L2 penalty | 在数据目标中加入参数平方范数项；与衰减等价需要指定优化算法及系数 |
+| Dropout | inverted dropout | 训练时按掩码丢弃并缩放隐藏值，评估时关闭；逐分量期望不等于全网络输出期望 |
+| 早停 | early stopping | 按预定验证规则保存并恢复参数，把训练时长纳入选模 |
+| Kaiming初始化 | Kaiming initialization | 依据连接数和ReLU等非线性设定权重尺度，需注意假设与二阶矩解释 |
+| Xavier初始化 | Xavier / Glorot initialization | 依据输入和输出连接数共同设定初始权重尺度 |
+| 样本标准差 | sample standard deviation | 描述本次多运行指标离散程度；少量种子不能直接支持显著性结论 |
