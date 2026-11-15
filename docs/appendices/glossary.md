@@ -267,3 +267,16 @@
 | 嵌入表 | embedding table | 按离散ID选择可训练矩阵的行；重复ID汇合该行的梯度 |
 | 静态与上下文表示 | static / contextual representation | 前者同一ID查得同一向量，后者还由合法可见的上下文决定 |
 | 跳字目标 | skip-gram objective | 用中心词预测窗口内上下文的目标；本章采用小词表完整softmax |
+
+
+### 第15章：基于内容的加权读取
+
+完整图文与实验见[第15章](../chapters/15-attention.md)。
+
+| 术语 | 英文 | 本教程含义 |
+| --- | --- | --- |
+| 查询、键和值 | query / key / value | 分别发起匹配、提供匹配依据和提供加权汇总内容，形状与来源需明确 |
+| 缩放点积注意力 | scaled dot-product attention | 将查询键点积按键维数平方根缩放，再沿键轴归一化并汇总值 |
+| 因果掩码 | causal mask | 阻止某位置读取其目标任务不允许看到的未来键；不等同于padding规则 |
+| 全屏蔽行 | fully masked row | 没有合法键的查询行；直接对全负无穷作softmax会出现未定义值，需显式处理 |
+| 注意力权重 | attention weight | 给定查询、键和掩码得到的归一化系数，本身不保证唯一解释预测 |
