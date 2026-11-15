@@ -1,7 +1,7 @@
 # 全部章节开发与草稿索引
 
 > 更新日期：2026-11-15。这里展示全部31章的开发入口；完成状态以章节计划为准。
-> 第00～20章已验收；其余章节并行完善或处于骨架阶段，草稿不进入默认全书。
+> 第00～21章已验收；其余章节并行完善或处于骨架阶段，草稿不进入默认全书。
 
 [正式阅读入口](../README.md) · [章节计划](chapter-plan.md) · [写作规范](authoring-guide.md) · [导航约定](navigation.md)
 
@@ -35,7 +35,7 @@
 - [18：生成模型：VAE 与 GAN](chapters/18-vae-and-gan.md)（已验收）
 - [19：扩散模型入门](chapters/19-diffusion-models.md)（已验收）
 - [20：语言模型目标、数据与预训练](chapters/20-language-model-pretraining.md)（已验收）
-- [21：从零训练微型语言模型](chapters/21-tiny-language-model.md) — 草稿骨架
+- [21：从零训练微型语言模型](chapters/21-tiny-language-model.md)（已验收）
 - [22：指令微调与数据构造](chapters/22-instruction-tuning.md) — 草稿骨架
 - [23：参数高效微调：LoRA 与 QLoRA](chapters/23-parameter-efficient-tuning.md) — 草稿骨架
 - [24：偏好学习与对齐](chapters/24-preference-alignment.md) — 草稿骨架

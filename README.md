@@ -25,6 +25,7 @@
 - [第18章：生成模型：VAE 与 GAN](docs/chapters/18-vae-and-gan.md)
 - [第19章：扩散模型入门](docs/chapters/19-diffusion-models.md)
 - [第20章：语言模型目标、数据与预训练](docs/chapters/20-language-model-pretraining.md)
+- [第21章：从零训练微型语言模型](docs/chapters/21-tiny-language-model.md)
 
 更多章节见[全部章节开发与草稿索引](docs/draft-index.md)；后续各章持续并行完善，骨架已建立。31章任务和验收依据见[章节计划](docs/chapter-plan.md)。
 
@@ -48,7 +49,7 @@
 | 内容 | 状态 |
 | --- | --- |
 | INF-01～03 | 环境调研、导出工具、公共符号/术语/导航已完成 |
-| 第00～20章 | 已验收；逐章CPU实验与HTML/PDF通过 |
+| 第00～21章 | 已验收；逐章CPU实验与HTML/PDF通过 |
 | 后续章节 | 持续并行完善；实际进度见章节计划 |
 | CPU训练环境 | Python 3.11.5、NumPy 2.4.6、PyTorch 2.15.0+cpu实测通过 |
 

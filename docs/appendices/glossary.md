@@ -344,3 +344,15 @@
 | 教师强制 | teacher forcing | 训练或评价时提供真实历史目标；与自由生成使用自身输出不同 |
 | 困惑度 | perplexity，PPL | 平均目标负对数概率的指数；分词、位置范围与归约不同不能直接排名 |
 | 分组划分 | grouped split | 将关联文档或变体绑定同一集合，需另说明近重覆盖的边界 |
+
+
+### 第21章：微型语言模型与恢复
+
+完整图文与实验见[第21章](../chapters/21-tiny-language-model.md)。
+
+| 术语 | 英文 | 本教程含义 |
+| --- | --- | --- |
+| 预训练 | pretraining | 从声明的原始语料目标更新模型参数，本章是CPU字节decoder的小规模实例 |
+| GELU | Gaussian error linear unit | 输入乘标准正态CDF的平滑激活；本章默认精确形式，不作随机门控采样 |
+| 窗口采样协议 | window sampling protocol | 规定文档、起点和历史怎样进入更新，不同采样权重影响学习目标 |
+| 精确轨迹恢复 | exact training continuation | 同时恢复参数、优化器、计数与采样/随机状态，并用相同环境的实际轨迹对照 |
