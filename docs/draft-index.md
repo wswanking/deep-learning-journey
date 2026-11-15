@@ -1,7 +1,7 @@
 # 全部章节开发与草稿索引
 
 > 更新日期：2026-11-15。这里展示全部31章的开发入口；完成状态以章节计划为准。
-> 第00～03章已验收；其余章节并行完善或处于骨架阶段，草稿不进入默认全书。
+> 第00～04章已验收；其余章节并行完善或处于骨架阶段，草稿不进入默认全书。
 
 [正式阅读入口](../README.md) · [章节计划](chapter-plan.md) · [写作规范](authoring-guide.md) · [导航约定](navigation.md)
 
@@ -16,9 +16,9 @@
 - [02：导数、梯度与链式法则](chapters/02-calculus.md)（已验收）
 - [03：概率、统计与信息论](chapters/03-probability.md)（已验收）
 
-## 第04～30章：已创建的草稿骨架
+## 第04～30章：开发入口与状态
 
-- [04：数值计算与优化入门](chapters/04-numerical-optimization.md) — 草稿骨架
+- [04：数值计算与优化入门](chapters/04-numerical-optimization.md)（已验收）
 - [05：机器学习问题与线性基线](chapters/05-machine-learning.md) — 草稿骨架
 - [06：神经元与感知机](chapters/06-perceptron.md) — 草稿骨架
 - [07：多层感知机与前向传播](chapters/07-multilayer-perceptron.md) — 草稿骨架
