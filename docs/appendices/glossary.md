@@ -293,3 +293,16 @@
 | 前馈子层 | position-wise feed-forward network，FFN | 对各位置应用共享参数的非线性映射，不把序列位置混为特征轴 |
 | 归一化的位置 | Pre-LN / Post-LN | 分别在子层输入侧或残差相加后归一化，两种块的函数与梯度不同 |
 | 目标右移 | shifted targets | 用当前及此前输入预测下一token，使监督位置与因果可见关系一致 |
+
+
+### 第17章：低维表示与重建
+
+完整图文与实验见[第17章](../chapters/17-representation-learning.md)。
+
+| 术语 | 英文 | 本教程含义 |
+| --- | --- | --- |
+| 主成分分析 | principal component analysis，PCA | 对训练数据中心化后寻找正交方向，最大化保留方差或最小化平方投影误差 |
+| 自编码器 | autoencoder，AE | 由编码器形成表示，再由解码器按指定损失重建输入 |
+| 瓶颈 | bottleneck | 限制表示维数或其他资源的中间层；连续低维并不自动等于存储字节减少 |
+| 表示不唯一 | non-identifiability of representation | 编码坐标经可逆变换并相应调整解码器可保持同一重建函数 |
+| 去噪自编码器 | denoising autoencoder | 输入经扰动而目标保持干净样本，目标与普通自重建不同 |

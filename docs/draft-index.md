@@ -1,7 +1,7 @@
 # 全部章节开发与草稿索引
 
 > 更新日期：2026-11-15。这里展示全部31章的开发入口；完成状态以章节计划为准。
-> 第00～16章已验收；其余章节并行完善或处于骨架阶段，草稿不进入默认全书。
+> 第00～17章已验收；其余章节并行完善或处于骨架阶段，草稿不进入默认全书。
 
 [正式阅读入口](../README.md) · [章节计划](chapter-plan.md) · [写作规范](authoring-guide.md) · [导航约定](navigation.md)
 
@@ -31,7 +31,7 @@
 - [14：文本表示、词嵌入与分词](chapters/14-tokenization-and-embeddings.md)（已验收）
 - [15：注意力机制](chapters/15-attention.md)（已验收）
 - [16：Transformer 与模型家族](chapters/16-transformer.md)（已验收）
-- [17：表示学习与自编码器](chapters/17-representation-learning.md) — 草稿骨架
+- [17：表示学习与自编码器](chapters/17-representation-learning.md)（已验收）
 - [18：生成模型：VAE 与 GAN](chapters/18-vae-and-gan.md) — 草稿骨架
 - [19：扩散模型入门](chapters/19-diffusion-models.md) — 草稿骨架
 - [20：语言模型目标、数据与预训练](chapters/20-language-model-pretraining.md) — 草稿骨架
