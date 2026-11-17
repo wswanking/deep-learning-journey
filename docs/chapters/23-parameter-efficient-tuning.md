@@ -32,54 +32,54 @@ LoRA（Low-Rank Adaptation，低秩适配）提出一种不同参数化：保留
 
 | 符号 | 含义 | 形状/范围 |
 | --- | --- | --- |
-| $\mathbf x,\mathbf h$ | 单位置输入、输出列向量 | $k$维、$d$维 |
-| $\mathbf W_0$ | 原始冻结线性权重 | $d\times k$ |
-| $\mathbf A,\mathbf B$ | 可训练低秩因子 | $r\times k$、$d\times r$ |
-| $r$ | 支路中间维度，给更新矩阵提供秩上界 | 正整数，不大于 $\min(d,k)$ |
-| $\alpha,s$ | LoRA超参数、实际乘法缩放 | $s=\alpha/r$，本章取正 |
-| $\Delta\mathbf W$ | 实际权重增量 | $s\mathbf B\mathbf A$，$d\times k$ |
-| $\mathbf X$ | 行批次/多位置输入 | $N\times k$；序列可展平 $N=BT$ |
-| $\mathbf g$ | 损失对单位置输出的梯度 | $d$维列向量 |
-| $P_0,P_t$ | 冻结基座参数数、可训练参数数 | 用于张量字节账本 |
-| $\delta_i,q_{ij}$ | 第 $i$ 行量化步长、离散整数 | 本章均匀量化专用，非LoRA缩放 $s$ |
+| $`\mathbf x,\mathbf h`$ | 单位置输入、输出列向量 | $`k`$维、$`d`$维 |
+| $`\mathbf W_0`$ | 原始冻结线性权重 | $`d\times k`$ |
+| $`\mathbf A,\mathbf B`$ | 可训练低秩因子 | $`r\times k`$、$`d\times r`$ |
+| $`r`$ | 支路中间维度，给更新矩阵提供秩上界 | 正整数，不大于 $`\min(d,k)`$ |
+| $`\alpha,s`$ | LoRA超参数、实际乘法缩放 | $`s=\alpha/r`$，本章取正 |
+| $`\Delta\mathbf W`$ | 实际权重增量 | $`s\mathbf B\mathbf A`$，$`d\times k`$ |
+| $`\mathbf X`$ | 行批次/多位置输入 | $`N\times k`$；序列可展平 $`N=BT`$ |
+| $`\mathbf g`$ | 损失对单位置输出的梯度 | $`d`$维列向量 |
+| $`P_0,P_t`$ | 冻结基座参数数、可训练参数数 | 用于张量字节账本 |
+| $`\delta_i,q_{ij}`$ | 第 $`i`$ 行量化步长、离散整数 | 本章均匀量化专用，非LoRA缩放 $`s`$ |
 
 矩阵的 **秩（rank）** 是其列空间的维数，即最多有多少列线性独立。例如一张矩阵的每列都是同一个向量的倍数，所有输出变化只沿一条方向，非零时秩为1。它不等于“非零元素的个数”，也不是网络层数。
 
-乘积 $\mathbf B\mathbf A$ 的输出总在 $\mathbf B$ 的至多 $r$ 个列向量张成的空间内，因此
+乘积 $`\mathbf B\mathbf A`$ 的输出总在 $`\mathbf B`$ 的至多 $`r`$ 个列向量张成的空间内，因此
 
-$$
+```math
 \operatorname{rank}(\mathbf B\mathbf A)
 \le\min\bigl(\operatorname{rank}(\mathbf B),\operatorname{rank}(\mathbf A)\bigr)
 \le r.
-$$
+```
 
-这约束的是 **一层的更新矩阵** 。原始 $\mathbf W_0$ 可以满秩；总权重也可以满秩。多个层、非线性和注意力共同构成的模型变化，不能简单称作“整个模型只剩r种能力”。
+这约束的是 **一层的更新矩阵** 。原始 $`\mathbf W_0`$ 可以满秩；总权重也可以满秩。多个层、非线性和注意力共同构成的模型变化，不能简单称作“整个模型只剩r种能力”。
 
 ## 4. 低秩支路：从列向量到代码
 
 ### 4.1 同一输入的两个线性变换
 
-普通线性层忽略偏置时为 $\mathbf h=\mathbf W_0\mathbf x$。LoRA改为
+普通线性层忽略偏置时为 $`\mathbf h=\mathbf W_0\mathbf x`$。LoRA改为
 
-$$
+```math
 \mathbf h
 =\mathbf W_0\mathbf x+s\mathbf B\mathbf A\mathbf x,
 \qquad s=\frac{\alpha}{r}.
-$$
+```
 
-先计算 $\mathbf A\mathbf x$，从 $k$ 维变成 $r$ 维；再乘 $\mathbf B$，回到 $d$ 维。两个支路输出形状相同，才能逐元素相加。[1, §4.1] 本章没有新增偏置，原有偏置也冻结；其他项目若训练偏置或额外分类头，必须把它们计入可训练参数与检查点。
+先计算 $`\mathbf A\mathbf x`$，从 $`k`$ 维变成 $`r`$ 维；再乘 $`\mathbf B`$，回到 $`d`$ 维。两个支路输出形状相同，才能逐元素相加。[1, §4.1] 本章没有新增偏置，原有偏置也冻结；其他项目若训练偏置或额外分类头，必须把它们计入可训练参数与检查点。
 
 ![图23-1：冻结权重与低秩增量的双支路](../assets/23-parameter-efficient-tuning/01-low-rank-branch.svg)
 
 *图23-1：依据LoRA论文[1, §4.1、式3]理解后原创绘制，布局及手算例子原创。输入输出按列向量标形状；图中的r维瓶颈属于更新支路，基座支路仍直接参与输出。*
 
-$\alpha/r$控制支路的数值尺度。它不是概率，也没有必须小于1的限制；本章 $r=4,\alpha=8$，所以 $s=2$。改变秩时缩放、初始化与学习率相互影响，不能因为用了这个公式就认为所有秩的训练轨迹或最佳学习率相同。
+$`\alpha/r`$控制支路的数值尺度。它不是概率，也没有必须小于1的限制；本章 $`r=4,\alpha=8`$，所以 $`s=2`$。改变秩时缩放、初始化与学习率相互影响，不能因为用了这个公式就认为所有秩的训练轨迹或最佳学习率相同。
 
 ### 4.2 可逐项核对的例子
 
-取 $k=3,d=2,r=1,s=1$：
+取 $`k=3,d=2,r=1,s=1`$：
 
-$$
+```math
 \mathbf W_0=
 \begin{bmatrix}1&0&-1\\0&1&1\end{bmatrix},
 \quad
@@ -89,37 +89,37 @@ $$
 \mathbf A=\begin{bmatrix}1&-1&0\end{bmatrix},
 \quad
 \mathbf B=\begin{bmatrix}2\\-1\end{bmatrix}.
-$$
+```
 
 依次计算
 
-$$
+```math
 \mathbf A\mathbf x=2+1=3,\qquad
 \mathbf B\mathbf A\mathbf x=
 \begin{bmatrix}6\\-3\end{bmatrix},
 \qquad
 \mathbf W_0\mathbf x=
 \begin{bmatrix}1\\0\end{bmatrix}.
-$$
+```
 
-因此 $\mathbf h=(7,-3)^\top$。增量矩阵为
+因此 $`\mathbf h=(7,-3)^\top`$。增量矩阵为
 
-$$
+```math
 \mathbf B\mathbf A
 =\begin{bmatrix}2&-2&0\\-1&1&0\end{bmatrix};
-$$
+```
 
-第二行是第一行的 $-1/2$，秩为1。先算增量矩阵再乘输入，与两小矩阵依次作用应相同；训练时通常保留小矩阵支路，避免显式构造整张增量。
+第二行是第一行的 $`-1/2`$，秩为1。先算增量矩阵再乘输入，与两小矩阵依次作用应相同；训练时通常保留小矩阵支路，避免显式构造整张增量。
 
 ### 4.3 PyTorch的行批次对应
 
-输入最后一维为 $k$，PyTorch Linear保存的weight形状为 $d\times k$。行批次公式是
+输入最后一维为 $`k`$，PyTorch Linear保存的weight形状为 $`d\times k`$。行批次公式是
 
-$$
+```math
 \mathbf H
 =\mathbf X\mathbf W_0^\top
 +s(\mathbf X\mathbf A^\top)\mathbf B^\top.
-$$
+```
 
 ~~~python
 # x: ... , k；A: r,k；B: d,r
@@ -128,21 +128,21 @@ update = F.linear(F.linear(x, lora_A), lora_B)
 output = base_output + (alpha / rank) * update
 ~~~
 
-Linear沿最后一维变换，所以同一实现支持 $N\times k$ 和 $B\times T\times k$。不能把代码里的A/B顺序按名字随意互换；列向量公式是BAx，行批次是XAᵀBᵀ，二者描述同一计算。
+Linear沿最后一维变换，所以同一实现支持 $`N\times k`$ 和 $`B\times T\times k`$。不能把代码里的A/B顺序按名字随意互换；列向量公式是BAx，行批次是XAᵀBᵀ，二者描述同一计算。
 
 ## 5. 参数数、目标层与初始化
 
 ### 5.1 参数少到什么程度
 
-一层完整权重有 $dk$ 个元素，两个因子有 $rk+dr=r(d+k)$ 个元素。若原权重冻结，训练该层支路只需为这部分新元素维护梯度与优化器状态。
+一层完整权重有 $`dk`$ 个元素，两个因子有 $`rk+dr=r(d+k)`$ 个元素。若原权重冻结，训练该层支路只需为这部分新元素维护梯度与优化器状态。
 
-只有当 $r(d+k)<dk$ 时，因子元素才比整张权重少。比如 $d=k=32,r=4$，完整权重1024，因子256，是四分之一；若 $r=32$，因子反而有2048。因子还存在非唯一表示：对可逆 $r\times r$ 矩阵 $\mathbf R$，$\mathbf B\mathbf R$ 与 $\mathbf R^{-1}\mathbf A$ 的乘积不变，因此“可训练张量元素数”不应叫作独立函数自由度。
+只有当 $`r(d+k)<dk`$ 时，因子元素才比整张权重少。比如 $`d=k=32,r=4`$，完整权重1024，因子256，是四分之一；若 $`r=32`$，因子反而有2048。因子还存在非唯一表示：对可逆 $`r\times r`$ 矩阵 $`\mathbf R`$，$`\mathbf B\mathbf R`$ 与 $`\mathbf R^{-1}\mathbf A`$ 的乘积不变，因此“可训练张量元素数”不应叫作独立函数自由度。
 
 第21章有2个Transformer块；本章只在每块独立的q_proj、v_proj上添加支路，共4张32×32矩阵：
 
-$$
+```math
 P_t=2\times2\times4(32+32)=1024.
-$$
+```
 
 完整基座35328参数都冻结。加支路后总的浮点参数元素为36352，可训练部分占总数约2.817%；若以原基座为分母则约2.899%。报告比例前必须说清分母，不能混算。
 
@@ -154,7 +154,7 @@ q改变注意力的匹配，v改变被聚合的信息；LoRA原论文研究了�
 
 ### 5.3 零增量不能写成双零因子
 
-初始化时常让A随机非零、B全零。这样 $\mathbf B\mathbf A=0$，开始的函数与原基座一致；A可采用论文的随机高斯或官方Linear实现的Kaiming均匀分布，本章采用后者。[1, §4.1][3, Linear.reset_parameters]
+初始化时常让A随机非零、B全零。这样 $`\mathbf B\mathbf A=0`$，开始的函数与原基座一致；A可采用论文的随机高斯或官方Linear实现的Kaiming均匀分布，本章采用后者。[1, §4.1][3, Linear.reset_parameters]
 
 为何不将A和B同时清零？下一节梯度会说明，两个因子若都为0，彼此梯度也为0，这个支路无法从普通损失梯度起步。零增量的要求只需要乘积为0。
 
@@ -162,40 +162,40 @@ q改变注意力的匹配，v改变被聚合的信息；LoRA原论文研究了�
 
 ### 6.1 用链式法则推导
 
-对单样本，设输出梯度 $\mathbf g=\nabla_{\mathbf h}\mathcal L$，并暂把输入与原权重视为独立变量。先设 $\mathbf u=\mathbf A\mathbf x$，增量输出为 $s\mathbf B\mathbf u$。线性层反向得到
+对单样本，设输出梯度 $`\mathbf g=\nabla_{\mathbf h}\mathcal L`$，并暂把输入与原权重视为独立变量。先设 $`\mathbf u=\mathbf A\mathbf x`$，增量输出为 $`s\mathbf B\mathbf u`$。线性层反向得到
 
-$$
+```math
 \nabla_{\mathbf B}\mathcal L=s\mathbf g\mathbf u^\top,
 \qquad
 \nabla_{\mathbf u}\mathcal L=s\mathbf B^\top\mathbf g.
-$$
+```
 
-再通过 $\mathbf u=\mathbf A\mathbf x$，得到
+再通过 $`\mathbf u=\mathbf A\mathbf x`$，得到
 
-$$
+```math
 \nabla_{\mathbf A}\mathcal L
 =s(\mathbf B^\top\mathbf g)\mathbf x^\top,
 \qquad
 \nabla_{\mathbf x}\mathcal L
 =(\mathbf W_0+s\mathbf B\mathbf A)^\top\mathbf g.
-$$
+```
 
-形状分别为 $d\times r$、$r\times k$、$k$维。批次情形对各样本/位置贡献求和，并带上损失归约的权重。$\mathbf W_0$在数学上也有导数，但在本章训练中被设为常量，不积累参数梯度、也不更新。
+形状分别为 $`d\times r`$、$`r\times k`$、$`k`$维。批次情形对各样本/位置贡献求和，并带上损失归约的权重。$`\mathbf W_0`$在数学上也有导数，但在本章训练中被设为常量，不积累参数梯度、也不更新。
 
 B=0时A的首步梯度为0；B的首步梯度取决于非零的Ax和输出梯度，通常非零。“通常”需要保留：若特定数据恰好Ax=0或损失梯度为0，也可能没有更新。B更新后，A便可能收到梯度。
 
 ### 6.2 延续手算，核对自动微分
 
-取目标 $\mathbf y=(1,1)^\top$，损失采用单样本 $\frac12\|\mathbf h-\mathbf y\|_2^2$，不额外除以输出维数。残差为 $(6,-4)^\top$，因此
+取目标 $`\mathbf y=(1,1)^\top`$，损失采用单样本 $`\frac12\|\mathbf h-\mathbf y\|_2^2`$，不额外除以输出维数。残差为 $`(6,-4)^\top`$，因此
 
-$$
+```math
 \mathcal L=\frac12(36+16)=26,\qquad
 \mathbf g=\begin{bmatrix}6\\-4\end{bmatrix}.
-$$
+```
 
-由于 $\mathbf B^\top\mathbf g=2\times6+(-1)\times(-4)=16$，可逐项得到
+由于 $`\mathbf B^\top\mathbf g=2\times6+(-1)\times(-4)=16`$，可逐项得到
 
-$$
+```math
 \nabla_{\mathbf B}\mathcal L=
 \begin{bmatrix}18\\-12\end{bmatrix},
 \quad
@@ -204,7 +204,7 @@ $$
 \quad
 \nabla_{\mathbf x}\mathcal L=
 \begin{bmatrix}22\\-20\\-10\end{bmatrix}.
-$$
+```
 
 入口以float64验证上述输出、损失和全部梯度，并以NumPy核对前向。这里A/B不在零初始化状态；它是展示一般梯度的手算，和首步初始化检查是两个不同例子。
 
@@ -226,7 +226,7 @@ optimizer = torch.optim.AdamW(
 
 requires_grad=False控制参数是否需要积累梯度；eval()切换Dropout等模块的行为，不会关闭梯度；no_grad()使所包住计算不记录反向图。[4, Locally disabling gradient computation]
 
-不能把整个训练模型包进no_grad()。即使某个基座层冻结，也可能需要经过它将梯度传到更早的LoRA层：若输出是 $\mathbf W_2\mathbf u$，仍需 $\mathbf W_2^\top\mathbf g$。只有明确不需要该路径的场景才可局部省略记录，不能根据“权重冻结”一概判断。
+不能把整个训练模型包进no_grad()。即使某个基座层冻结，也可能需要经过它将梯度传到更早的LoRA层：若输出是 $`\mathbf W_2\mathbf u`$，仍需 $`\mathbf W_2^\top\mathbf g`$。只有明确不需要该路径的场景才可局部省略记录，不能根据“权重冻结”一概判断。
 
 实际训练同时检查：优化器仅接收允许更新的元素；A/B梯度有限；冻结参数grad为None；训练前后冻结参数及量化buffer指纹不变。只统计requires_grad数量不够，错误的参数组或意外原地修改仍可能破坏冻结约定。
 
@@ -234,12 +234,12 @@ requires_grad=False控制参数是否需要积累梯度；eval()切换Dropout等
 
 线性支路无非线性且本章LoRA dropout=0时，可把
 
-$$
+```math
 \mathbf W_{\mathrm{merged}}
 =\mathbf W_0+s\mathbf B\mathbf A
-$$
+```
 
-保存为普通线性权重。前向在实数运算中相同，浮点运算顺序可能产生小差异。本章在模型副本上合并，普通LoRA最大logit差约 $2.18\times10^{-14}$，量化教学版本约 $1.95\times10^{-14}$，不改原基座。
+保存为普通线性权重。前向在实数运算中相同，浮点运算顺序可能产生小差异。本章在模型副本上合并，普通LoRA最大logit差约 $`2.18\times10^{-14}`$，量化教学版本约 $`1.95\times10^{-14}`$，不改原基座。
 
 有训练期dropout的支路，只能在相应推理行为下讨论合并；不能期待训练随机支路逐次等价。合并后无需再计算低秩分支，但不能既保留已合并权重又叠加同一支路，否则会重复加增量。量化基座合并还涉及解量化或再次量化：本章将目标层解量化后合成浮点层；若重新压回4bit，会引入新的误差，不保证与未重压的函数相同。
 
@@ -251,15 +251,15 @@ $$
 
 ### 8.1 从浮点到离散码
 
-量化将连续范围内的数近似映射到有限集合。对码本 $\mathcal C=\{c_0,\ldots,c_{K-1}\}$、正尺度 $\delta$，一种最邻近表示为
+量化将连续范围内的数近似映射到有限集合。对码本 $`\mathcal C=\{c_0,\ldots,c_{K-1}\}`$、正尺度 $`\delta`$，一种最邻近表示为
 
-$$
+```math
 q=\operatorname*{arg\,min}_{j}|w/\delta-c_j|,
 \qquad
 \widehat w=\delta c_q.
-$$
+```
 
-$q$存的是码索引，$\widehat w$是计算时近似恢复值；相等距离的舍入规则也需确定。4bit最多编码16种状态，仍需码本/尺度等辅助信息。量化不等同于简单把float64转成另一个浮点dtype。
+$`q`$存的是码索引，$`\widehat w`$是计算时近似恢复值；相等距离的舍入规则也需确定。4bit最多编码16种状态，仍需码本/尺度等辅助信息。量化不等同于简单把float64转成另一个浮点dtype。
 
 分块或分行缩放能减轻一个极端值拉大整张矩阵范围的问题，但会多存尺度。量化误差也会改变前向及传往更早层的梯度，低秩支路能否补偿取决于数据和覆盖范围，并非数学上保证恢复原模型。
 
@@ -275,10 +275,10 @@ $q$存的是码索引，$\widehat w$是计算时近似恢复值；相等距离�
 
 一个只算元数据的例子：每64权重存一个32bit尺度，平均每权重增加0.5bit；若这些尺度按每组256个再用8bit编码，并增加二级32bit尺度，则开销约为
 
-$$
+```math
 \frac8{64}+\frac{32}{64\times256}
 \approx0.127\ \text{bit/weight}.
-$$
+```
 
 相对0.5约省0.373bit/weight。这是按论文块大小的理论账，不是本机实测显存，也没有包括所有实现元数据。[2, §3 Double Quantization]
 
@@ -286,17 +286,17 @@ $$
 
 当前项目锁定环境未安装或验证完整bitsandbytes/NF4训练后端，本章没有执行完整NF4 QLoRA，也没有测GPU显存。不能据此写成“CPU永远不支持QLoRA”：2026-11-15核验的bitsandbytes0.50.2安装文档已列Windows AVX2 CPU构建；具体量化/训练功能还应按版本和后端另行实测。[6]
 
-为让机制可审计，本章自己实现逐行对称 **均匀** 量化。对第 $i$ 行：
+为让机制可审计，本章自己实现逐行对称 **均匀** 量化。对第 $`i`$ 行：
 
-$$
+```math
 \delta_i=\frac{\max_j|W_{ij}|}{7},
 \qquad
 q_{ij}=\operatorname{round}(W_{ij}/\delta_i)\in\{-7,\ldots,7\},
 \qquad
 \widehat W_{ij}=\delta_iq_{ij}.
-$$
+```
 
-零行单独设尺度1、整数全0，避免除0。15个整数等级编码为 $q+8$，占用4bit，码0未使用；两个码打包进一个uint8。尺度和计算用float64，每次前向解包/解量化；没有NF4、双重量化、分页优化器或优化过的低位矩阵核。
+零行单独设尺度1、整数全0，避免除0。15个整数等级编码为 $`q+8`$，占用4bit，码0未使用；两个码打包进一个uint8。尺度和计算用float64，每次前向解包/解量化；没有NF4、双重量化、分页优化器或优化过的低位矩阵核。
 
 所有原始Linear权重量化，embedding和LayerNorm仍为浮点，偏置原值冻结。只在同样q/v位置训练LoRA，因此与论文广泛覆盖层的实验也不同。这是学习表示、误差和梯度的独立替代，不能用它对完整QLoRA性能下结论。
 
@@ -306,26 +306,26 @@ $$
 
 ### 8.4 手算量化误差与存储
 
-一行权重为 $[-1,-0.3,0.2,0.9]$，尺度为 $1/7$，整数为 $[-7,-2,1,6]$，重建为
+一行权重为 $`[-1,-0.3,0.2,0.9]`$，尺度为 $`1/7`$，整数为 $`[-7,-2,1,6]`$，重建为
 
-$$
+```math
 [-1,-2/7,1/7,6/7].
-$$
+```
 
-最大误差来自0.2与1/7之差，为 $2/35\approx0.05714$。本例未发生截断饱和，最邻近均匀舍入误差不超过半个步长，即 $1/14$。若使用外部截断阈值导致饱和，半步长界不再覆盖截断误差。
+最大误差来自0.2与1/7之差，为 $`2/35\approx0.05714`$。本例未发生截断饱和，最邻近均匀舍入误差不超过半个步长，即 $`1/14`$。若使用外部截断阈值导致饱和，半步长界不再覆盖截断误差。
 
 四位码[1,6,9,14]打包成十进制[97,233]。四个float64原权重共32B；打包2B加一个float64尺度8B，共10B，不能只看“每权重4bit”便报告存储缩小8倍。奇数权重数还需要补半字节并在解包时裁掉；入口核验奇数形状与零行。
 
 ## 9. 训练内存：哪些省下，哪些还在
 
-设基座有 $P_0$ 个冻结float64元素，支路有 $P_t$ 个可训练float64元素。在本章无主权重副本的设置下，参数/梯度/Adam矩张量近似账为
+设基座有 $`P_0`$ 个冻结float64元素，支路有 $`P_t`$ 个可训练float64元素。在本章无主权重副本的设置下，参数/梯度/Adam矩张量近似账为
 
-$$
+```math
 \underbrace{8P_0}_{\text{frozen weights}}
 +\underbrace{8P_t}_{\text{trainable weights}}
 +\underbrace{8P_t}_{\text{gradients}}
 +\underbrace{16P_t}_{\text{Adam moments}}\quad\text{bytes}.
-$$
+```
 
 还需加Adam步数张量、buffer、激活、反向保存项、临时矩阵、框架及分配器开销。本章实际逐tensor求numel×element_size，不用这个近似式代替真实账本。若采用FP32、混合精度主权重或不同优化器，系数相应改变。
 

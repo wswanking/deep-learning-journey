@@ -111,6 +111,28 @@ function markdown() {
       return escape(code);
     },
   }).use(mathPlugin, { delimiters: 'dollars' });
+  // Isolate display TeX from Markdown headings, lists and emphasis, as on GitHub.
+  // Normalize math fences to the existing token so counting and strict rendering agree.
+  md.core.ruler.after('block', 'github_math_fence', state => {
+    for (const token of state.tokens) {
+      if (token.type === 'fence' && token.info.trim() === 'math') {
+        token.type = 'math_block';
+        token.tag = 'math';
+      }
+    }
+  });
+  // GitHub's protected inline form is $ followed by a backtick, TeX, backtick, $.
+  // The dollar tokenizer has already kept the expression opaque to Markdown.
+  md.core.ruler.after('inline', 'github_inline_math', state => {
+    for (const token of state.tokens) {
+      for (const child of token.children || []) {
+        if (child.type === 'math_inline' && child.content.length >= 2 &&
+            child.content.startsWith('\x60') && child.content.endsWith('\x60')) {
+          child.content = child.content.slice(1, -1);
+        }
+      }
+    }
+  });
   // Keep the plugin's tokenizer, but enforce errors in our own renderer.
   const renderMath = (content, displayMode) => katexEngine.renderToString(content, {
     displayMode, throwOnError: true, strict: 'error', trust: false, output: 'htmlAndMathml',

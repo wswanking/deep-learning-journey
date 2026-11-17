@@ -87,7 +87,8 @@ npm ci --ignore-scripts
 ## 4. Markdown、公式与矢量图约定
 
 - 使用标准标题、列表、引用、代码块和表格；一个章节恰有一个一级标题。
-- 行内公式用 $...$，独立公式用单独成行的 $$...$$；公式由 KaTeX 渲染为 HTML/MathML 和字体/矢量内容，不做截图。
+- 行内公式用 ``$`...`$``，独立公式用 `math` 围栏；内部直接写 LaTeX，不加 `$$`。GitHub 预览与本地导出共用同一源文件。
+- 本地以严格 KaTeX 将数学围栏和行内公式渲染为 HTML/MathML 和字体/矢量内容，不做截图。历史 `$$` 块只保留解析兼容，新教材源检查要求使用围栏。
 - 非法或不支持的公式直接让构建失败。不要依赖把错误公式变成正文错误提示的默认行为。
 - 图片必须是仓库内的 .svg 文件，使用相对路径；SVG 必须有 viewBox。
 - 拒绝内嵌位图、foreignObject、滤镜和外部资源等无法保证当前矢量输出约定的元素。
@@ -156,3 +157,35 @@ node scripts/check-publication.mjs --name chapter-00 --capture
 - [KaTeX Node.js 接口](https://katex.org/docs/node)
 - [Playwright PDF 接口](https://playwright.dev/docs/api/class-page#page-pdf)
 - [PDF-LIB PDFDocument 接口](https://pdf-lib.js.org/docs/api/classes/pdfdocument)
+
+## 8. Markdown 与 GitHub 预览复核
+
+行内与独立公式示例：
+
+````markdown
+行内向量：$`\mathbf x_i`$。
+
+```math
+\mathbf W\mathbf x=
+\begin{bmatrix}4\\-1\end{bmatrix}.
+```
+````
+
+格式检查与已有构建回归：
+
+```powershell
+npm run check:markdown
+npm test
+```
+
+源格式检查覆盖围栏、旧独立数学分隔符、章节标题层级、数学被误当标题以及表格列数。普通代码中的美元符号和展示 Markdown 用的外层围栏不按公式处理。
+
+同步远程后，可用已有 Edge 独立检查 GitHub 的实际页面（该步骤需要网络）：
+
+```powershell
+node scripts/check-github-math.mjs --chapter 01
+# 检查全31章，并固定到已同步的提交；代理按本机实际情况指定
+node scripts/check-github-math.mjs --ref <commit-sha> --proxy http://127.0.0.1:7890
+```
+
+检查会比对预期公式与 GitHub 渲染的数学节点，检查错误数学、异常标题和残留数学代码；结果保存在 `build/qa/`。网络或 GitHub 服务失败必须报告为失败，不能等同于内容通过。HTML/PDF 仍按前述流程独立构建并目视复核。

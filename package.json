@@ -11,7 +11,9 @@
     "build:html": "node scripts/build.mjs --format html",
     "build:pdf": "node scripts/build.mjs --format pdf",
     "build:sample": "node scripts/build.mjs --format all --sample",
-    "test": "node --test tests/build.test.mjs"
+    "test": "node --test tests/*.test.mjs",
+    "check:markdown": "node scripts/check-markdown.mjs --tracked",
+    "check:github": "node scripts/check-github-math.mjs"
   },
   "dependencies": {
     "@mdit/plugin-katex": "1.2.0",

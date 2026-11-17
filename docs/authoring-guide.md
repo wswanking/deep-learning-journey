@@ -40,18 +40,18 @@
 
 | 对象 | 约定 | 说明 |
 | --- | --- | --- |
-| 标量 | $x, y, \alpha, \eta$ | 用上下文明确含义，学习率通常用 $\eta$ |
-| 向量 | $\mathbf{x}\in\mathbb{R}^{d}$ | 默认列向量 |
-| 矩阵 | $\mathbf{W}\in\mathbb{R}^{m\times d}$ | 先定义形状，再参与乘法 |
-| 高阶张量 | $\mathcal{X}$ | 结合形状表说明轴含义 |
-| 参数集合 | $\boldsymbol{\theta}$ | 区分单层参数与全部模型参数 |
-| 损失 | $\mathcal{L}(\boldsymbol{\theta})$ | 说明单样本、批次及归约方式 |
-| 概率与期望 | $p(x),\ p(y\mid x),\ \mathbb{E}[X]$ | 区分概率质量、密度和随机变量 |
-| 导数与梯度 | $\frac{\partial\mathcal{L}}{\partial w},\ \nabla_{\boldsymbol{\theta}}\mathcal{L}$ | 梯度对应的变量必须明确 |
+| 标量 | $`x, y, \alpha, \eta`$ | 用上下文明确含义，学习率通常用 $`\eta`$ |
+| 向量 | $`\mathbf{x}\in\mathbb{R}^{d}`$ | 默认列向量 |
+| 矩阵 | $`\mathbf{W}\in\mathbb{R}^{m\times d}`$ | 先定义形状，再参与乘法 |
+| 高阶张量 | $`\mathcal{X}`$ | 结合形状表说明轴含义 |
+| 参数集合 | $`\boldsymbol{\theta}`$ | 区分单层参数与全部模型参数 |
+| 损失 | $`\mathcal{L}(\boldsymbol{\theta})`$ | 说明单样本、批次及归约方式 |
+| 概率与期望 | $`p(x),\ p(y\mid x),\ \mathbb{E}[X]`$ | 区分概率质量、密度和随机变量 |
+| 导数与梯度 | $`\frac{\partial\mathcal{L}}{\partial w},\ \nabla_{\boldsymbol{\theta}}\mathcal{L}`$ | 梯度对应的变量必须明确 |
 
 例如单样本线性层：
 
-$$
+```math
 \mathbf{z}=\mathbf{W}\mathbf{x}+\mathbf{b},
 \qquad
 \mathbf{x}\in\mathbb{R}^{d},
@@ -59,11 +59,13 @@ $$
 \mathbf{W}\in\mathbb{R}^{m\times d},
 \quad
 \mathbf{b},\mathbf{z}\in\mathbb{R}^{m}.
-$$
+```
 
-若代码使用行批次输入 $\mathbf{X}\in\mathbb{R}^{B\times d}$，应明确转换为 $\mathbf{Z}=\mathbf{X}\mathbf{W}^{\top}+\mathbf{1}_{B}\mathbf{b}^{\top}$，输出形状为 $B\times m$。解释代码中偏置广播与此式的对应关系。
+若代码使用行批次输入 $`\mathbf{X}\in\mathbb{R}^{B\times d}`$，应明确转换为 $`\mathbf{Z}=\mathbf{X}\mathbf{W}^{\top}+\mathbf{1}_{B}\mathbf{b}^{\top}`$，输出形状为 $`B\times m`$。解释代码中偏置广播与此式的对应关系。
 
-- 行内公式使用 `$...$`，独立公式使用单独成行的 `$$...$$`。
+- 行内公式统一使用 ``$`...`$``，保护下标、星号和矩阵换行符不被 Markdown 改写；独立公式统一使用语言标记为 `math` 的三反引号围栏，内部只写 LaTeX，不再包裹 `$$`。这与 [GitHub 官方数学语法](https://docs.github.com/en/get-started/writing-on-github/working-with-advanced-formatting/writing-mathematical-expressions) 一致。
+- 多行推导必须放在 `math` 围栏内，避免单独的等号、下划线或星号被 Markdown 当成标题或强调。围栏外前后留空行；语法占位符应放在行内代码中。
+- 本地构建仍兼容历史美元分隔符，但新教材源文件由 `npm run check:markdown` 拒绝这类独立块；数学围栏与行内公式使用同一严格渲染器，错误公式必须终止构建。
 - 每章提供符号表；每个新符号在首次使用附近解释。
 - 清楚区分样本编号、层编号、时间步、维度和训练步；上标的含义不得混淆。
 - 写出中间推导，解释所用法则或假设；近似等号、期望及条件概率的含义要明确。
@@ -142,6 +144,7 @@ $$
 - [ ] 参考来源明确，可追溯到具体章节、讲次或论文。
 - [ ] 实验能在记录的环境运行，结果注明实测状态；不适用实验的内容有对应练习。
 - [ ] 有常见误区、习题与解析，读者能检查理解。
+- [ ] Markdown 源格式检查通过；修改公式后实际复核 GitHub 页面，确认没有公式被当成标题、正文或代码，不能以本地导出代替 GitHub 验证。
 - [ ] HTML 与 PDF 实际构建完成，目视检查中文、公式、图表、代码和分页。
 - [ ] 完成当前章节专属验收点，更新任务状态及交付记录。
 

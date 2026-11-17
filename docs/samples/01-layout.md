@@ -18,14 +18,14 @@
 
 | 符号 | 含义 | 形状 |
 | --- | --- | --- |
-| $\mathbf{x}$ | 单个输入样本 | $2\times1$ |
-| $\mathbf{W}$ | 权重矩阵 | $3\times2$ |
-| $\mathbf{b}$ | 偏置向量 | $3\times1$ |
-| $\mathbf{z}$ | 输出向量 | $3\times1$ |
+| $`\mathbf{x}`$ | 单个输入样本 | $`2\times1`$ |
+| $`\mathbf{W}`$ | 权重矩阵 | $`3\times2`$ |
+| $`\mathbf{b}`$ | 偏置向量 | $`3\times1`$ |
+| $`\mathbf{z}`$ | 输出向量 | $`3\times1`$ |
 
 单样本的仿射变换为：
 
-$$
+```math
 \mathbf{z}=\mathbf{W}\mathbf{x}+\mathbf{b},
 \qquad
 \mathbf{W}\in\mathbb{R}^{3\times2},
@@ -33,11 +33,11 @@ $$
 \mathbf{x}\in\mathbb{R}^{2},
 \quad
 \mathbf{b}\in\mathbb{R}^{3}.
-$$
+```
 
 用一组小数字检查矩阵和多行公式：
 
-$$
+```math
 \begin{aligned}
 \mathbf{W}&=\begin{bmatrix}1&2\\0&1\\-1&1\end{bmatrix},
 &
@@ -51,7 +51,7 @@ $$
 =
 \begin{bmatrix}4\\2\\-1\end{bmatrix}.
 \end{aligned}
-$$
+```
 
 每一行由矩阵的一行与输入向量做内积，再加上对应偏置。后续正式章节会逐步解释这些运算；这里重点验证列向量、矩阵括号、上标、下标和多行对齐都能正确显示。
 
