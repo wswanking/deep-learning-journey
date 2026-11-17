@@ -429,3 +429,16 @@
 | Brier分数 | Brier score | 本章采用二元正类概率与标签的平均平方误差 |
 | 分桶校准误差 | expected calibration error，ECE | 用桶内信心与准确率差加权估计，受分桶和样本量影响 |
 | 按组配对重抽 | paired group bootstrap | 两模型在同一语义组上的结果一起有放回抽样；小样本描述范围不保证总体覆盖 |
+
+
+### 第28章：图像文字共享空间
+
+完整图文与实验见[第28章](../chapters/28-multimodal-representations.md)。
+
+| 术语 | 英文 | 本教程含义 |
+| --- | --- | --- |
+| 视觉词元 | visual token | 由局部像素块投影得到的连续向量，区别于文字词表中的离散ID |
+| 图文双塔 | image-text dual encoder | 分别编码图像和文字，经共同目标学习可比较的嵌入 |
+| 双向对比目标 | symmetric contrastive objective | 分别对图找文和文找图的候选分类交叉熵取平均 |
+| 假负例 | false negative | 被当作负候选的记录实际也与查询相关，需根据任务定义多正例关系 |
+| 查询命中率 | Hit@K | 前K项至少包含一个相关候选的查询比例，区别于找回全部相关项的比例 |
