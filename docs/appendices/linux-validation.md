@@ -18,4 +18,13 @@ Debian 13、Node.js 24.22.1、npm 11.9.0、Python 3.12.14；不是用户 Windows
 
 新增 `Linux publication acceptance`，在 main 推送、PR 或手动触发时，准备 Node 24、Python 3.12、Chromium 和 Noto CJK 字体，运行同一 `verify.sh`；随后运行 `setup.sh --cpu` 验证项目独立 CPU 环境。CI 独立安装浏览器仅限 runner，用户本地脚本不自动下载浏览器。
 
-本记录初次提交时远端运行尚未完成；应以对应提交的 Actions 结果为准。工作流产物包含页面检查和 PDF 结构报告、实际 Linux 依赖 freeze。未实测用户 WSL、Windows 原生、GPU、其他架构；未逐章重跑所有训练实验，也未重新检查 GitHub 远端31章公式。不能把自动 PDF 验收等同于全书逐页目视复核。
+代码提交 `f3c7b1285d4c7cb2287b8a2dfe5448d2ac168eb8` 的 [Actions 运行 44099300523](https://github.com/wswanking/deep-learning-journey/actions/runs/44099300523) 已实测成功（2026-11-17）：
+
+- Ubuntu 26.04.1 runner，Node 24，Python 3.12.16，独立 Chromium 与 Noto CJK 字体。
+- 73/73项回归通过；83份 Markdown 源格式检查零错误。
+- 样张5页 PDF、全31章422页 PDF，均零位图对象，书签和结构通过。
+- 样张及全书1440/390px检查通过：无页面水平溢出、断锚、公式错误、SVG裁切、意外外部请求。
+- `PYTHON=python3 bash scripts/setup.sh --cpu` 在独立 `.venv-linux` 安装并验收成功；NumPy 2.5.5、Matplotlib 3.11.2、PyTorch 2.15.0+cpu，pip check及baseline/NumPy/PyTorch三个分支通过。
+- [运行产物](https://github.com/wswanking/deep-learning-journey/actions/runs/44099300523/artifacts/14335197222)包含页面检查、PDF结构报告与实际Linux依赖freeze；下载受GitHub访问权限和保留期限约束。
+
+该远端实测补齐了本地因权限受阻的浏览器验收，不改变前述本地限制。后续提交以各自 Actions 结果为准。未实测用户 WSL、Windows 原生、GPU、其他架构；未逐章重跑所有训练实验，也未重新检查 GitHub 远端31章公式。不能把自动 PDF 验收等同于全书逐页目视复核。
