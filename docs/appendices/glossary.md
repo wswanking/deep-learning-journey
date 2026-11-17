@@ -356,3 +356,15 @@
 | GELU | Gaussian error linear unit | 输入乘标准正态CDF的平滑激活；本章默认精确形式，不作随机门控采样 |
 | 窗口采样协议 | window sampling protocol | 规定文档、起点和历史怎样进入更新，不同采样权重影响学习目标 |
 | 精确轨迹恢复 | exact training continuation | 同时恢复参数、优化器、计数与采样/随机状态，并用相同环境的实际轨迹对照 |
+
+
+### 第22章：示范数据与监督位置
+
+完整图文与实验见[第22章](../chapters/22-instruction-tuning.md)。
+
+| 术语 | 英文 | 本教程含义 |
+| --- | --- | --- |
+| 监督微调 | supervised fine-tuning，SFT | 从已有语言模型参数继续学习指令及示范回答，本章采用全参数更新 |
+| 回答监督掩码 | response loss mask | 按右移后的目标位置决定是否计损失；提示末位置预测首回答时仍须监督 |
+| 聊天模板 | chat template | 将角色与字段确定地变成词元序列，标记本身不是网络天然理解的接口 |
+| 自由生成整答匹配 | free-generation exact match | 按同一提示、解码与停止规则比较完整输出，区别于真实历史下的逐token准确率 |
