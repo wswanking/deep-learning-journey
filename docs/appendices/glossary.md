@@ -416,3 +416,16 @@
 | 双塔检索 | bi-encoder retrieval | 分别编码查询和片段，使片段向量可预计算，相关性依赖表示规则与训练 |
 | 重排序 | reranking | 对已收到的候选重新评分，通常无法恢复候选集合以外的证据 |
 | 证据命中与引用支持 | evidence hit / citation support | 分别检查候选含完整所需事实，以及输出主张被所引原文支持，不能只核对字符串包含 |
+
+
+### 第27章：评价事件与统计范围
+
+完整图文与实验见[第27章](../chapters/27-model-evaluation.md)。
+
+| 术语 | 英文 | 本教程含义 |
+| --- | --- | --- |
+| 严格整答匹配 | strict exact match，EM | 按声明的字节、停止及归一化规则比较整段输出 |
+| 概率校准 | probability calibration | 概率信心与对应事件实际频率的关系，需先定义事件 |
+| Brier分数 | Brier score | 本章采用二元正类概率与标签的平均平方误差 |
+| 分桶校准误差 | expected calibration error，ECE | 用桶内信心与准确率差加权估计，受分桶和样本量影响 |
+| 按组配对重抽 | paired group bootstrap | 两模型在同一语义组上的结果一起有放回抽样；小样本描述范围不保证总体覆盖 |
