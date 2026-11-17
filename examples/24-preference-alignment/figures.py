@@ -53,15 +53,15 @@ def write_figures(report,folder):
     body+=text(30,633,'低训练损失说明拟合了给定标签；标签标准错误时，优化不会自动修正它。',21)
     save(folder,'training-curves',675,'图24-5：真实DPO与翻转标签控制组训练损失','从本机结果JSON绘制三个配置每25步实际优化目标，翻转标签组同样快速降低其错误目标，不能用损失下降代替正确性评估。',body)
 
-    body=text(30,42,'同一测试集：候选排序提升，不等于能自由生成正确答案',25,'font-weight="700"')+text(30,82,'12个未见组合提示；左列比较两个指定候选，右列实际贪心生成。',21)
+    body=text(30,42,'同一测试集：候选排序成绩，不等于自由生成正确答案',25,'font-weight="700"')+text(30,82,'12个未见组合提示；左列比较两个指定候选，右列实际贪心生成。',21)
     labels=['SFT参考','DPO β=1','DPO β=0.1','翻转训练标签'];headers=['配置','候选排序正确','相对变化正确','生成完全正确']
     for x,value in zip([35,305,500,690],headers):body+=text(x,145,value,22,'font-weight="700"')
     for i,(label,result) in enumerate(zip(labels,report['experiments'])):
         y=210+i*72;body+=rect(25,y-35,850,58,'#fff','rx="8"')
         vals=[label,f'{result["test"]["raw_candidate_pair_accuracy"]:.1%}',f'{result["test"]["relative_pair_accuracy"]:.1%}',f'{result["generation"]["exact_match"]:.1%}']
         for x,value in zip([35,335,530,730],vals):body+=text(x,y,value,23)
-    body+=text(30,565,'β=1训练相对排序100%，测试83.3%；测试自由生成仍0%。',23)+text(30,610,'β=0.1只答对2/12，格式正确3/12；候选集合外仍有大量概率质量。',22)+text(30,655,'不是人类偏好胜率；也不是完整策略KL或通用能力评估。',23)
-    save(folder,'ranking-generation',695,'图24-6：真实候选排序、相对间隔与自由生成的分离','四个固定模型对同一十二测试提示，记录原始候选排序、扣除参考后的相对排序、实际贪心完整生成。beta一相对排序改善但生成零，beta零点一仅两例生成正确。',body)
+    body+=text(30,565,'排序指标与完整生成必须分开读取，不能互相替代。',23)+text(30,610,'表中数值来自本次运行；候选集合外也可能有概率质量。',22)+text(30,655,'不是人类偏好胜率；也不是完整策略KL或通用能力评估。',23)
+    save(folder,'ranking-generation',695,'图24-6：真实候选排序、相对间隔与自由生成的分离','四个固定模型对同一十二测试提示，记录原始候选排序、扣除参考后的相对排序、实际贪心完整生成。所有指标读取本次结果JSON，不使用历史运行的硬编码数值。',body)
 
 if __name__=='__main__':
     root=Path(__file__).resolve().parents[2];report=json.loads((root/'build/experiments/24-preference-alignment/results.json').read_text(encoding='utf-8'));write_figures(report,root/'docs/assets/24-preference-alignment')

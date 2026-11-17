@@ -120,3 +120,19 @@ assert ns['peak_working_set_bytes']()>0
     assert.equal(result.status,0,result.stderr);
   }
 });
+
+test('DPO generated figures use current result metrics, not historical Windows captions', () => {
+  const code = `import runpy,tempfile
+from pathlib import Path
+m=runpy.run_path('examples/24-preference-alignment/figures.py')
+hand=dict(two_response_optimum=[.7,.3],two_response_kl=.1,two_response_objective=.6,preference_probability=.58,loss=.53)
+experiment=dict(history=[dict(step=0,train=dict(optimization_loss=.69)),dict(step=300,train=dict(optimization_loss=.1))],test=dict(raw_candidate_pair_accuracy=.417,relative_pair_accuracy=.583),generation=dict(exact_match=.25))
+with tempfile.TemporaryDirectory() as d:
+ m['write_figures'](dict(hand=hand,experiments=[experiment]*4),Path(d))
+ svg=(Path(d)/'ranking-generation.svg').read_text()
+ assert '41.7%' in svg and '58.3%' in svg and '25.0%' in svg
+ assert '83.3%' not in svg and '2/12' not in svg and '3/12' not in svg
+`;
+  const result = spawnSync('python3', ['-B', '-c', code], {cwd: root, encoding: 'utf8'});
+  assert.equal(result.status, 0, result.stderr);
+});
