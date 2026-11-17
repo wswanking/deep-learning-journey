@@ -368,3 +368,15 @@
 | 回答监督掩码 | response loss mask | 按右移后的目标位置决定是否计损失；提示末位置预测首回答时仍须监督 |
 | 聊天模板 | chat template | 将角色与字段确定地变成词元序列，标记本身不是网络天然理解的接口 |
 | 自由生成整答匹配 | free-generation exact match | 按同一提示、解码与停止规则比较完整输出，区别于真实历史下的逐token准确率 |
+
+
+### 第23章：低秩增量与量化
+
+完整图文与实验见[第23章](../chapters/23-parameter-efficient-tuning.md)。
+
+| 术语 | 英文 | 本教程含义 |
+| --- | --- | --- |
+| 低秩适配 | low-rank adaptation，LoRA | 冻结原权重并训练低秩因子来表示更新矩阵，约束的是增量的秩 |
+| 适配器检查点 | adapter checkpoint | 保存增量因子及基座/模板/配置指纹，推理前必须匹配原基座，不等于完整续训状态 |
+| 四位正态量化 | 4-bit NormalFloat，NF4 | 针对近似正态权重设计的非均匀码本，区别于本章均匀四位CPU替代 |
+| 双重量化 | double quantization | 进一步压缩第一层量化所需的尺度元数据，需保留重建协议 |
