@@ -8,13 +8,14 @@
 - 第02/04章增加Linux进程峰值RSS采样，资源说明不再误标为Windows独有。
 - 第11/14/20章静态绘图脚本改为按脚本位置定位仓库，避免依赖调用目录。
 - README主构建区及全部30章实践README并列提供Linux命令，保留Windows入口。
+- 第24章实跑暴露小批DPO训练震荡，统一使用完整36对训练批次与较小学习率；保留原22项检查，图生成不再混用历史数字。
 - 新增audit-scripts与verify-experiments，隔离执行所有章节及生成器；CI保存逐步日志。
 
 ## 平台边界与验收证据
 
 PowerShell环境检查的CIM、Windows注册表、Windows字体目录仅在Windows有意义，不应改名成sh后假称通用；对应Linux工具提供CPU/内存/磁盘/工具/字体/框架检查。在线GitHub页面检查需要网络，代码已接共享浏览器，未列入离线全实验验收。原始Windows硬件与框架JSON是历史证据，保留原路径，不改成Linux路径。
 
-全量执行结果以本提交对应的GitHub Actions为准；初次提交此清单时新一轮全实验CI尚待运行。上一轮只完成构建和CPU smoke，不能替代此轮30章实验。
+全量链路已由[Actions 44104896665](https://github.com/wswanking/deep-learning-journey/actions/runs/44104896665)实跑通过：55个步骤覆盖全部30章实验、9个静态生成器、10个独立绘图入口、综合报告导出/重放/质量门槛和重生成全书。每次后续提交仍重新执行整套CI，结果以对应提交为准。此轮详情见[Linux验收记录](appendices/linux-validation.md)。
 
 ## 逐文件清单（97项）
 

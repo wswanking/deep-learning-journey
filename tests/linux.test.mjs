@@ -121,7 +121,7 @@ assert ns['peak_working_set_bytes']()>0
   }
 });
 
-test('DPO generated figures use current result metrics, not historical Windows captions', () => {
+test('DPO generated figures use current result metrics, not historical Windows captions', {skip: !linux}, () => {
   const code = `import runpy,tempfile
 from pathlib import Path
 m=runpy.run_path('examples/24-preference-alignment/figures.py')
