@@ -10,10 +10,22 @@
 & ./.venv/Scripts/python.exe -B examples/01-linear-algebra/run.py
 ```
 
+Linux / WSL（先按[Linux环境指南](../../docs/linux-guide.md)准备依赖）：
+
+```bash
+.venv-linux/bin/python -B examples/01-linear-algebra/run.py
+```
+
 默认 JSON 输出为 `build/experiments/01-linear-algebra/results.json`。也可以指定输出位置：
 
 ```powershell
 & ./.venv/Scripts/python.exe -B examples/01-linear-algebra/run.py --output build/experiments/01-linear-algebra/repeated.json
+```
+
+Linux / WSL（先按[Linux环境指南](../../docs/linux-guide.md)准备依赖）：
+
+```bash
+.venv-linux/bin/python -B examples/01-linear-algebra/run.py --output build/experiments/01-linear-algebra/repeated.json
 ```
 
 共18项检查，均检查数值及相关形状：

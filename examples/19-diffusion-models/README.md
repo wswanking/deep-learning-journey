@@ -6,6 +6,12 @@
 & ./.venv/Scripts/python.exe -B examples/19-diffusion-models/run.py
 ```
 
+Linux / WSL（先按[Linux环境指南](../../docs/linux-guide.md)准备依赖）：
+
+```bash
+.venv-linux/bin/python -B examples/19-diffusion-models/run.py
+```
+
 无需下载。Python3.11.5、NumPy2.4.6、PyTorch2.15.0+cpu；CPU、float64、1线程。默认`--updates 2500`；`--skip-figures`只跑数值检查。改变更新预算后应记录新的实际结果，不沿用正文数字。
 
 ## 固定协议

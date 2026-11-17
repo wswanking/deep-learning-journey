@@ -9,6 +9,15 @@
 & ./.venv/Scripts/python.exe -B examples/18-vae-and-gan/figures.py
 ```
 
+Linux / WSL（先按[Linux环境指南](../../docs/linux-guide.md)准备依赖）：
+
+```bash
+.venv-linux/bin/python -B examples/18-vae-and-gan/run.py
+.venv-linux/bin/python -B examples/18-vae-and-gan/run.py --write-figures
+# 仅从已有真实结果重建SVG：
+.venv-linux/bin/python -B examples/18-vae-and-gan/figures.py
+```
+
 现有CPU PyTorch/NumPy即可，无下载。默认输出 `build/experiments/18-vae-and-gan/results.json`，可指定 `--output-dir`。默认运行不改正文图。
 
 ## 数据与协议

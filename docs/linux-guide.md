@@ -66,3 +66,19 @@ node scripts/check-github-math.mjs --ref main --chapter 01 --browser /usr/bin/ch
 ```
 
 输出仍在 `build/html`、`build/pdf`、`build/qa`，不加入 Git。检查报告是自动验收证据，新内容仍需目视复核中文、公式和分页。[本次 Linux 验收范围](appendices/linux-validation.md)区分通过项和未测项。
+
+## 5. 全工程脚本与实验验收
+
+[逐文件脚本清单](script-platform-audit.md)覆盖所有仓库自有 Python、JavaScript、Bash、PowerShell 文件，不只构建入口。
+
+```bash
+python3 -B scripts/audit-scripts.py --output build/qa/script-inventory.json
+bash scripts/setup.sh --cpu
+bash scripts/verify-experiments.sh
+```
+
+完整实验验收复制 Git 跟踪源码和 Node 依赖到 `build/full-script-audit/run-*/source`，使用同一个 Linux Python 环境，按01～30章顺序执行默认训练配置。运行所有静态SVG生成器、实验绘图入口、综合项目冷构建/重放/严格质量门槛，并对重新生成图的全书构建和页面检查。不覆盖原工作区已验收图、不删除旧证据，也不会把模型文件上传到CI产物。
+
+默认每条命令最多600秒，可用 `--timeout` 调整。它不缩短训练步数；某条失败即返回非零，日志与已完成步骤保留。30章教学项目的 `quality_not_met` 与工程运行失败不同，严格质量门槛预期返回2，验收会核对这一行为，不能宣称模型达到业务质量。
+
+Python辅助模块由章节入口实际导入；有 `__main__` 的独立绘图入口另外执行。Windows CIM/注册表环境检查仍是原生Windows专属，Linux以Linux资源采样替代。GitHub在线公式检查属于联网工具，构建CI默认不抓取远端页面；没有把未运行的在线检查标为通过。

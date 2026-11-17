@@ -1,5 +1,6 @@
+import {fileURLToPath} from 'node:url';
 import fs from 'node:fs';import path from 'node:path';
-const out=path.resolve('docs/assets/20-language-model-pretraining');fs.mkdirSync(out,{recursive:true});
+const out=path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../docs/assets/20-language-model-pretraining');fs.mkdirSync(out,{recursive:true});
 const C={ink:'#24374c',blue:'#1475b8',light:'#eaf4fc',orange:'#bc570e',warm:'#fff2e6',line:'#afc4d6'};
 const esc=s=>String(s).replaceAll('&','&amp;').replaceAll('<','&lt;');
 const t=(x,y,s,z=18,c=C.ink)=>'<text x="'+x+'" y="'+y+'" font-size="'+z+'" fill="'+c+'">'+esc(s)+'</text>';

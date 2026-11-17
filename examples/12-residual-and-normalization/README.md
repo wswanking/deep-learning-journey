@@ -9,6 +9,15 @@
 & ./.venv/Scripts/python.exe -B examples/12-residual-and-normalization/figures.py
 ```
 
+Linux / WSL（先按[Linux环境指南](../../docs/linux-guide.md)准备依赖）：
+
+```bash
+.venv-linux/bin/python -B examples/12-residual-and-normalization/run.py
+.venv-linux/bin/python -B examples/12-residual-and-normalization/run.py --write-figures
+# 仅从已有真实JSON重建纯SVG：
+.venv-linux/bin/python -B examples/12-residual-and-normalization/figures.py
+```
+
 依赖现有项目环境PyTorch和NumPy，不下载数据。输出默认在 `build/experiments/12-residual-and-normalization/`，可使用 `--output-dir` 指定。
 
 ## 三个受控实验

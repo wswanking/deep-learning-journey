@@ -130,3 +130,5 @@ deep-learning-journey/
 ## 8. Linux / WSL 构建维护（2026-11-17）
 
 用户本轮要求在现有 Windows 支持基础上补齐 Linux 环境脚本，验收后提交仓库。Windows 脚本保留；Linux/WSL 入口、环境隔离、浏览器选择及复现边界见 [Linux 指南](docs/linux-guide.md)，实测范围见 [验收记录](docs/appendices/linux-validation.md)。不要将云端 Linux 测试当作用户本机 WSL 或 Windows 原生实测。
+
+用户本轮进一步要求全工程扫描，不能把构建验收等同于所有脚本与实验验收。全部脚本清单见[平台扫描](docs/script-platform-audit.md)，隔离全实验验收由 `scripts/verify-experiments.py` 负责；保留源图及历史Windows证据。

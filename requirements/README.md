@@ -18,6 +18,12 @@ py -3.11 -m venv .venv
 & ./.venv/Scripts/python.exe -m pip install --only-binary=:all: --extra-index-url https://download.pytorch.org/whl/cpu -r requirements/cpu-lock.txt
 ```
 
+Linux / WSL（先按[Linux环境指南](../docs/linux-guide.md)准备依赖）：
+
+```bash
+bash scripts/setup.sh --cpu
+```
+
 默认包索引提供普通依赖，PyTorch官方CPU索引提供带 +cpu 标识的wheel。锁定范围是Python 3.11 / Windows x64 / CPU；其他系统、Python版本或加速设备需另行核对wheel。锁文件已与实际环境及pip check对照，尚未在第二台机器复建。
 
 开发阶段重新选择版本时，可使用原始顶层清单；重选后必须重新验收和更新锁文件：
@@ -25,6 +31,13 @@ py -3.11 -m venv .venv
 ```powershell
 & ./.venv/Scripts/python.exe -m pip install --only-binary=:all: -r requirements/cpu.in
 & ./.venv/Scripts/python.exe -m pip install --only-binary=:all: -r requirements/torch-cpu.in
+```
+
+Linux / WSL（先按[Linux环境指南](../docs/linux-guide.md)准备依赖）：
+
+```bash
+.venv-linux/bin/python -m pip install --only-binary=:all: -r requirements/cpu.in
+.venv-linux/bin/python -m pip install --only-binary=:all: -r requirements/torch-cpu.in
 ```
 
 下载失败时先核对网络配置，必要时仅为该次调用传入代理；代理地址不写入共享文件，不修改全局代理或降低TLS校验。
@@ -37,12 +50,26 @@ py -3.11 -m venv .venv
 & ./scripts/check-environment.ps1 -PythonPath ./.venv/Scripts/python.exe
 ```
 
+Linux / WSL（先按[Linux环境指南](../docs/linux-guide.md)准备依赖）：
+
+```bash
+.venv-linux/bin/python -m pip check
+.venv-linux/bin/python -B scripts/cpu-smoke.py --with-frameworks
+PYTHON=.venv-linux/bin/python bash scripts/check-environment.sh --with-frameworks
+```
+
 检查JSON中的baseline、numpy、torch三个分支分别为passed；缺少可选包时该分支记为not_installed，不能仅凭总状态判断框架就绪。本次CPU wheel的CUDA接口不可用。
 
 标准库基线无需第三方包，可单独执行：
 
 ```powershell
 py -3.11 -B scripts/cpu-smoke.py
+```
+
+Linux / WSL（先按[Linux环境指南](../docs/linux-guide.md)准备依赖）：
+
+```bash
+python3 -B scripts/cpu-smoke.py
 ```
 
 依赖版本变更并完成验证后再更新记录：
@@ -70,6 +97,14 @@ py -3.11 -B scripts/cpu-smoke.py
 ```powershell
 npm ci --ignore-scripts
 & ./scripts/build.ps1 -Format all -Sample
+npm test
+```
+
+Linux / WSL（先按[Linux环境指南](../docs/linux-guide.md)准备依赖）：
+
+```bash
+npm ci --ignore-scripts
+bash scripts/build.sh --format all --sample
 npm test
 ```
 

@@ -8,10 +8,22 @@
 & ./.venv/Scripts/python.exe -B examples/22-instruction-tuning/run.py
 ```
 
+Linux / WSL（先按[Linux环境指南](../../docs/linux-guide.md)准备依赖）：
+
+```bash
+.venv-linux/bin/python -B examples/22-instruction-tuning/run.py
+```
+
 本次验收实际先复制为冻结副本，然后使用：
 
 ```powershell
 & ./.venv/Scripts/python.exe -B examples/22-instruction-tuning/run.py --base-checkpoint build/experiments/22-instruction-tuning/base-used.pt --skip-figures
+```
+
+Linux / WSL（先按[Linux环境指南](../../docs/linux-guide.md)准备依赖）：
+
+```bash
+.venv-linux/bin/python -B examples/22-instruction-tuning/run.py --base-checkpoint build/experiments/22-instruction-tuning/base-used.pt --skip-figures
 ```
 
 默认800更新；`--check-data-only`仅检查数据/mask/梯度，不执行SFT。`--skip-figures`不更新图，默认完整命令会从报告生成五幅SVG。无需下载或额外训练框架。

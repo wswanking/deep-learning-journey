@@ -6,12 +6,24 @@
 & ./.venv/Scripts/python.exe -B examples/06-perceptron/run.py
 ```
 
+Linux / WSL（先按[Linux环境指南](../../docs/linux-guide.md)准备依赖）：
+
+```bash
+.venv-linux/bin/python -B examples/06-perceptron/run.py
+```
+
 完整原始记录保存为 `build/experiments/06-perceptron/results.json`；推理参数保存为同目录的 `or-model.json`。运行时读回参数并检查四个预测一致。该文件是推理参数存档，不是中途训练状态恢复；这个极小实验每次从零初始化重跑。
 
 四幅SVG直接使用这次运行的真实参数、数据和每轮日志重建：
 
 ```powershell
 & ./.venv/Scripts/python.exe -B examples/06-perceptron/run.py --write-figures
+```
+
+Linux / WSL（先按[Linux环境指南](../../docs/linux-guide.md)准备依赖）：
+
+```bash
+.venv-linux/bin/python -B examples/06-perceptron/run.py --write-figures
 ```
 
 图源位于 `docs/assets/06-perceptron/`。OR图使用真实边界；XOR终态权重为零，图中如实显示“全部预测正类”，没有绘制一条不存在的分割线。XOR不可能性图是代数论证示意，更新曲线是本次真实日志，二者在正文分别说明。

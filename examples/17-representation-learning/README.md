@@ -6,6 +6,12 @@
 & ./.venv/Scripts/python.exe -B examples/17-representation-learning/run.py
 ```
 
+Linux / WSL（先按[Linux环境指南](../../docs/linux-guide.md)准备依赖）：
+
+```bash
+.venv-linux/bin/python -B examples/17-representation-learning/run.py
+```
+
 - 无网络下载；训练/验证/测试128/64/64个三维合成点，种子20261117，均值只从训练集拟合。
 - PCA取1、2、3个方向；AE为3→16Tanh→r→16Tanh→3，每个r使用11、22、33种子。
 - 每次1200步全批次Adam，float64 CPU单线程；验证每20步选权重，全部方案冻结后统一测试。

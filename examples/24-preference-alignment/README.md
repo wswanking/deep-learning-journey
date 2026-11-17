@@ -6,6 +6,12 @@
 & ./.venv/Scripts/python.exe examples/24-preference-alignment/run.py --write-figures
 ```
 
+Linux / WSL（先按[Linux环境指南](../../docs/linux-guide.md)准备依赖）：
+
+```bash
+.venv-linux/bin/python examples/24-preference-alignment/run.py --write-figures
+```
+
 默认CPU、float32、1线程，无外部模型/数据下载。复用21模型API及22冻结SFT；缺文件报错，不替换随机模型。完整原理见[章节正文](../../docs/chapters/24-preference-alignment.md)。
 
 ## 数据与协议

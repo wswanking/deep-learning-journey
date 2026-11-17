@@ -6,6 +6,12 @@
 & ./.venv/Scripts/python.exe examples/21-tiny-language-model/run.py --write-figures
 ```
 
+Linux / WSL（先按[Linux环境指南](../../docs/linux-guide.md)准备依赖）：
+
+```bash
+.venv-linux/bin/python examples/21-tiny-language-model/run.py --write-figures
+```
+
 默认CPU、float32、1线程，无外部数据或模型下载。依赖项目`.venv`中的PyTorch与NumPy。完整解释见[章节正文](../../docs/chapters/21-tiny-language-model.md)。
 
 ## 文件与接口

@@ -2,7 +2,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import crypto from 'node:crypto';
 import {fileURLToPath,pathToFileURL} from 'node:url';
-import {chromium} from 'playwright-core';
+import {launchBrowser} from '../../scripts/browser.mjs';
 import {compileBook,assertVectorPdf} from '../../scripts/build.mjs';
 const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'../..');
 const folder=path.join(root,'build/experiments/30-capstone');
@@ -11,7 +11,7 @@ const compiled=compileBook(root,config,[{id:'capstone-report',title:'综合实�
 const html=path.join(folder,'report.html');const pdf=path.join(folder,'report.pdf');
 fs.writeFileSync(html,compiled.html);
 for(const [relative,source] of compiled.attachments){const target=path.join(folder,'sources',relative);fs.mkdirSync(path.dirname(target),{recursive:true});fs.copyFileSync(source,target);}
-const browser=await chromium.launch({channel:'msedge',headless:true});
+const browser=await launchBrowser();
 const results=[];
 try{
  for(const width of [1440,390]){

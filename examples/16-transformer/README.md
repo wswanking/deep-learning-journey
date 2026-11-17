@@ -6,6 +6,12 @@
 & ./.venv/Scripts/python.exe -B examples/16-transformer/run.py
 ```
 
+Linux / WSL（先按[Linux环境指南](../../docs/linux-guide.md)准备依赖）：
+
+```bash
+.venv-linux/bin/python -B examples/16-transformer/run.py
+```
+
 环境为Python3.11.5、NumPy2.4.6、PyTorch2.15.0+cpu，CPU、float64、单线程，种子1601。无下载。`--skip-figures`只运行数值检查而不更新图。
 
 ## 明确范围

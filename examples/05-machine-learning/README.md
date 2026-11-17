@@ -8,6 +8,12 @@
 & ./.venv/Scripts/python.exe -B examples/05-machine-learning/run.py
 ```
 
+Linux / WSL（先按[Linux环境指南](../../docs/linux-guide.md)准备依赖）：
+
+```bash
+.venv-linux/bin/python -B examples/05-machine-learning/run.py
+```
+
 默认输出在 `build/experiments/05-machine-learning/`：results.json、三个任务各自的模型JSON，以及figures/中三幅真正SVG。模型JSON包含权重、偏置、训练均值和标准差，保存后实际重建并核对验证集预测。前两幅静态教学图另由生成器重建：
 
 ```powershell
@@ -15,10 +21,23 @@ node scripts/generate-chapter05-figures.mjs
 & ./.venv/Scripts/python.exe -B examples/05-machine-learning/run.py --figure-dir docs/assets/05-machine-learning
 ```
 
+Linux / WSL（先按[Linux环境指南](../../docs/linux-guide.md)准备依赖）：
+
+```bash
+node scripts/generate-chapter05-figures.mjs
+.venv-linux/bin/python -B examples/05-machine-learning/run.py --figure-dir docs/assets/05-machine-learning
+```
+
 独立复跑并保留原报告：
 
 ```powershell
 & ./.venv/Scripts/python.exe -B examples/05-machine-learning/run.py --output-dir build/experiments/05-machine-learning/repeated
+```
+
+Linux / WSL（先按[Linux环境指南](../../docs/linux-guide.md)准备依赖）：
+
+```bash
+.venv-linux/bin/python -B examples/05-machine-learning/run.py --output-dir build/experiments/05-machine-learning/repeated
 ```
 
 每项任务按60%/20%/20%随机划分。预处理只拟合训练；模型候选仅接收训练/验证；候选为lr=0.05/0.2、零初始化、各300步完整批次梯度下降、每10步记录。选择所有记录中验证损失最低的快照，冻结参数与预处理之后，才评估测试一次。常数基线的预测值/类别概率也仅由训练目标拟合。没有正则化和动量，不保存优化器状态；JSON用于恢复冻结模型推理。

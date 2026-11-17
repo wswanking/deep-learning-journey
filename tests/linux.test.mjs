@@ -94,3 +94,29 @@ test('setup --cpu checks its venv even when caller exports PYTHON', {skip: !linu
     assert.ok(fs.existsSync(path.join(dir, 'build/environment/linux-freeze.txt')));
   } finally { fs.rmSync(dir, {recursive: true}); }
 });
+
+test('repository-wide inventory includes examples and rejects direct browser launches', {skip: !linux}, () => {
+  const code = `import importlib.util,tempfile,pathlib
+s=importlib.util.spec_from_file_location('audit',${JSON.stringify(path.join(root, 'scripts/audit-scripts.py'))});m=importlib.util.module_from_spec(s);s.loader.exec_module(m)
+files=m.inventory(pathlib.Path(${JSON.stringify(root)}))
+assert len([p for p in files if p.name=='run.py'])==30
+with tempfile.TemporaryDirectory() as d:
+ p=pathlib.Path(d)/'bad.mjs';p.write_text("chromium.launch({channel:'msedge'});")
+ assert m.audit(pathlib.Path(d))['status']=='failed'
+`;
+  const result = spawnSync('python3', ['-B', '-c', code], {encoding:'utf8'});
+  assert.equal(result.status, 0, result.stderr);
+});
+test('Linux chapter memory probes return bytes rather than an unlabelled null', {skip: !linux}, () => {
+  for (const chapter of ['02-calculus', '04-numerical-optimization']) {
+    const file = path.join(root, 'examples', chapter, 'run.py');
+    const code = `import ast,sys,pathlib
+m=ast.parse(pathlib.Path(${JSON.stringify(file)}).read_text())
+f=next(n for n in m.body if isinstance(n,ast.FunctionDef) and n.name=='peak_working_set_bytes')
+ns={'sys':sys};exec(compile(ast.Module(body=[f],type_ignores=[]),'probe','exec'),ns)
+assert ns['peak_working_set_bytes']()>0
+`;
+    const result=spawnSync('python3',['-B','-c',code],{encoding:'utf8'});
+    assert.equal(result.status,0,result.stderr);
+  }
+});

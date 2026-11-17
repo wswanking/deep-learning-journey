@@ -10,6 +10,12 @@
 & ./.venv/Scripts/python.exe -B examples/04-numerical-optimization/run.py
 ```
 
+Linux / WSL（先按[Linux环境指南](../../docs/linux-guide.md)准备依赖）：
+
+```bash
+.venv-linux/bin/python -B examples/04-numerical-optimization/run.py
+```
+
 依赖NumPy与CPU版PyTorch；本机Python 3.11.5、NumPy 2.4.6、PyTorch 2.15.0+cpu。脚本强制CPU与1个PyTorch线程。格式对比含float32和float64，概率与优化用float64。无外部数据、随机采样或网络访问。
 
 输出为 `build/experiments/04-numerical-optimization/results.json`，并以[矢量生成程序](figures.py)从当前配置生成 `docs/assets/04-numerical-optimization/` 中四幅SVG。只重跑数值检查可加 `--skip-figures`；报告路径可用 `--output` 指定。

@@ -10,12 +10,24 @@
 & ./.venv/Scripts/python.exe -B examples/02-calculus/run.py
 ```
 
+Linux / WSL（先按[Linux环境指南](../../docs/linux-guide.md)准备依赖）：
+
+```bash
+.venv-linux/bin/python -B examples/02-calculus/run.py
+```
+
 依赖为NumPy和CPU版PyTorch；本机实际版本Python 3.11.5、NumPy 2.4.6、PyTorch 2.15.0+cpu。脚本显式使用CPU、float64和1个PyTorch线程，不使用随机数。
 
 默认输出为 `build/experiments/02-calculus/results.json`，包含实际版本、时间、配置、解析值、中心差分、自动微分、误差扫描和Windows进程峰值驻留内存。成功后打印 `PASS`；任何数值或形状断言失败都会以错误退出。
 
 ```powershell
 & ./.venv/Scripts/python.exe -B examples/02-calculus/run.py --epsilon 1e-6 --output build/experiments/02-calculus/h-1e-6.json
+```
+
+Linux / WSL（先按[Linux环境指南](../../docs/linux-guide.md)准备依赖）：
+
+```bash
+.venv-linux/bin/python -B examples/02-calculus/run.py --epsilon 1e-6 --output build/experiments/02-calculus/h-1e-6.json
 ```
 
 `--epsilon`需为有限正数；它控制主差分检查，默认 `1e-5`。太大或太小可能导致误差超出设定阈值，不能把任意扰动都视为有效验证。

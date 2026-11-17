@@ -1,6 +1,6 @@
 # deep-learning-journey
 
-基于《Deep Learning》（花书）的中文教程，循序渐进学习数学基础、神经网络、典型模型、LLM与多模态，并结合Windows本机开展小模型训练实践。
+基于《Deep Learning》（花书）的中文教程，循序渐进学习数学基础、神经网络、典型模型、LLM与多模态，并结合 Windows 或 Linux/WSL 环境开展小模型训练实践。
 
 ## 正式阅读目录
 
@@ -65,7 +65,7 @@
 
 ## 一键生成HTML / PDF
 
-需要Node.js 22.13+；PDF使用已有Edge或Chrome。从仓库根目录执行：
+需要Node.js 22.13+；PDF使用已有 Edge、Chrome 或 Chromium。从仓库根目录执行：
 
 ```powershell
 npm ci --ignore-scripts
@@ -80,6 +80,21 @@ npm ci --ignore-scripts
 & ./scripts/build.ps1 -Format all -Sample
 ```
 
+Linux / WSL（先按[Linux环境指南](docs/linux-guide.md)准备依赖）：
+
+```bash
+npm ci --ignore-scripts
+
+# 已完成正式章节汇编
+bash scripts/build.sh --format all
+
+# 单章；未完成章会显示草稿标记
+bash scripts/build.sh --format all --chapter 00
+
+# 独立排版样张
+bash scripts/build.sh --format all --sample
+```
+
 全书输出为build/html/deep-learning-journey.html和build/pdf/deep-learning-journey.pdf；单章为chapter-00.html/.pdf。图和数学字体已内嵌，PDF保留矢量、中文、书签和页码。源码附件的携带方式见构建说明。build/和node_modules/不进入Git。
 
 ## 本机实践与格式检查
@@ -89,6 +104,17 @@ npm ci --ignore-scripts
 ```powershell
 & ./.venv/Scripts/python.exe -B scripts/cpu-smoke.py --with-frameworks
 & ./scripts/check-environment.ps1 -PythonPath ./.venv/Scripts/python.exe
+npm test
+
+# 导出后的桌面/窄屏、锚点、SVG边界、离线资源和PDF结构检查
+node scripts/check-publication.mjs --name chapter-00 --capture
+```
+
+Linux / WSL（先按[Linux环境指南](docs/linux-guide.md)准备依赖）：
+
+```bash
+.venv-linux/bin/python -B scripts/cpu-smoke.py --with-frameworks
+PYTHON=.venv-linux/bin/python bash scripts/check-environment.sh --with-frameworks
 npm test
 
 # 导出后的桌面/窄屏、锚点、SVG边界、离线资源和PDF结构检查
@@ -108,3 +134,5 @@ bash scripts/verify.sh
 ```
 
 CPU 训练依赖为可选项：`bash scripts/setup.sh --cpu` 使用独立 `.venv-linux`，不复用 Windows `.venv`。
+
+全部脚本清单及实验入口见[全工程平台扫描](docs/script-platform-audit.md)。完整实验验收：`bash scripts/verify-experiments.sh`（先安装CPU依赖；在隔离副本运行，不覆盖源图）。

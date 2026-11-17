@@ -6,6 +6,12 @@
 & ./.venv/Scripts/python.exe -B examples/25-language-model-inference/run.py
 ```
 
+Linux / WSL（先按[Linux环境指南](../../docs/linux-guide.md)准备依赖）：
+
+```bash
+.venv-linux/bin/python -B examples/25-language-model-inference/run.py
+```
+
 先使用第21章入口生成 `build/experiments/21-tiny-language-model/base-model.pt`；已有正确指纹的文件可直接复用。其他可信兼容检查点可通过 `--checkpoint` 指定，但不能套用正文既有数字。
 
 - 环境：Windows，Python3.11.5、NumPy2.4.6、PyTorch2.15.0+cpu，float32，CPU单线程。
@@ -39,6 +45,12 @@
 
 ```powershell
 & ./.venv/Scripts/python.exe -B examples/25-language-model-inference/run.py --matched-quantization-only
+```
+
+Linux / WSL（先按[Linux环境指南](../../docs/linux-guide.md)准备依赖）：
+
+```bash
+.venv-linux/bin/python -B examples/25-language-model-inference/run.py --matched-quantization-only
 ```
 
 同一固定39字节、B1/P24、16个输出分布，无缓存；各暖身5次，再31次交替。完整原始记录写入build/experiments/25-language-model-inference/matched-quantization.json。此次浮点中位5.736ms，int8存储/float32重建7.160ms；源参数不变。结果限定于本机小模型和这个未融合实现；两份计时记录拥有独立时间戳，原缓存基准不以补充测量替换。

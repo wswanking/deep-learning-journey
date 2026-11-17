@@ -8,11 +8,24 @@
 & ./.venv/Scripts/python.exe -B examples/08-backpropagation/run.py
 ```
 
+Linux / WSL（先按[Linux环境指南](../../docs/linux-guide.md)准备依赖）：
+
+```bash
+.venv-linux/bin/python -B examples/08-backpropagation/run.py
+```
+
 默认报告为 `build/experiments/08-backpropagation/results.json`，第四幅结果图在figures/。发布配图重建：
 
 ```powershell
 node scripts/generate-chapter08-figures.mjs
 & ./.venv/Scripts/python.exe -B examples/08-backpropagation/run.py --figure-dir docs/assets/08-backpropagation
+```
+
+Linux / WSL（先按[Linux环境指南](../../docs/linux-guide.md)准备依赖）：
+
+```bash
+node scripts/generate-chapter08-figures.mjs
+.venv-linux/bin/python -B examples/08-backpropagation/run.py --figure-dir docs/assets/08-backpropagation
 ```
 
 独立复跑使用 `--output-dir build/experiments/08-backpropagation/repeated`。

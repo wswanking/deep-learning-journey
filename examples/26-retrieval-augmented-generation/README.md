@@ -11,6 +11,13 @@
 & ./.venv/Scripts/python.exe examples/26-retrieval-augmented-generation/figures.py
 ```
 
+Linux / WSL（先按[Linux环境指南](../../docs/linux-guide.md)准备依赖）：
+
+```bash
+.venv-linux/bin/python examples/26-retrieval-augmented-generation/run.py
+.venv-linux/bin/python examples/26-retrieval-augmented-generation/figures.py
+```
+
 --skip-lm只做检索，不能代替完整配对生成。输出在build/experiments/26-retrieval-augmented-generation/，不会向Git提交权重或缓存。
 
 ## 协议与实测

@@ -8,6 +8,12 @@
 & ./.venv/Scripts/python.exe -B examples/07-multilayer-perceptron/run.py
 ```
 
+Linux / WSL（先按[Linux环境指南](../../docs/linux-guide.md)准备依赖）：
+
+```bash
+.venv-linux/bin/python -B examples/07-multilayer-perceptron/run.py
+```
+
 从仓库根目录执行，依赖项目NumPy和CPU PyTorch。本机Python 3.11.5、NumPy 2.4.6、PyTorch 2.15.0+cpu，CPU、float64、1个PyTorch线程。构造种子7，全部初始参数被明确的固定值覆盖；无外部数据或随机样本。
 
 报告为 `build/experiments/07-multilayer-perceptron/results.json`，同时依据实际表示和解析函数生成三幅纯SVG。只核对数值可加 `--skip-figures`，报告路径可用 `--output` 指定。成功打印 `PASS`，不一致以错误退出。

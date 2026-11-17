@@ -8,6 +8,12 @@
 & ./.venv/Scripts/python.exe -B examples/10-generalization/run.py
 ```
 
+Linux / WSL（先按[Linux环境指南](../../docs/linux-guide.md)准备依赖）：
+
+```bash
+.venv-linux/bin/python -B examples/10-generalization/run.py
+```
+
 从仓库根目录运行，使用项目NumPy与CPU PyTorch。本机Python 3.11.5、NumPy 2.4.6、PyTorch 2.15.0+cpu；float64、1个CPU线程和确定性算法开启。无外部数据下载。
 
 数据种子20261115，输入均匀分布于[-1,1]，目标 `sin(3*x)` 加标准差0.2的高斯噪声；训练/验证/测试为20/128/256个独立样本。模型1→48→48→1，有2497个参数。初始化种子11、22、33；每个种子的3种方法具有完全相同初始权重。

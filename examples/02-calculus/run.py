@@ -23,7 +23,10 @@ import torch
 
 
 def peak_working_set_bytes() -> int | None:
-    """Return Windows process peak resident memory, including library imports."""
+    """Return process peak RSS on Windows/Linux; unavailable platforms return None."""
+    if sys.platform.startswith("linux"):
+        import resource
+        return int(resource.getrusage(resource.RUSAGE_SELF).ru_maxrss * 1024)
     if sys.platform != "win32":
         return None
 
@@ -210,7 +213,7 @@ def main() -> None:
         "resources": {"calculation_seconds": time.perf_counter() - compute_started,
                       "including_imports_seconds": time.perf_counter() - STARTED,
                       "peak_working_set_bytes": peak_working_set_bytes(),
-                      "memory_scope": "Windows process peak resident memory, including imported libraries."},
+                      "memory_scope": "Process peak RSS including imports; Windows PeakWorkingSetSize / Linux ru_maxrss; unavailable platforms return null."},
     }
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")

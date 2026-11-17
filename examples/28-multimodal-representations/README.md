@@ -4,6 +4,12 @@
 & ./.venv/Scripts/python.exe -B examples/28-multimodal-representations/run.py
 ```
 
+Linux / WSL（先按[Linux环境指南](../../docs/linux-guide.md)准备依赖）：
+
+```bash
+.venv-linux/bin/python -B examples/28-multimodal-representations/run.py
+```
+
 从仓库根目录运行，无网络、无第三方图片、无下载权重。默认1200步；改 `--updates` 后不能沿用正文数字。
 
 ## 数据与接口

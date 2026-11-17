@@ -14,6 +14,16 @@
 & ./.venv/Scripts/python.exe -B examples/09-training-and-optimizers/figures.py
 ```
 
+Linux / WSL（先按[Linux环境指南](../../docs/linux-guide.md)准备依赖）：
+
+```bash
+.venv-linux/bin/python -B examples/09-training-and-optimizers/run.py
+# 重建与实际日志一致的纯SVG：
+.venv-linux/bin/python -B examples/09-training-and-optimizers/run.py --write-figures
+# 仅使用已有JSON重建图，不重新训练：
+.venv-linux/bin/python -B examples/09-training-and-optimizers/figures.py
+```
+
 默认输出到 `build/experiments/09-training-and-optimizers/`，可用 `--output-dir` 指定。输出为真实 `results.json` 与第93次更新后的检查点 `step-93-checkpoint.pt`。仅加载自己可信的检查点。
 
 ## 协议

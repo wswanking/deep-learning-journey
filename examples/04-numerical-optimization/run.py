@@ -19,6 +19,9 @@ ROOT = Path(__file__).resolve().parents[2]
 
 
 def peak_working_set_bytes():
+    if sys.platform.startswith("linux"):
+        import resource
+        return int(resource.getrusage(resource.RUSAGE_SELF).ru_maxrss * 1024)
     if sys.platform != "win32":
         return None
     class Counters(ctypes.Structure):
@@ -158,7 +161,7 @@ def main():
         "resources": {"calculation_seconds": time.perf_counter() - compute_started,
             "including_imports_seconds": time.perf_counter() - STARTED,
             "peak_working_set_bytes": peak_working_set_bytes(),
-            "memory_scope": "Windows process peak resident memory, including library imports; SVG generation excluded from timing."}}
+            "memory_scope": "Process peak RSS including imports; Windows PeakWorkingSetSize / Linux ru_maxrss; unavailable platforms return null. SVG generation excluded from timing."}}
     if not args.skip_figures:
         write_figures(report, ROOT / "docs/assets/04-numerical-optimization")
     args.output.parent.mkdir(parents=True, exist_ok=True)

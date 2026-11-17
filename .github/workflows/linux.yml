@@ -9,7 +9,7 @@ permissions:
 jobs:
   linux:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 40
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -31,6 +31,8 @@ jobs:
         run: bash scripts/verify.sh
       - name: Validate isolated Linux CPU environment
         run: PYTHON=python3 bash scripts/setup.sh --cpu
+      - name: Audit all scripts and run all chapter experiments in isolation
+        run: bash scripts/verify-experiments.sh
       - name: Preserve acceptance reports
         if: always()
         uses: actions/upload-artifact@v4
@@ -38,6 +40,9 @@ jobs:
           name: linux-publication-reports
           path: |
             build/qa/
+            build/full-script-audit/*/results.json
+            build/full-script-audit/*/logs/
+            build/full-script-audit/*/evidence/
             build/environment/
             build/pdf/*.build.json
           if-no-files-found: ignore

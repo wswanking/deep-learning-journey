@@ -8,10 +8,24 @@
 & ./.venv/Scripts/python.exe -B examples/03-probability/run.py
 ```
 
+Linux / WSL（先按[Linux环境指南](../../docs/linux-guide.md)准备依赖）：
+
+```bash
+.venv-linux/bin/python -B examples/03-probability/run.py
+```
+
 默认原始 JSON 保存到 `build/experiments/03-probability.json`，同时显示在终端。该目录已由项目忽略，不将机器路径与每次耗时作为手工维护源文件。输出位置和种子可以显式指定：
 
 ```powershell
 & ./.venv/Scripts/python.exe -B examples/03-probability/run.py `
+    --seed 20261115 `
+    --output build/experiments/03-probability.json
+```
+
+Linux / WSL（先按[Linux环境指南](../../docs/linux-guide.md)准备依赖）：
+
+```bash
+.venv-linux/bin/python -B examples/03-probability/run.py `
     --seed 20261115 `
     --output build/experiments/03-probability.json
 ```

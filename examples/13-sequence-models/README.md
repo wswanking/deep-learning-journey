@@ -6,6 +6,12 @@
 & ./.venv/Scripts/python.exe -B examples/13-sequence-models/run.py
 ```
 
+Linux / WSL（先按[Linux环境指南](../../docs/linux-guide.md)准备依赖）：
+
+```bash
+.venv-linux/bin/python -B examples/13-sequence-models/run.py
+```
+
 环境：Python3.11.5、NumPy2.4.6、PyTorch2.15.0+cpu，CPU、float64、1线程。无数据下载。`--epochs 400`为默认预算，可用其他正整数探索；预算改变后的结果不能继续冒充正文默认运行。`--skip-figures`保留实验结果而不更新SVG。
 
 ## 协议

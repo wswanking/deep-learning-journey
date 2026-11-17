@@ -6,6 +6,12 @@
 & ./.venv/Scripts/python.exe examples/27-model-evaluation/run.py --write-figures
 ```
 
+Linux / WSL（先按[Linux环境指南](../../docs/linux-guide.md)准备依赖）：
+
+```bash
+.venv-linux/bin/python examples/27-model-evaluation/run.py --write-figures
+```
+
 CPU单线程、模型float32、统计float64，不训练、不下载模型或外部语料。缺前章检查点或RAG报告时明确报错。完整原理见[正文](../../docs/chapters/27-model-evaluation.md)。
 
 ## 固定数据与协议

@@ -10,10 +10,22 @@
 .\.venv\Scripts\python.exe examples/30-capstone/run.py --mode rebuild
 ```
 
+Linux / WSL（先按[Linux环境指南](../../docs/linux-guide.md)准备依赖）：
+
+```bash
+.venv-linux/bin/python examples/30-capstone/run.py --mode rebuild
+```
+
 一次运行会从随机初始化训练35,328参数的字节模型600步，另执行237步保存后恢复至600步核验，再进行800步回答区间SFT；验证选点、固定评估、TF-IDF检索和规则引用、真实神经读者问答、SVG与独立Markdown/HTML/PDF报告均由实际结果生成。依赖使用仓库既有Python虚拟环境、Node依赖及Microsoft Edge；不会安装依赖。模型计算为CPU单线程float32，检索矩阵为float64。
 
 ```powershell
 .\.venv\Scripts\python.exe examples/30-capstone/run.py --mode replay
+```
+
+Linux / WSL（先按[Linux环境指南](../../docs/linux-guide.md)准备依赖）：
+
+```bash
+.venv-linux/bin/python examples/30-capstone/run.py --mode replay
 ```
 
 replay先校验冷构建的源与产物清单，再加载本章自己的模型重做推理，核对全部36例语言任务原始字节、规则轨迹与神经证据问答相同。写入replay-results.json、replay-index.npz、replay-manifest.json、replay-artifact-verification.json；保留冷构建的模型、results.json、SVG及报告。源码或输入改变时先报错，应重新rebuild并记录新的实验，不能修改旧摘要后声称原样重现。

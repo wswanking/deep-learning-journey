@@ -9,6 +9,15 @@
 & ./.venv/Scripts/python.exe -B examples/15-attention/figures.py
 ```
 
+Linux / WSL（先按[Linux环境指南](../../docs/linux-guide.md)准备依赖）：
+
+```bash
+.venv-linux/bin/python -B examples/15-attention/run.py
+.venv-linux/bin/python -B examples/15-attention/run.py --write-figures
+# 仅从已有真实日志重建原生SVG：
+.venv-linux/bin/python -B examples/15-attention/figures.py
+```
+
 依赖现有NumPy与CPU PyTorch，无下载。默认输出 `build/experiments/15-attention/results.json`，可用 `--output-dir` 改变。`--write-figures` 才会改正文图片。
 
 ## 对象与协议

@@ -35,6 +35,22 @@ npm ci --ignore-scripts
 & ./scripts/build.ps1 -Format pdf -Sample -Chapter layout
 ```
 
+Linux / WSL（先按[Linux环境指南](linux-guide.md)准备依赖）：
+
+```bash
+# HTML
+bash scripts/build.sh --format html --sample
+
+# PDF（同时保留对应 HTML）
+bash scripts/build.sh --format pdf --sample
+
+# 两种输出一起生成
+bash scripts/build.sh --format all --sample
+
+# 单份样张：layout / vectors
+bash scripts/build.sh --format pdf --sample --chapter layout
+```
+
 主要输出：
 
 | 范围 | HTML | PDF |
@@ -48,6 +64,12 @@ npm ci --ignore-scripts
 
 ```powershell
 & ./scripts/build.ps1 -Format pdf -Sample -BrowserExecutable 'C:\path\to\chrome.exe'
+```
+
+Linux / WSL（先按[Linux环境指南](linux-guide.md)准备依赖）：
+
+```bash
+bash scripts/build.sh --format pdf --sample --browser '/usr/bin/chromium'
 ```
 
 构建启动独立的无头浏览器，不读取用户已有浏览器会话。
@@ -71,6 +93,13 @@ npm ci --ignore-scripts
 & ./scripts/build.ps1 -Format pdf -Chapter 00
 ```
 
+Linux / WSL（先按[Linux环境指南](linux-guide.md)准备依赖）：
+
+```bash
+bash scripts/build.sh --format html --chapter 00
+bash scripts/build.sh --format pdf --chapter 00
+```
+
 单章若尚未在章节计划中完成，会显示“草稿预览”标记。这解决了先导出检查、后验收勾选的顺序问题。
 
 默认全书仅汇编章节计划中已勾选完成、且已在 book.json 登记的章节，并要求编号升序：
@@ -78,6 +107,13 @@ npm ci --ignore-scripts
 ```powershell
 & ./scripts/build.ps1 -Format html
 & ./scripts/build.ps1 -Format pdf
+```
+
+Linux / WSL（先按[Linux环境指南](linux-guide.md)准备依赖）：
+
+```bash
+bash scripts/build.sh --format html
+bash scripts/build.sh --format pdf
 ```
 
 第00～30章均已验收，默认全书包含全部31章。完成清单为空时仍明确拒绝生成空书；草稿和样张不混入正式汇编。新增或修改章节后按统一标准重新验收并构建。
