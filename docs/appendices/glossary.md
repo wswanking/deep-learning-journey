@@ -392,3 +392,15 @@
 | 参考策略 | reference policy | 在偏好优化中保持固定的生成分布，用来定义相对对数概率变化 |
 | 直接偏好优化 | direct preference optimization，DPO | 用当前与固定参考的成对序列对数概率比拟合比较标签 |
 | 二候选条件KL | two-candidate conditional KL | 在指定候选集合内重归一化后的诊断，忽略集合外概率质量，不是完整策略KL |
+
+
+### 第25章：增量推理与采样
+
+完整图文与实验见[第25章](../chapters/25-language-model-inference.md)。
+
+| 术语 | 英文 | 本教程含义 |
+| --- | --- | --- |
+| 预填充与解码 | prefill / decode | 分别处理已知提示并得到首个输出分布、逐次读取已生成词元得到后续分布 |
+| 键值缓存 | key-value cache，KV cache | 保存各层历史键值供新查询读取，须匹配权重、前缀、位置和可见规则 |
+| 核采样 | nucleus sampling，top-p | 保留累计概率首次达到或超过阈值的最短降序前缀，再归一化采样 |
+| 存储与计算精度 | storage / compute precision | 低位权重可在浮点重建后计算，压缩存储不自动等于整数加速 |
