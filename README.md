@@ -28,6 +28,7 @@
 - [第21章：从零训练微型语言模型](docs/chapters/21-tiny-language-model.md)
 - [第22章：指令微调与数据构造](docs/chapters/22-instruction-tuning.md)
 - [第23章：参数高效微调：LoRA 与 QLoRA](docs/chapters/23-parameter-efficient-tuning.md)
+- [第24章：偏好学习与对齐](docs/chapters/24-preference-alignment.md)
 
 更多章节见[全部章节开发与草稿索引](docs/draft-index.md)；后续各章持续并行完善，骨架已建立。31章任务和验收依据见[章节计划](docs/chapter-plan.md)。
 
@@ -51,7 +52,7 @@
 | 内容 | 状态 |
 | --- | --- |
 | INF-01～03 | 环境调研、导出工具、公共符号/术语/导航已完成 |
-| 第00～23章 | 已验收；逐章CPU实验与HTML/PDF通过 |
+| 第00～24章 | 已验收；逐章CPU实验与HTML/PDF通过 |
 | 后续章节 | 持续并行完善；实际进度见章节计划 |
 | CPU训练环境 | Python 3.11.5、NumPy 2.4.6、PyTorch 2.15.0+cpu实测通过 |
 

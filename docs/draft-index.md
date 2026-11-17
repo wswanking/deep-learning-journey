@@ -1,7 +1,7 @@
 # 全部章节开发与草稿索引
 
 > 更新日期：2026-11-15。这里展示全部31章的开发入口；完成状态以章节计划为准。
-> 第00～23章已验收；其余章节并行完善或处于骨架阶段，草稿不进入默认全书。
+> 第00～24章已验收；其余章节并行完善或处于骨架阶段，草稿不进入默认全书。
 
 [正式阅读入口](../README.md) · [章节计划](chapter-plan.md) · [写作规范](authoring-guide.md) · [导航约定](navigation.md)
 
@@ -38,7 +38,7 @@
 - [21：从零训练微型语言模型](chapters/21-tiny-language-model.md)（已验收）
 - [22：指令微调与数据构造](chapters/22-instruction-tuning.md)（已验收）
 - [23：参数高效微调：LoRA 与 QLoRA](chapters/23-parameter-efficient-tuning.md)（已验收）
-- [24：偏好学习与对齐](chapters/24-preference-alignment.md) — 草稿骨架
+- [24：偏好学习与对齐](chapters/24-preference-alignment.md)（已验收）
 - [25：LLM 推理、采样与效率](chapters/25-language-model-inference.md) — 草稿骨架
 - [26：检索增强生成](chapters/26-retrieval-augmented-generation.md) — 草稿骨架
 - [27：模型评估与失败分析](chapters/27-model-evaluation.md) — 草稿骨架

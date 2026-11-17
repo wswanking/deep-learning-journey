@@ -1,0 +1,12 @@
+{"id": "pair:gl:gl:first", "group_id": "pair:gl", "instruction": "首字母 gl", "task": "first", "chosen": "g", "rejected": "l", "label_source": "deterministic synthetic string rule, no human labeler"}
+{"id": "pair:gl:gl:last", "group_id": "pair:gl", "instruction": "末字母 gl", "task": "last", "chosen": "l", "rejected": "g", "label_source": "deterministic synthetic string rule, no human labeler"}
+{"id": "pair:gl:lg:first", "group_id": "pair:gl", "instruction": "首字母 lg", "task": "first", "chosen": "l", "rejected": "g", "label_source": "deterministic synthetic string rule, no human labeler"}
+{"id": "pair:gl:lg:last", "group_id": "pair:gl", "instruction": "末字母 lg", "task": "last", "chosen": "g", "rejected": "l", "label_source": "deterministic synthetic string rule, no human labeler"}
+{"id": "pair:il:il:first", "group_id": "pair:il", "instruction": "首字母 il", "task": "first", "chosen": "i", "rejected": "l", "label_source": "deterministic synthetic string rule, no human labeler"}
+{"id": "pair:il:il:last", "group_id": "pair:il", "instruction": "末字母 il", "task": "last", "chosen": "l", "rejected": "i", "label_source": "deterministic synthetic string rule, no human labeler"}
+{"id": "pair:il:li:first", "group_id": "pair:il", "instruction": "首字母 li", "task": "first", "chosen": "l", "rejected": "i", "label_source": "deterministic synthetic string rule, no human labeler"}
+{"id": "pair:il:li:last", "group_id": "pair:il", "instruction": "末字母 li", "task": "last", "chosen": "i", "rejected": "l", "label_source": "deterministic synthetic string rule, no human labeler"}
+{"id": "pair:gh:gh:first", "group_id": "pair:gh", "instruction": "首字母 gh", "task": "first", "chosen": "g", "rejected": "h", "label_source": "deterministic synthetic string rule, no human labeler"}
+{"id": "pair:gh:gh:last", "group_id": "pair:gh", "instruction": "末字母 gh", "task": "last", "chosen": "h", "rejected": "g", "label_source": "deterministic synthetic string rule, no human labeler"}
+{"id": "pair:gh:hg:first", "group_id": "pair:gh", "instruction": "首字母 hg", "task": "first", "chosen": "h", "rejected": "g", "label_source": "deterministic synthetic string rule, no human labeler"}
+{"id": "pair:gh:hg:last", "group_id": "pair:gh", "instruction": "末字母 hg", "task": "last", "chosen": "g", "rejected": "h", "label_source": "deterministic synthetic string rule, no human labeler"}

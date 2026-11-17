@@ -380,3 +380,15 @@
 | 适配器检查点 | adapter checkpoint | 保存增量因子及基座/模板/配置指纹，推理前必须匹配原基座，不等于完整续训状态 |
 | 四位正态量化 | 4-bit NormalFloat，NF4 | 针对近似正态权重设计的非均匀码本，区别于本章均匀四位CPU替代 |
 | 双重量化 | double quantization | 进一步压缩第一层量化所需的尺度元数据，需保留重建协议 |
+
+
+### 第24章：成对偏好与参考策略
+
+完整图文与实验见[第24章](../chapters/24-preference-alignment.md)。
+
+| 术语 | 英文 | 本教程含义 |
+| --- | --- | --- |
+| 偏好对 | preference pair | 同一提示下两个候选及明确选择依据；比较标签不自动代表客观事实 |
+| 参考策略 | reference policy | 在偏好优化中保持固定的生成分布，用来定义相对对数概率变化 |
+| 直接偏好优化 | direct preference optimization，DPO | 用当前与固定参考的成对序列对数概率比拟合比较标签 |
+| 二候选条件KL | two-candidate conditional KL | 在指定候选集合内重归一化后的诊断，忽略集合外概率质量，不是完整策略KL |
