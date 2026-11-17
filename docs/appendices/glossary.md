@@ -404,3 +404,15 @@
 | 键值缓存 | key-value cache，KV cache | 保存各层历史键值供新查询读取，须匹配权重、前缀、位置和可见规则 |
 | 核采样 | nucleus sampling，top-p | 保留累计概率首次达到或超过阈值的最短降序前缀，再归一化采样 |
 | 存储与计算精度 | storage / compute precision | 低位权重可在浮点重建后计算，压缩存储不自动等于整数加速 |
+
+
+### 第26章：外部证据与回答
+
+完整图文与实验见[第26章](../chapters/26-retrieval-augmented-generation.md)。
+
+| 术语 | 英文 | 本教程含义 |
+| --- | --- | --- |
+| 检索增强生成 | retrieval-augmented generation，RAG | 先找外部证据并作为生成条件，检索本身不自动更新模型参数 |
+| 双塔检索 | bi-encoder retrieval | 分别编码查询和片段，使片段向量可预计算，相关性依赖表示规则与训练 |
+| 重排序 | reranking | 对已收到的候选重新评分，通常无法恢复候选集合以外的证据 |
+| 证据命中与引用支持 | evidence hit / citation support | 分别检查候选含完整所需事实，以及输出主张被所引原文支持，不能只核对字符串包含 |

@@ -1,0 +1,6 @@
+{"id": "v0", "question": "Sol capacity?", "answer": "40", "gold_doc": "sol-policy", "answerable": true}
+{"id": "v1", "question": "Luna capacity?", "answer": "24", "gold_doc": "luna-policy", "answerable": true}
+{"id": "v2", "question": "Mira capacity?", "answer": "32", "gold_doc": "mira-policy", "answerable": true}
+{"id": "v3", "question": "Nova capacity?", "answer": "28", "gold_doc": "nova-policy", "answerable": true}
+{"id": "v4", "question": "Argo capacity?", "answer": "36", "gold_doc": "argo-policy", "answerable": true}
+{"id": "v5", "question": "Vega capacity?", "answer": "44", "gold_doc": "vega-policy", "answerable": true}

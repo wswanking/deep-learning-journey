@@ -1,0 +1,16 @@
+{"id": "t0", "question": "Sol opening time?", "answer": "08:30", "gold_doc": "sol-hours", "answerable": true}
+{"id": "t1", "question": "Sol fee?", "answer": "12", "gold_doc": "sol-policy", "answerable": true}
+{"id": "t2", "question": "Luna opening time?", "answer": "09:15", "gold_doc": "luna-hours", "answerable": true}
+{"id": "t3", "question": "Luna price?", "answer": "18", "gold_doc": "luna-policy", "answerable": true}
+{"id": "t4", "question": "Mira opening time?", "answer": "07:45", "gold_doc": "mira-hours", "answerable": true}
+{"id": "t5", "question": "Mira fee?", "answer": "15", "gold_doc": "mira-policy", "answerable": true}
+{"id": "t6", "question": "Nova opening time?", "answer": "10:00", "gold_doc": "nova-hours", "answerable": true}
+{"id": "t7", "question": "Nova price?", "answer": "21", "gold_doc": "nova-policy", "answerable": true}
+{"id": "t8", "question": "Argo opening time?", "answer": "08:10", "gold_doc": "argo-hours", "answerable": true}
+{"id": "t9", "question": "Argo fee?", "answer": "16", "gold_doc": "argo-policy", "answerable": true}
+{"id": "t10", "question": "Vega opening time?", "answer": "09:40", "gold_doc": "vega-hours", "answerable": true}
+{"id": "t11", "question": "Vega price?", "answer": "14", "gold_doc": "vega-policy", "answerable": true}
+{"id": "u0", "question": "Orion opening time?", "answer": null, "gold_doc": null, "answerable": false}
+{"id": "u1", "question": "Atlas opening time?", "answer": null, "gold_doc": null, "answerable": false}
+{"id": "u2", "question": "Nix opening time?", "answer": null, "gold_doc": null, "answerable": false}
+{"id": "u3", "question": "Ceres opening time?", "answer": null, "gold_doc": null, "answerable": false}
