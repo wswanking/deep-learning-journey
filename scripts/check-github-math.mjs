@@ -4,7 +4,7 @@ import crypto from 'node:crypto';
 import { fileURLToPath } from 'node:url';
 import MarkdownIt from 'markdown-it';
 import { katex as mathPlugin } from '@mdit/plugin-katex';
-import { chromium } from 'playwright-core';
+import { launchBrowser } from './browser.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const repository = 'wswanking/deep-learning-journey';
@@ -267,7 +267,7 @@ export function compareMath(expected, actual) {
 function optionsFrom(args) {
   const options = { ref: 'main', capture: false };
   for (let i = 0; i < args.length; i++) {
-    if (['--chapter', '--ref', '--proxy'].includes(args[i]) && args[i + 1]) {
+    if (['--chapter', '--ref', '--proxy', '--browser'].includes(args[i]) && args[i + 1]) {
       options[args[i].slice(2)] = args[++i];
     } else if (args[i] === '--capture') options.capture = true;
     else if (args[i] === '--help') options.help = true;
@@ -420,7 +420,7 @@ async function checkChapter(context, chapter, options, outputFolder) {
 export async function main(args = process.argv.slice(2)) {
   const options = optionsFrom(args);
   if (options.help) {
-    console.log('Usage: node scripts/check-github-math.mjs [--chapter 01] [--ref main|SHA] [--proxy http://127.0.0.1:7890] [--capture]');
+    console.log('Usage: node scripts/check-github-math.mjs [--chapter 01] [--ref main|SHA] [--proxy http://127.0.0.1:7890] [--capture] [--browser /path/to/chromium]');
     return;
   }
   const config = JSON.parse(fs.readFileSync(path.join(root, 'docs/book.json'), 'utf8'));
@@ -438,7 +438,7 @@ export async function main(args = process.argv.slice(2)) {
   };
   let browser;
   try {
-    browser = await chromium.launch({ channel: 'msedge', headless: true, timeout: 30000,
+    browser = await launchBrowser(options.browser, { timeout: 30000,
       ...(options.browserProxy ? { proxy: options.browserProxy } : {}) });
     report.browser = browser.version();
     const context = await browser.newContext({ viewport: { width: 1440, height: 1050 } });

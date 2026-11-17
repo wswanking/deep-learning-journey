@@ -126,3 +126,7 @@ deep-learning-journey/
 - 交付入口：[逐章验收记录](docs/appendices/chapter-validation.md)、[框架实测](docs/appendices/framework-validation.md)、[全章节索引](docs/draft-index.md)、[章节计划](docs/chapter-plan.md)。
 - 维护修复已验收：503个独立公式与3122个行内公式采用GitHub保护写法；103个公式修正算子/小于号兼容。固定提交2f5a663实际核对31章3337/3337公式及3份辅助页250/250公式，全通过；81份Markdown无格式错误、61项回归通过，420页PDF自动审计与12页重点目视复核通过。详细证据见构建验收记录。
 - 后续使用：按README顺序学习，使用逐章实践与同源导出入口；新增反馈按原有验收标准维护。
+
+## 8. Linux / WSL 构建维护（2026-11-17）
+
+用户本轮要求在现有 Windows 支持基础上补齐 Linux 环境脚本，验收后提交仓库。Windows 脚本保留；Linux/WSL 入口、环境隔离、浏览器选择及复现边界见 [Linux 指南](docs/linux-guide.md)，实测范围见 [验收记录](docs/appendices/linux-validation.md)。不要将云端 Linux 测试当作用户本机 WSL 或 Windows 原生实测。

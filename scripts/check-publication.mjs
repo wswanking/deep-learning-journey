@@ -2,7 +2,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import crypto from 'node:crypto';
 import { pathToFileURL, fileURLToPath } from 'node:url';
-import { chromium } from 'playwright-core';
+import { launchBrowser } from './browser.mjs';
 import { assertVectorPdf } from './build.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
@@ -38,14 +38,7 @@ if (!report.pdf_structure.has_outline || !report.pdf_structure.tagged) {
 }
 let browser;
 try {
-  if (browserExecutable) browser = await chromium.launch({ headless: true, executablePath: browserExecutable });
-  else {
-    for (const channel of ['msedge', 'chrome']) {
-      try { browser = await chromium.launch({ headless: true, channel }); break; }
-      catch {}
-    }
-  }
-  if (!browser) throw new Error('未找到已有的 Edge/Chrome');
+  browser = await launchBrowser(browserExecutable);
   report.browser = browser.version();
   for (const width of [1440, 390]) {
     const page = await browser.newPage({ viewport: { width, height: 1000 } });

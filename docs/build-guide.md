@@ -190,3 +190,7 @@ node scripts/check-github-math.mjs --ref <commit-sha> --proxy http://127.0.0.1:7
 ```
 
 检查会比对预期公式与 GitHub 渲染的数学节点，检查错误数学、异常标题、残留数学代码和可见控制词，并读取 GitHub 自身的红色错误提示。对于 GitHub 额外编码的行末反斜线，仅允许源行末恰2枚、远端恰3枚且此前内容逐字相同的一种变换，并记录位置；结果保存在 `build/qa/`。网络或 GitHub 服务失败必须报告为失败，不能等同于内容通过。HTML/PDF 仍按前述流程独立构建并目视复核。
+
+## 9. Linux 与 Windows WSL
+
+使用 [Linux 构建与验收说明](linux-guide.md)中的 Bash 入口，Windows PowerShell 入口保持兼容。浏览器现支持 Linux PATH 中的 Chromium，以及 `BROWSER_EXECUTABLE` 或 `--browser` 显式路径；不自动下载浏览器。

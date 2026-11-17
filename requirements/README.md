@@ -80,3 +80,7 @@ npm test
 - [Python 3.11 venv](https://docs.python.org/3.11/library/venv.html)
 - [PyTorch安装与CPU平台选择](https://pytorch.org/get-started/locally/)
 - [NumPy安装](https://numpy.org/install/)
+
+## 5. Linux / WSL
+
+见 [Linux 环境说明](../docs/linux-guide.md)。`bash scripts/setup.sh --cpu` 使用 `.venv-linux` 与顶层依赖清单，避免复用 Windows 虚拟环境或套用 Windows 锁文件。实际 Linux 版本记录写入 build，不覆盖本文件的 Windows 历史验收。

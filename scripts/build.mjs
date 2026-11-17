@@ -8,7 +8,7 @@ import { katex as mathPlugin } from '@mdit/plugin-katex';
 import katexEngine from 'katex';
 import hljs from 'highlight.js';
 import { DOMParser } from '@xmldom/xmldom';
-import { chromium } from 'playwright-core';
+import { launchBrowser } from './browser.mjs';
 import { PDFDocument, PDFName, PDFRawStream } from 'pdf-lib';
 
 const require = createRequire(import.meta.url);
@@ -273,16 +273,6 @@ export async function assertVectorPdf(bytes) {
   return { pages: pdf.getPageCount(), raster_images: 0,
     has_outline: pdf.catalog.has(PDFName.of('Outlines')),
     tagged: pdf.catalog.has(PDFName.of('StructTreeRoot')) };
-}
-
-async function launchBrowser(executablePath) {
-  if (executablePath) return chromium.launch({ headless: true, executablePath });
-  const errors = [];
-  for (const channel of ['msedge', 'chrome']) {
-    try { return await chromium.launch({ headless: true, channel }); }
-    catch (error) { errors.push(channel + ': ' + error.message.split('\n')[0]); }
-  }
-  throw new Error('未找到可用的本机 Edge/Chrome。安装受支持浏览器或传 -BrowserExecutable。' + errors.join('; '));
 }
 
 export async function build({ root = projectRoot, format = 'html', sample = false, chapter, browserExecutable } = {}) {

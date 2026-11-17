@@ -96,3 +96,15 @@ node scripts/check-publication.mjs --name chapter-00 --capture
 ```
 
 检查工具将报告放在build/qa/；每章仍需目视检查实际分页和图文。后续训练规模以CPU、小数据、小模型为默认，正式运行前复查资源。
+
+## Linux / Windows WSL
+
+保留上述 Windows 入口；Linux/WSL 使用 Bash 脚本。详见 [Linux 构建与验收](docs/linux-guide.md)。
+
+```bash
+bash scripts/setup.sh
+bash scripts/build.sh --format all
+bash scripts/verify.sh
+```
+
+CPU 训练依赖为可选项：`bash scripts/setup.sh --cpu` 使用独立 `.venv-linux`，不复用 Windows `.venv`。

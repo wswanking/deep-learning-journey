@@ -9,3 +9,6 @@ build/
 # Project-local document publishing dependencies
 node_modules/
 npm-debug.log*
+
+# Linux/WSL environment must not reuse the Windows virtualenv
+.venv-linux/

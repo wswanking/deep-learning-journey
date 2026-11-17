@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { chromium } from 'playwright-core';
+import { launchBrowser } from '../scripts/browser.mjs';
 import {
   canonicalizeGitHubTeX, expectedMath, compareMath, normalizeTeX, collectArticleMath,
 } from '../scripts/check-github-math.mjs';
@@ -141,7 +141,7 @@ test('GitHub inline backticks preserve inner TeX and ordinary code stays code', 
 });
 
 test('real renderer flash-error DOM is collected with its actual text and fails validation', async () => {
-  const browser = await chromium.launch({ channel: 'msedge', headless: true });
+  const browser = await launchBrowser();
   try {
     const context = await browser.newContext({ offline: true });
     await context.route('**/*', route => route.abort());
@@ -169,7 +169,7 @@ test('real renderer flash-error DOM is collected with its actual text and fails 
 });
 
 test('visible math control words fail, while annotations, ordinary code and a bare slash do not', async () => {
-  const browser = await chromium.launch({ channel: 'msedge', headless: true });
+  const browser = await launchBrowser();
   try {
     const context = await browser.newContext({ offline: true });
     await context.route('**/*', route => route.abort());
