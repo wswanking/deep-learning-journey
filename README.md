@@ -34,8 +34,9 @@
 - [第27章：模型评估与失败分析](docs/chapters/27-model-evaluation.md)
 - [第28章：多模态表示与 CLIP](docs/chapters/28-multimodal-representations.md)
 - [第29章：视觉语言模型与多模态指令](docs/chapters/29-vision-language-models.md)
+- [第30章：综合实践与学习复盘](docs/chapters/30-capstone.md)
 
-更多章节见[全部章节开发与草稿索引](docs/draft-index.md)；后续各章持续并行完善，骨架已建立。31章任务和验收依据见[章节计划](docs/chapter-plan.md)。
+全部31章均已实现，分部索引见[全章节索引](docs/draft-index.md)，任务与验收证据见[章节计划](docs/chapter-plan.md)。
 
 ## 项目入口
 
@@ -57,11 +58,10 @@
 | 内容 | 状态 |
 | --- | --- |
 | INF-01～03 | 环境调研、导出工具、公共符号/术语/导航已完成 |
-| 第00～29章 | 已验收；逐章CPU实验与HTML/PDF通过 |
-| 后续章节 | 持续并行完善；实际进度见章节计划 |
+| 第00～30章 | 已验收；逐章CPU实验与HTML/PDF通过 |
 | CPU训练环境 | Python 3.11.5、NumPy 2.4.6、PyTorch 2.15.0+cpu实测通过 |
 
-可提前推进后续章，前置关系用于阅读和整合检查。每章独立验收后提交并同步远程；默认全书仅选择已完成章。
+本轮按章完成CPU实践、图文与同源HTML/PDF验收；默认全书包含00～30全部31章。小模型实验用于理解机制，失败与质量未达标均保留在正文中。
 
 ## 一键生成HTML / PDF
 

@@ -1,7 +1,7 @@
 # Deep Learning Journey：项目上下文与协作约定
 
 > 更新时间：2026-11-17（Asia/Shanghai）
-> 当前阶段：INF-01～03与第00～29章已验收；后续各章持续并行完善，骨架可提前开发。
+> 当前阶段：INF-01～03及第00～30章全部完成；正文、SVG、CPU实践及HTML/PDF均已验收。
 > 本文是项目上下文入口。需求及状态应写回仓库，不能只保存在聊天中。
 
 ## 1. 阅读顺序与事实来源
@@ -35,7 +35,7 @@
 
 ## 3. 编排方案与范围
 
-这部分是为落实用户目标制定的方案，可随教学反馈调整；不是已经完成的功能。
+以下是本轮已落实的编排原则，可随教学反馈调整。
 
 - 中文为主，核心概念首次出现时给出常见英文名称。
 - 花书提供数学和神经网络的主线；Transformer、现代 LLM、多模态内容由大学课程、原始论文和官方实现补足。
@@ -78,7 +78,7 @@
 
 ## 5. 文档与代码目录
 
-下列是目标结构；标注“规划”的内容尚未创建或实现。当前已建立的文件以实际文件及章节计划为准。
+下列为当前主要目录。全部31章的正文、SVG和CPU实践已实现；实验配置随对应examples目录维护。
 
 ```text
 deep-learning-journey/
@@ -93,11 +93,10 @@ deep-learning-journey/
 │   ├── samples/ / styles/        # 独立排版样张与网页/打印样式
 │   ├── templates/
 │   │   └── chapter-template.md   # 章节模板
-│   ├── chapters/                # 正文/草稿与04～30骨架，按编号组织
-│   ├── assets/                  # 已有排版样张 SVG；后续按章节存放矢量源文件
+│   ├── chapters/                # 00～30章完整Markdown正文
+│   ├── assets/                  # 按章节组织的真SVG与排版样张
 │   └── appendices/              # 已有环境报告、原始 JSON、构建验收记录；公共符号/术语/引用与逐章验收记录
-├── examples/                    # 规划：与章节编号对应的可运行实验
-├── configs/                     # 规划：小模型及实验配置
+├── examples/                    # 与00～30章对应的可运行CPU实验
 ├── scripts/                     # 环境检查、CPU 示例、SVG 样张生成、一键构建
 ├── requirements/                # 初始训练依赖方案；文档依赖由 npm 锁定
 ├── tests/                       # 构建流程的13项验证
@@ -119,10 +118,10 @@ deep-learning-journey/
 ## 7. 当前进度与下一步
 
 - 已完成：仓库准备；INF-01硬件调研、INF-02同源导出、INF-03公共符号/术语/参考来源和导航。
-- 已完成并验收：第00～29章正文、原创SVG、CPU实践和HTML/PDF；各章证据见逐章验收记录。
+- 已完成并验收：第00～30章正文、原创SVG、CPU实践和HTML/PDF；各章证据见逐章验收记录。
 - 框架：项目 .venv 中Python3.11.5、NumPy2.4.6、Matplotlib3.11.2、PyTorch2.15.0+cpu；pip检查通过，版本锁定于requirements/cpu-lock.txt。历史环境快照保持原样。
 - 第00章验收：12页PDF、2SVG、109处公式、零位图、全部字体嵌入，1440/390px无页面溢出和断锚；逐页和300dpi图形放大检查通过。
-- 并行推进：3个协作者按独立章节持续推进后续完整教学与实践，整合者处理共享信息、验收与提交。
-- 当前默认：CPU、小数据、小模型、少量线程；21:27复测系统可用内存约0.74GiB，重型训练按实测资源安排。
-- 交付入口：[逐章验收记录](docs/appendices/chapter-validation.md)、[框架实测](docs/appendices/framework-validation.md)、[草稿索引](docs/draft-index.md)、[章节计划](docs/chapter-plan.md)。
-- 下一步：独立验收并逐章提交同步，持续并行完善后续章；完成清单以章节计划为准。
+- 本轮协作：3个协作者并行完成独立章节及交叉审查，整合者负责共享信息、逐章验收和提交。
+- 实验默认：CPU、小数据、小模型、少量线程；历史资源采样见环境附录，运行前复查可用内存。
+- 交付入口：[逐章验收记录](docs/appendices/chapter-validation.md)、[框架实测](docs/appendices/framework-validation.md)、[全章节索引](docs/draft-index.md)、[章节计划](docs/chapter-plan.md)。
+- 后续使用：按README顺序学习，使用逐章实践与同源导出入口；新增反馈按原有验收标准维护。

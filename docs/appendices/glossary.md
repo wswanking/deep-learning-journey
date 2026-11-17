@@ -1,6 +1,6 @@
 # 公共术语表
 
-> 更新日期：2026-11-15。本表给出阅读时的简短释义；核心概念的完整图文、推导、例子与练习由相应章节承担。
+> 更新日期：2026-11-17。本表给出阅读时的简短释义；核心概念的完整图文、推导、例子与练习由相应章节承担。
 > [阅读入口](../../README.md) · [公共符号](notation.md) · [参考来源](references.md) · [章节计划](../chapter-plan.md)
 
 ## 1. 首次出现与维护规则
@@ -122,24 +122,24 @@
 
 主要阅读依据：[DL-ML、D2L-LINEAR、D2L-SOFTMAX](references.md)。
 
-## 8. 模型与后续主题名称
+## 8. 模型与主题阅读索引
 
-这些名称只用于理解路线，不作为第00～05章的推导前提，详细定义、数学、图示与实验在标明章节实现。
+本表供学习路线速查；这些名称不作为第00～05章的推导前提。已完成主题的定义、数学、图示与实践见实际主讲章，完成状态仍以章节计划为准。
 
-| 名称 | 英文或缩写 | 主讲章与当前阅读范围 |
+| 名称 | 英文或缩写 | 主讲章与阅读范围 |
 | --- | --- | --- |
-| 多层感知机 | multilayer perceptron，MLP | [第07章](../chapters/07-multilayer-perceptron.md)；由多个可学习层与非线性运算组成的基础网络 |
-| 反向传播 | backpropagation | [第08章](../chapters/08-backpropagation.md)；按链式法则沿计算图累加梯度 |
-| 卷积神经网络 | convolutional neural network，CNN | [第11章](../chapters/11-convolutional-networks.md)；共享局部运算并组合特征的网络 |
-| 循环神经网络 | recurrent neural network，RNN | [第13章](../chapters/13-sequence-models.md)；共享状态递推处理序列 |
-| token与分词 | token / tokenization | 第14章；模型处理文本的单位及划分过程，后续解释 |
-| 注意力 | attention | 第15章；按输入相关性组合信息的机制，后续解释 |
-| Transformer | Transformer | 第16章；以注意力等模块构成的网络架构，后续解释 |
-| 大语言模型 | large language model，LLM | 第20～27章；本教程中围绕文本概率建模及其使用的模型，规模与能力边界在对应章解释 |
-| 检索增强生成 | retrieval-augmented generation，RAG | 第26章；将检索结果作为生成输入的系统方法，后续解释 |
-| 多模态 | multimodal | 第28～30章；结合文本、图像等不同类型信息的建模主题，后续解释 |
+| 多层感知机 | multilayer perceptron，MLP | [第07章](../chapters/07-multilayer-perceptron.md)；可学习层与非线性组合 |
+| 反向传播 | backpropagation | [第08章](../chapters/08-backpropagation.md)；按链式法则累积计算图中的梯度 |
+| 卷积神经网络 | convolutional neural network，CNN | [第11章](../chapters/11-convolutional-networks.md)；局部连接、参数共享和空间结构 |
+| 循环神经网络 | recurrent neural network，RNN | [第13章](../chapters/13-sequence-models.md)；共享状态递推、LSTM、GRU及BPTT |
+| 词元与分词 | token / tokenization | [第14章](../chapters/14-tokenization-and-embeddings.md)；字符、字节、子词与嵌入的区别 |
+| 注意力 | attention | [第15章](../chapters/15-attention.md)；按查询和键计算加权读取 |
+| Transformer | Transformer | [第16章](../chapters/16-transformer.md)；多头、位置、残差归一化与模型家族 |
+| 大语言模型 | large language model，LLM | 从[第20章](../chapters/20-language-model-pretraining.md)的语言目标与数据出发，接续微型预训练、SFT、LoRA、偏好学习和推理；各章明确小模型与大模型的能力边界 |
+| 检索增强生成 | retrieval-augmented generation，RAG | [第26章](../chapters/26-retrieval-augmented-generation.md)；检索、上下文、生成与引用的证据链 |
+| 多模态 | multimodal | [第28章](../chapters/28-multimodal-representations.md)；图像/文字表示、双塔对比与跨模态检索；[第29章](../chapters/29-vision-language-models.md)接续图像条件回答 |
 
-后续章节实施时添加原始论文、大学课程和官方文档的精确来源；本表的名称预告不替代那些章节的引用核验。
+本表是查阅入口，各章的原始论文、大学课程与官方实现定位见章末及[参考来源目录](references.md)。
 
 ## 9. 神经网络补充术语
 
@@ -197,6 +197,7 @@
 | 学习率调度 | learning-rate schedule | 按更新步或轮改变学习率的规则，需明确计数与端点 |
 | 全局范数裁剪 | global gradient norm clipping | 按全部待裁剪梯度合并后的范数统一缩放，不等于逐分量截断 |
 | 训练检查点 | training checkpoint | 为继续同一训练保存模型、优化器、计数、采样及随机状态等上下文 |
+| 随机梯度下降 | stochastic gradient descent，SGD | 用抽样样本或小批次的梯度估计更新参数；与完整数据梯度的成本及随机性区分 |
 
 
 ### 第10章：泛化与正则化
@@ -254,6 +255,8 @@
 | 截断BPTT | truncated BPTT | 保留边界状态数值并断开更早求导联系，改变跨边界梯度 |
 | 细胞状态 | cell state | LSTM中与外部隐藏状态区分的记忆通道，带门控的加法更新 |
 | 门控 | gating | 由输入和状态计算连续保留/写入比例；须核对不同实现的命名与公式位置 |
+| 长短期记忆网络 | long short-term memory，LSTM | 用细胞状态和输入、遗忘、输出门形成带加法通路的循环单元，仍需训练并受容量限制 |
+| 门控循环单元 | gated recurrent unit，GRU | 用更新门与重置门组织状态递推；候选重置位置须核对具体实现 |
 
 
 ### 第14章：文本的离散表示与嵌入
@@ -319,6 +322,8 @@
 | 后验坍塌 | posterior collapse | 近似后验忽略输入而接近先验的现象，需结合重建与KL等证据判断 |
 | 对抗训练 | generative adversarial training | 判别器与生成器交替优化各自目标，更新时必须明确梯度边界 |
 | 模式坍塌 | mode collapse | 生成分布只覆盖少数模式；本章常量生成器是容量受限失败对照，不证明正常GAN必然坍塌 |
+| 变分自编码器 | variational autoencoder，VAE | 结合条件生成模型与近似后验，通过变分下界及重参数化学习的潜变量模型 |
+| 生成对抗网络 | generative adversarial network，GAN | 生成器与判别器分别优化目标的生成模型，训练损失与生成质量不能简单等同 |
 
 
 ### 第19章：逐步加噪与去噪生成
@@ -332,6 +337,7 @@
 | 后验均值参数化 | reverse mean parameterization | 以噪声网络输出代入反向高斯均值，方差策略和边界另行规定 |
 | 简化去噪目标 | simplified denoising objective | 省略原变分目标时间相关权重的噪声MSE，需与完整似然目标区分 |
 | 经验投影距离 | empirical projected Wasserstein distance | 本章对固定方向的一维等量经验样本排序距离取平均，不是精确二维距离或似然 |
+| 去噪扩散概率模型 | denoising diffusion probabilistic model，DDPM | 用预定前向加噪链和学习的反向去噪链构造生成过程；本章采用固定方差与噪声预测 |
 
 
 ### 第20章：语言数据与条件目标
@@ -344,6 +350,7 @@
 | 教师强制 | teacher forcing | 训练或评价时提供真实历史目标；与自由生成使用自身输出不同 |
 | 困惑度 | perplexity，PPL | 平均目标负对数概率的指数；分词、位置范围与归约不同不能直接排名 |
 | 分组划分 | grouped split | 将关联文档或变体绑定同一集合，需另说明近重覆盖的边界 |
+| 负对数似然 | negative log-likelihood，NLL | 在语言模型语境中为指定目标序列的负对数概率；求和、按字节平均与有效计分范围分别声明 |
 
 
 ### 第21章：微型语言模型与恢复
@@ -380,6 +387,7 @@
 | 适配器检查点 | adapter checkpoint | 保存增量因子及基座/模板/配置指纹，推理前必须匹配原基座，不等于完整续训状态 |
 | 四位正态量化 | 4-bit NormalFloat，NF4 | 针对近似正态权重设计的非均匀码本，区别于本章均匀四位CPU替代 |
 | 双重量化 | double quantization | 进一步压缩第一层量化所需的尺度元数据，需保留重建协议 |
+| QLoRA | QLoRA；论文题名为Efficient Finetuning of Quantized LLMs | 在量化基座上结合低秩适配的路线；原论文NF4、双重量化与分页优化器不等于本章均匀四位CPU替代 |
 
 
 ### 第24章：成对偏好与参考策略
@@ -404,6 +412,9 @@
 | 键值缓存 | key-value cache，KV cache | 保存各层历史键值供新查询读取，须匹配权重、前缀、位置和可见规则 |
 | 核采样 | nucleus sampling，top-p | 保留累计概率首次达到或超过阈值的最短降序前缀，再归一化采样 |
 | 存储与计算精度 | storage / compute precision | 低位权重可在浮点重建后计算，压缩存储不自动等于整数加速 |
+| 贪心解码 | greedy decoding | 每步选择当前最大分数词元，局部选择不保证整段全局最优或事实正确 |
+| 采样温度 | sampling temperature | 在softmax前缩放logits以调整分布集中程度；公式要求正温度，贪心另有分支 |
+| top-k采样 | top-k sampling | 只在分数最高的k个候选中重归一化并采样，须声明并列和组合筛选顺序 |
 
 
 ### 第26章：外部证据与回答
@@ -429,6 +440,9 @@
 | Brier分数 | Brier score | 本章采用二元正类概率与标签的平均平方误差 |
 | 分桶校准误差 | expected calibration error，ECE | 用桶内信心与准确率差加权估计，受分桶和样本量影响 |
 | 按组配对重抽 | paired group bootstrap | 两模型在同一语义组上的结果一起有放回抽样；小样本描述范围不保证总体覆盖 |
+| 精确率 | precision | 在已声明正类下，预测正例中真正例的比例；没有预测正例时须声明零分母处理 |
+| 召回率 | recall | 真实正例中被找出的比例；多相关候选检索时需区别完整召回比例与Hit@K |
+| F1 | F1 score | 精确率与召回率的调和平均；分类计数F1、宏/微平均和词袋重叠F1需分别定义 |
 
 
 ### 第28章：图像文字共享空间
@@ -442,6 +456,7 @@
 | 双向对比目标 | symmetric contrastive objective | 分别对图找文和文找图的候选分类交叉熵取平均 |
 | 假负例 | false negative | 被当作负候选的记录实际也与查询相关，需根据任务定义多正例关系 |
 | 查询命中率 | Hit@K | 前K项至少包含一个相关候选的查询比例，区别于找回全部相关项的比例 |
+| 图文对比预训练 | Contrastive Language–Image Pre-training，CLIP | 通过成对图文的对比目标学习两塔的可比较表示；本章原创属性文字塔小模型不等同大型CLIP权重 |
 
 
 ### 第29章：图像条件生成与连续输入
@@ -455,3 +470,16 @@
 | 图像条件生成 | image-conditioned generation | 回答概率以实际图像、问题与已有回答历史为条件 |
 | 图像干预 | image intervention | 固定问题和模型替换图像，并分别按原答案和新图真值检查回答依赖 |
 | 视觉幻觉 | visual hallucination | 输出图像不支持的对象、属性或关系；本章简化属性错误及黑图诊断不冒称标准幻觉基准 |
+
+
+### 第30章：重建、恢复与实验交付
+
+完整图文与实验见[第30章](../chapters/30-capstone.md)。
+
+| 术语 | 英文 | 本教程含义 |
+| --- | --- | --- |
+| 从随机参数重建 | rebuild | 按固定数据与协议重新训练；本章不重新安装操作系统或依赖 |
+| 训练恢复 | resume | 恢复参数、优化器、更新步与随机状态，继续同一训练轨迹 |
+| 推理重放 | replay | 校验清单后加载已有模型重做预测，不执行参数更新并保留原报告 |
+| 证据清单 | artifact manifest | 记录指定源文件和产物的SHA256，证明内容匹配而非语义独立或模型质量 |
+| 应用质量门槛 | application quality gates | 针对声明用途逐项核对指标，不能由工程运行成功或其他任务满分抵消 |

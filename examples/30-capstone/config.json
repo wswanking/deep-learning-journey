@@ -1,0 +1,61 @@
+{
+  "schema_version": 1,
+  "project": "tiny-text-and-evidence-lab",
+  "model": {
+    "vocab_size": 256,
+    "context_length": 64,
+    "d_model": 32,
+    "n_heads": 4,
+    "n_layers": 2,
+    "d_ff": 64,
+    "dropout": 0.0
+  },
+  "pretraining": {
+    "steps": 600,
+    "batch_size": 8,
+    "learning_rate": 0.003,
+    "weight_decay": 0.01,
+    "seed": 20261115,
+    "sampler_seed": 17,
+    "resume_after_step": 237
+  },
+  "sft": {
+    "updates": 800,
+    "objective": "response_only",
+    "batch_size": 16,
+    "learning_rate": 0.0015,
+    "weight_decay": 0.0,
+    "sampler_seed": 2201,
+    "validation_interval": 50
+  },
+  "retrieval": {
+    "width_candidates": [
+      36,
+      72,
+      144
+    ],
+    "overlap_candidates": [
+      0,
+      12
+    ],
+    "k": 3,
+    "context_slots": 2,
+    "selection": "max validation EM, then minimum indexed characters, width, overlap"
+  },
+  "evaluation": {
+    "language_max_new_bytes": 8,
+    "rag_max_new_bytes": 16,
+    "stop_byte": 10,
+    "template": "instruction-response-utf8-v1"
+  },
+  "review_thresholds": {
+    "sft_existing_em_min": 0.75,
+    "sft_new_alphabet_em_min": 0.5,
+    "neural_rag_em_min": 0.75,
+    "rule_rag_em_min": 1.0,
+    "rule_rag_abstention_min": 1.0,
+    "scope": "illustrative retrospective project thresholds; previous outcomes were already known, not a new blind preregistration"
+  },
+  "outputs": "build/experiments/30-capstone",
+  "vision": "not required by this text/evidence project; independently completed in chapters28/29"
+}

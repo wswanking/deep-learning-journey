@@ -2,7 +2,7 @@
 
 > 从图像的邻近关系出发，把“同一个小模式出现在不同位置”写成可训练的运算。本章采用CPU float64，配套数据完全自制，无须下载图像数据集。更新日期：2026-11-15。
 
-[阅读入口](../../README.md) · [章节计划](../chapter-plan.md) · [公共符号](../appendices/notation.md) · [完整实验](../../examples/11-convolutional-networks/README.md)
+[阅读入口](../../README.md) · [章节计划](../chapter-plan.md) · [验收记录](../appendices/chapter-validation.md) · [结构图源](../../scripts/generate-chapter11-figures.mjs) · [公共符号](../appendices/notation.md) · [完整实验](../../examples/11-convolutional-networks/README.md)
 
 ## 1. 本章解决什么问题
 
@@ -502,9 +502,3 @@ node scripts/generate-chapter11-figures.mjs
 8. PyTorch2.15， **MaxPool2d** ，默认步幅、负无穷填充与输出形状。[官方接口](https://docs.pytorch.org/docs/2.15/generated/torch.nn.MaxPool2d.html)。
 9. PyTorch2.15， **AdaptiveAvgPool2d** ，按目标空间尺寸平均池化。[官方接口](https://docs.pytorch.org/docs/2.15/generated/torch.nn.AdaptiveAvgPool2d.html)。
 10. PyTorch2.15， **functional.cross_entropy** ，输入logit、整数标签及默认mean归约。[官方接口](https://docs.pytorch.org/docs/2.15/generated/torch.nn.functional.cross_entropy.html)。
-
-以上来源于2026-11-15核验。图11-1～3为原创解析示意，见[生成器](../../scripts/generate-chapter11-figures.mjs)；图11-4～5由真实实验数据和记录生成，逻辑在run.py内。图未复制课程截图；定义依据与实验来源已在图旁说明。
-
-## 15. 实现与验证记录
-
-2026-11-15：16项CPU检查两次通过，模型选择、曲线、指标和权重一致。HTML/PDF已实际生成，5幅SVG、零位图；1440/390宽、PDF字体/书签/链接/边界审计及全部页面与五图目视通过，见build/qa/chapter-11。正式任务状态由总计划维护。

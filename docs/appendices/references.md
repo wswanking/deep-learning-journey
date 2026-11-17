@@ -1,6 +1,6 @@
 # 参考来源目录与引用约定
 
-> 官方页面核验日期：2026-11-15。条目是已核验的阅读来源，不代表相应教程章节已完成。
+> 整理日期：2026-11-17。来源核验日期按各章记录，主要为2026-11-15，29～30章为2026-11-17。这里提供查阅索引，具体定义与实验范围见章末。
 > [阅读入口](../../README.md) · [公共符号](notation.md) · [术语表](glossary.md) · [写作规范](../authoring-guide.md)
 
 ## 1. 如何使用与引用
@@ -57,7 +57,7 @@
 
 ## 5. 新增来源与现代主题
 
-第06章起按章节任务增补具体教材部分；Transformer、LLM、多模态采用对应大学课程、原始论文及官方实现。尚未逐章核验的论文不在本目录冒充已采用来源。新增来源时记录实际采用的版本、具体定义或图的位置、官方链接和核验日期，并解释它补充了花书未覆盖的哪部分内容。
+第06章起的教材部分、大学课程、原始论文及官方实现已按章节核验，下列索引补齐后续主线。新增来源仍需记录版本、具体定位、链接和核验日期，并解释它补充了花书未覆盖的内容。
 
 本目录仅维护共享来源身份和用途。原理是否解释充分、公式是否正确、实验是否可复现，仍须在对应章节独立验收。
 
@@ -72,3 +72,104 @@
 | scikit-learn 官方实践 | [Common pitfalls and recommended practices](https://scikit-learn.org/stable/common_pitfalls.html) §12.1～12.2；第05章预处理隔离与数据泄漏原则，实验无需安装该包 |
 
 以上入口在相应章节实现时核验；定义与数值例子仍以各章的具体引用、推导和实验为准。
+
+
+## 7. 花书主线的后续章节
+
+以下条目的作者仍为Goodfellow、Bengio、Courville，作品为2016年《Deep Learning》。这些部分已在对应教程章实际采用，不能继续只列数学与第5章基础。
+
+| 代号 | 精确定位与官方链接 | 教程位置与用途 |
+| --- | --- | --- |
+| DL-MLP | 第6章，§6.3隐藏单元、§6.5.1～6.5.4与§6.5.6～6.5.7计算图、链式法则和反向传播：[官方正文](https://www.deeplearningbook.org/contents/mlp.html) | 第07～08章；第08章来源1给出逐小节定位 |
+| DL-REG | 第7章，§7.1参数范数惩罚、§7.8早停、§7.12 Dropout：[官方正文](https://www.deeplearningbook.org/contents/regularization.html) | 第10章来源1；正则化定义与适用条件 |
+| DL-OPT | 第8章，§8.1、§8.1.3、§8.3.1～8.3.2、§8.5.3～8.5.4：[官方正文](https://www.deeplearningbook.org/contents/optimization.html) | 第09章来源1；优化与学习的区别、基本更新和自适应优化 |
+| DL-CONV | 第9章，§9.1卷积与互相关、§9.2局部连接/参数共享/等变/感受野、§9.3池化：[官方正文](https://www.deeplearningbook.org/contents/convnets.html) | 第11章来源1 |
+| DL-SEQ | 第10章，§10.1时间展开、§10.2 RNN、§10.7长期依赖、§10.10门控、§10.11优化；§10.2.1教师强制、§10.2.3有向序列建模：[官方正文](https://www.deeplearningbook.org/contents/rnn.html) | 第13章来源1、第21章来源1 |
+| DL-PRACTICE | 第11章，§11.1性能度量、§11.5调试：[官方正文](https://www.deeplearningbook.org/contents/guidelines.html) | 第10章来源2、第27章来源1；基线、诊断与评价范围 |
+| DL-LANGUAGE | 第12章，§12.4.1语言模型与n-gram、§12.4.2神经语言模型、§12.4.3高维输出：[官方正文](https://www.deeplearningbook.org/contents/applications.html) | 第14章来源1、第20章来源1 |
+| DL-AE | 第14章，§14.1欠完备自编码器与PCA关系、§14.2.2及§14.5去噪目标：[官方正文](https://www.deeplearningbook.org/contents/autoencoders.html) | 第17章来源1 |
+| DL-REP | 第15章，§15.4分布式表示：[官方正文](https://www.deeplearningbook.org/contents/representation.html) | 第14章来源2 |
+| DL-VARIATIONAL | 第19章，§19.1与§19.4近似推断和变分族：[官方正文](https://www.deeplearningbook.org/contents/inference.html) | 第18章来源1；ELBO与近似后验 |
+| DL-GENERATIVE | 第20章，§20.10.2～20.10.4生成器、VAE和GAN：[官方正文](https://www.deeplearningbook.org/contents/generative_models.html) | 第18章来源2 |
+
+## 8. 网络训练、视觉与时间状态
+
+| 代号 | 已采用来源与定位 | 教程位置 |
+| --- | --- | --- |
+| D2L-BACKPROP | D2L在线1.0.3，§5.3.1～5.3.4前向、计算图、反向及依赖：[具体章节](https://d2l.ai/chapter_multilayer-perceptrons/backprop.html) | 第08章来源2 |
+| D2L-OPTIMIZERS | D2L在线1.0.3，§12.5[小批次SGD](https://d2l.ai/chapter_optimization/minibatch-sgd.html)、§12.10[Adam](https://d2l.ai/chapter_optimization/adam.html)、§12.11[学习率调度](https://d2l.ai/chapter_optimization/lr-scheduler.html) | 第09章来源2、4、8；调度端点仍以本实验定义为准 |
+| ADAMW | Loshchilov、Hutter，*Decoupled Weight Decay Regularization*，2017初稿、ICLR2019修订，arXiv v3：[原始论文](https://arxiv.org/abs/1711.05101) | 第09章来源6、第10章来源5；衰减与损失L2惩罚须区别 |
+| CS231N-TRAIN | Stanford CS231n，*Neural Networks, Part 3*，Loss/accuracy curves、Hyperparameter optimization、Evaluation；网页无固定授课年份，按原章访问版本：[大学笔记](https://cs231n.github.io/neural-networks-3/) | 第10章来源4 |
+| CS231N-CONV | Stanford CS231n，*Convolutional Neural Networks*，Convolutional Layer下Local Connectivity、Spatial arrangement、Parameter Sharing：[大学笔记](https://cs231n.github.io/convolutional-networks/) | 第11章来源6；D2L补充见§7.2互相关、§7.3填充步幅、§7.4多通道、§7.5池化，精确链接留在章末 |
+| RESNET-BN-LN | He等，*Deep Residual Learning for Image Recognition*，2015预印本：[ResNet论文](https://arxiv.org/abs/1512.03385)；Ioffe、Szegedy，*Batch Normalization: Accelerating Deep Network Training by Reducing Internal Covariate Shift*，2015：[BN论文](https://arxiv.org/abs/1502.03167)；Ba、Kiros、Hinton，*Layer Normalization*，2016：[LN论文](https://arxiv.org/abs/1607.06450) | 第12章来源1、5、6；课程桥梁为D2L1.0.3 §8.6.1～8.6.2[残差块](https://d2l.ai/chapter_convolutional-modern/resnet.html)、§8.5.1～8.5.2[批量归一化](https://d2l.ai/chapter_convolutional-modern/batch-norm.html) |
+| D2L-RNN-GATES | D2L在线1.0.3，§9.4[RNN](https://d2l.ai/chapter_recurrent-neural-networks/rnn.html)、§9.7尤其§9.7.1.2[BPTT与截断](https://d2l.ai/chapter_recurrent-neural-networks/bptt.html)、§10.1[LSTM](https://d2l.ai/chapter_recurrent-modern/lstm.html)、§10.2[GRU](https://d2l.ai/chapter_recurrent-modern/gru.html) | 第13章来源2～5；GRU候选重置位置与PyTorch实现的差别在章内说明 |
+
+## 9. 文本表示、注意力与Transformer
+
+| 代号 | 已采用来源与定位 | 教程位置 |
+| --- | --- | --- |
+| BPE | Sennrich、Haddow、Birch，*Neural Machine Translation of Rare Words with Subword Units*，ACL2016，§3.2、算法1，论文印刷页1717～1718：[官方论文PDF](https://aclanthology.org/P16-1162.pdf) | 第14章来源4；初始字符、词尾、频次合并与冻结应用 |
+| CS224N-WORD2VEC | Stanford CS224N，Winter2023，*Note 1: Introduction and Word2Vec*，公开draft：[具体笔记PDF](https://web.stanford.edu/class/cs224n/readings/cs224n_winter2023_lecture1_notes_draft.pdf)；D2L1.0.3 §15.1.1～15.1.4：[one-hot、词向量、skip-gram与CBOW](https://d2l.ai/chapter_natural-language-processing-pretraining/word2vec.html) | 第14章来源3、5；本实验采用完整softmax简化目标 |
+| CS224N-ATTENTION | Stanford CS224N，Winter2019，课程笔记Part VI §2 *Attention Mechanism*：[具体笔记PDF](https://web.stanford.edu/class/cs224n/readings/cs224n-2019-notes06-NMT_seq2seq_attention.pdf) | 第15章来源1；固定上下文到动态读取的动机 |
+| TRANSFORMER | Vaswani等，*Attention Is All You Need*，2017，arXiv v7；§3.1～3.5、图1/2，特别§3.2.1缩放点积与§3.2.3应用类型：[原论文v7](https://arxiv.org/html/1706.03762v7) | 第15章来源3、第16章来源1 |
+| D2L-TRANSFORMER | D2L在线1.0.3，§11.1[Q/K/V](https://d2l.ai/chapter_attention-mechanisms-and-transformers/queries-keys-values.html)、§11.3[分数函数](https://d2l.ai/chapter_attention-mechanisms-and-transformers/attention-scoring-functions.html)、§11.6尤其§11.6.3[位置编码](https://d2l.ai/chapter_attention-mechanisms-and-transformers/self-attention-and-positional-encoding.html)、§11.7.1～11.7.5[Transformer](https://d2l.ai/chapter_attention-mechanisms-and-transformers/transformer.html) | 第15～16章及第21章 |
+| GPT2-BERT | Radford等，*Language Models are Unsupervised Multitask Learners*，2019，§2.1目标、§2.3归一化位置：[原始报告](https://cdn.openai.com/better-language-models/language_models_are_unsupervised_multitask_learners.pdf)；Devlin等，*BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding*，2018预印本/NAACL2019，§3与§3.1：[原论文](https://arxiv.org/abs/1810.04805) | 第16章来源4、5；区分模型家族与本章教学块 |
+| CS224N-A4 | Stanford CS224N，Spring2024 Assignment4，*Self-Attention, Transformers, and Pretraining*，§1～2数学练习与预训练组织：[大学作业PDF](https://web.stanford.edu/class/cs224n/assignments/a4_spr24_student_handout.pdf) | 第15章来源4、第21章来源4；不沿用其GPU预算 |
+
+## 10. 表示学习与生成模型
+
+| 代号 | 已采用来源与定位 | 教程位置 |
+| --- | --- | --- |
+| CS229-PCA | Andrew Ng，*Part XI: Principal Components Analysis*，6页讲义，未标固定授课年份，pp.2～6：[官方讲义](https://see.stanford.edu/materials/aimlcs229/cs229-notes10.pdf)；Carlos Guestrin，CS229 Fall2021，*Lecture14: Dimensionality Reduction / PCA*，slides12～17：[官方课件](https://cs229.stanford.edu/notes2021fall/lecture14-pca.pdf) | 第17章来源2、3；预处理、投影、重建和特征值关系 |
+| VAE | Kingma、Welling，*Auto-Encoding Variational Bayes*，2013初稿/2014会议版本，arXiv v11，§2.2～2.4、§3、附录B：[原论文v11](https://arxiv.org/html/1312.6114v11) | 第18章来源3；ELBO、重参数化与对角高斯KL |
+| GAN | Goodfellow等，*Generative Adversarial Nets*，2014，§3～4：[原论文v1](https://arxiv.org/html/1406.2661v1) | 第18章来源4；minimax、非饱和目标与理想理论边界 |
+| DDPM | Ho、Jain、Abbeel，*Denoising Diffusion Probabilistic Models*，NeurIPS2020，arXiv v2，§2、§3.2/3.4，式(2)/(4)/(6)/(7)/(11)/(14)、算法1/2：[原论文](https://arxiv.org/abs/2006.11239) | 第19章来源1；前向边缘、后验与噪声参数化 |
+| CS236-DIFFUSION | Stefano Ermon，Stanford CS236 Fall2023，第16讲 *Score Based Diffusion Models*：[该讲官方PPTX](https://deepgenerativemodels.github.io/assets/slides/lecture16-2023-comp.pptx) | 第19章来源2；不以课程主页替代实际讲义 |
+
+## 11. 语言数据、监督微调与偏好优化
+
+| 代号 | 已采用来源与定位 | 教程位置 |
+| --- | --- | --- |
+| D2L-LM | D2L在线1.0.3，§9.3.1语言模型、§9.3.2困惑度、§9.3.3序列划分：[具体章节](https://d2l.ai/chapter_recurrent-neural-networks/language-model.html) | 第20章来源2、第21章来源2 |
+| NEURAL-LM | Bengio、Ducharme、Vincent、Jauvin，*A Neural Probabilistic Language Model*，JMLR3，2003，pp.1137～1155：[期刊原文](https://jmlr.org/papers/v3/bengio03a.html) | 第20章来源5；联合学习词表示与条件序列概率的经典背景 |
+| LM-DEDUP | Lee等，*Deduplicating Training Data Makes Language Models Better*，ACL2022，§4.1精确重复子串、§4.2近似整篇匹配及评估重叠：[官方论文PDF](https://aclanthology.org/2022.acl-long.577.pdf) | 第20章来源3；本机只做整篇哈希与已知组，不冒称实现大规模去重 |
+| INSTRUCTGPT | Ouyang等，*Training language models to follow instructions with human feedback*，2022，§3.1三阶段路线、§3.2数据、§3.5训练：[原始论文](https://arxiv.org/abs/2203.02155) | 第22章来源1、第24章来源2；本章SFT/DPO小实验不等于复现完整InstructGPT |
+| CS224N-SFT-PREF | Archit Sharma，Stanford CS224N Spring2024，第10讲 *Prompting, Instruction Finetuning, and DPO/RLHF*，基于Jesse Mu讲义：[官方PDF](https://web.stanford.edu/class/cs224n/slides/cs224n-spr2024-lecture10-prompting-rlhf.pdf) | 第22章使用PDF40页SFT、53页限制；第24章使用PDF60页比较建模、62页KL、70页总结。均为从1起算的PDF页，与课件内标签63/66/74区分 |
+| CHAT-TEMPLATE | Hugging Face Transformers，*Chat templates*，角色消息序列化与生成提示；在线版本按原章核验记录：[官方说明](https://huggingface.co/docs/transformers/chat_templating) | 第22章来源3；教学模型使用原创显式文本模板，不依赖该库 |
+| LORA | Hu等，*LoRA: Low-Rank Adaptation of Large Language Models*，2021，arXiv v2，§4.1低秩增量/初始化/合并、§4.2目标层/成本、§7.1目标矩阵实验：[原论文v2](https://arxiv.org/html/2106.09685v2)；Microsoft官方Linear行为：[loralib源码](https://github.com/microsoft/LoRA/blob/main/loralib/layers.py) | 第23章来源1、3 |
+| QLORA | Dettmers等，*QLoRA: Efficient Finetuning of Quantized LLMs*，2023，§2量化/LoRA/内存、§3 NF4/双重量化/分页优化器、§4层覆盖：[原论文v1](https://arxiv.org/html/2305.14314v1) | 第23章来源2；NF4、双重量化和分页优化器是论文组成，本机均匀四位CPU替代不等于完整QLoRA |
+| DPO | Rafailov等，*Direct Preference Optimization: Your Language Model is Secretly a Reward Model*，arXiv v3，§3、§4式(4)～(7)、附录A.1/A.2/A.4：[原论文v3](https://arxiv.org/html/2305.18290v3) | 第24章来源1；比较假设、KL理想策略、配分函数消去与梯度 |
+
+## 12. 推理、检索、评价与多模态
+
+| 代号 | 已采用来源与定位 | 教程位置 |
+| --- | --- | --- |
+| CS336-INFERENCE | Stanford CS336 Spring2025，第10讲 *Inference*，`arithmetic_intensity_of_inference`、`compute_transformer_stats`、`throughput_and_latency`、`quantization`：[官方讲义源码](https://github.com/stanford-cs336/spring2025-lectures/blob/main/lecture_10.py) | 第25章来源1；预填充、解码、缓存与资源口径 |
+| KV-CACHE | Hugging Face Transformers4.50.0，*Caching*，KV追加、mask形状与位置：[固定版本说明](https://huggingface.co/docs/transformers/v4.50.0/en/cache_explanation)；GenerationConfig温度与top-k/top-p：[固定版本接口](https://huggingface.co/docs/transformers/v4.50.0/en/main_classes/text_generation) | 第25章来源2、4；原生PyTorch适配器不依赖Transformers |
+| NUCLEUS | Holtzman等，*The Curious Case of Neural Text Degeneration*，ICLR2020，arXiv v2，§3.1～3.3：[原论文v2](https://arxiv.org/abs/1904.09751v2) | 第25章来源3；top-p、top-k与温度 |
+| LLM-INT8 | Dettmers等，*LLM.int8(): 8-bit Matrix Multiplication for Transformers at Scale*，NeurIPS2022，arXiv v2，§3：[原论文v2](https://arxiv.org/abs/2208.07339v2) | 第25章来源5；教学逐行量化未实现论文的异常值混合精度与整数内核 |
+| CS224V-RAG | Monica Lam，Stanford CS224V 2024，Lecture1，PDF第23页（零基22）Reading/RAG和grounding：[大学具体讲义](https://web.stanford.edu/class/cs224v/lectures_2024/l-introduction.pdf) | 第26章来源1 |
+| RAG-DPR | Lewis等，*Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks*，NeurIPS2020，arXiv v4，§2.1～2.4：[RAG原论文](https://arxiv.org/html/2005.11401v4)；Karpukhin等，*Dense Passage Retrieval for Open-Domain Question Answering*，EMNLP2020，arXiv v3，§2～3：[DPR原论文](https://arxiv.org/html/2004.04906v3) | 第26章来源2、3；区分隐文档边缘化、神经双塔与本机字符TF-IDF/简化拼接 |
+| TFIDF | scikit-learn1.9.1核验版本，用户指南§8.2.3.4，平滑IDF、sublinear TF与归一化：[具体官方说明](https://scikit-learn.org/stable/modules/feature_extraction.html#tfidf-term-weighting) | 第26章来源4；本机用NumPy实现，未把该包作为训练依赖 |
+| SQUAD-METRICS | Rajpurkar等，*SQuAD: 100,000+ Questions for Machine Comprehension of Text*，EMNLP2016，§6.1、PDF第7页：[官方论文PDF](https://aclanthology.org/D16-1264.pdf) | 第27章来源2；EM、词袋F1与归一化的具体任务定义 |
+| HELM | Liang等，*Holistic Evaluation of Language Models*，arXiv v2，§4.3准确性、§4.4校准/不确定性、§4.9效率：[原文v2](https://arxiv.org/html/2211.09110v2) | 第27章来源3；不是本项目全面复现HELM的声明 |
+| CS109-BOOTSTRAP | Jerry Cain等，Stanford CS109 Winter2024，Lecture19 *Sampling and the Bootstrap*，2024-02-23：[大学具体讲义](https://web.stanford.edu/class/archive/cs/cs109/cs109.1244/lectures/19_sampling_bootstrap.pdf) | 第27章来源4；有放回重抽基础，本实验另外声明按组配对与小样本限制 |
+| CLIP | Radford等，*Learning Transferable Visual Models From Natural Language Supervision*，ICML2021，§2.3与图3、§2.4、§3.1、§6：[原论文](https://arxiv.org/abs/2103.00020) | 第28章来源1；图文目标、编码器、零样本迁移及限制 |
+| VIT | Dosovitskiy等，*An Image is Worth 16x16 Words: Transformers for Image Recognition at Scale*，ICLR2021，arXiv v2，§3.1、式(1)：[原论文v2](https://arxiv.org/abs/2010.11929v2) | 第28章来源3；patch投影、位置与视觉序列 |
+| CS231N-MULTIMODAL | Ranjay Krishna，Stanford CS231n Spring2025，第16讲 *Multi-Modal Foundation Models*，2025-05-27，PDF16～20、24页：[大学具体讲义](https://cs231n.stanford.edu/slides/2025/lecture_16.pdf)；CLIP的VisionTransformer和forward：[官方源码](https://github.com/openai/CLIP/blob/main/clip/model.py) | 第28章来源2、4；本机训练原创11840参数模型，没有导入CLIP权重或运行自然语言文字塔 |
+
+框架函数与实现差异继续由各章引用版本化官方接口，不将教材版本、库版本和检查点协议混为一个版本号。上述索引为查找主来源提供入口，各章的图文、推导、实际配置与真实失败结果仍是理解本项目实现范围的依据。
+
+
+## 13. 视觉语言生成与综合项目
+
+以下条目于2026-11-17在对应章节核验；以各章的原理、接口、实际训练与失败证据为具体范围。
+
+| 代号 | 具体来源与用途 | 教程位置 |
+| --- | --- | --- |
+| LLAVA | Liu、Li、Wu、Lee，2023，Visual Instruction Tuning，arXiv v2，§4.1视觉映射、§4.2回答目标与两阶段：[原论文](https://arxiv.org/html/2304.08485v2)；[接入源码](https://github.com/haotian-liu/LLaVA/blob/main/llava/model/llava_arch.py)、[连接器](https://github.com/haotian-liu/LLaVA/blob/main/llava/model/multimodal_projector/builder.py) | [第29章](../chapters/29-vision-language-models.md)；原创小模型借鉴接口职责，未复现LLaVA权重或性能 |
+| BLIP2 | Li、Li、Savarese、Hoi，2023，BLIP-2: Bootstrapping Language-Image Pre-training with Frozen Image Encoders and Large Language Models，§2.2、§3.1与§3.3：[原论文v3](https://arxiv.org/html/2301.12597v3) | 第29章；Q-Former、查询压缩与连续前缀的拓展，未实际训练完整Q-Former |
+| POPE | Li等，2023，Evaluating Object Hallucination in Large Vision-Language Models，§2.2、§4、§5：[原论文v3](https://arxiv.org/html/2305.10355v3) | 第29章；对象幻觉、正负例及指标，本项目未执行自然图像标准基准 |
+| CS224N-REPORT | Stanford CS224N，Project Report Instructions，2025-02-27，§1第2～4页方法、实验与误差分析：[课程PDF](https://web.stanford.edu/class/archive/cs/cs224n/cs224n.1254/project/CS224N_Final_Project_Report_Instructions_2025.pdf) | [第30章](../chapters/30-capstone.md)；综合项目的报告组织 |
+| TORCH-CHECKPOINT | PyTorch 2.15，Saving and Loading Models中General Checkpoint：[官方教程](https://docs.pytorch.org/tutorials/beginner/saving_loading_models.html)；[Reproducibility](https://docs.pytorch.org/docs/2.15/notes/randomness.html) | 第30章；参数、优化器与随机状态恢复及跨平台边界 |
+| MODEL-CARDS | Mitchell等，Model Cards for Model Reporting，FAT*2019：[原论文v2](https://arxiv.org/abs/1810.03993v2) | 第30章；预期用途、评价条件和局限；未声称执行真实人群分组评价 |

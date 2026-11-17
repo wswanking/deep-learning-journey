@@ -1,9 +1,9 @@
 # 第01章：线性代数与张量
 
 > 本章从“一个样本如何变成一批输出”出发，把形状、运算和几何意义接起来。配图均为原创 SVG，公式为可复制的 LaTeX。
-> 最后更新：2026-11-15；状态：已验收。实验与构建记录见章末。
+> 最后更新：2026-11-15；状态：已验收。实践与验收详见首导航。
 
-[阅读入口](../../README.md) · [上一章：学习路线与本机实验环境](00-learning-and-environment.md) · [章节计划](../chapter-plan.md)
+[阅读入口](../../README.md) · [上一章：学习路线与本机实验环境](00-learning-and-environment.md) · [章节计划](../chapter-plan.md) · [验收记录](../appendices/chapter-validation.md)
 
 ## 1. 学习目标、前置知识与问题
 
@@ -668,7 +668,3 @@ NumPy 的 `np.linalg.norm(D,ord="fro")`、`ord=2` 和指定 `axis=1` 也区分�
 14. NumPy， **numpy.reshape** ，元素遍历与重新分组，不等于转置。[2.1官方文档](https://numpy.org/doc/2.1/reference/generated/numpy.reshape.html)。
 
 来源于2026-11-15核验；NumPy稳定版网站可能更新，实际实验版本单独记录。配图为本项目原创矢量示意，未使用教材截图；[生成源文件](../../scripts/generate-chapter01-figures.mjs)可重建全部四图。重排与转置的区别依据文献[14]。
-
-## 15. 实现与验证记录
-
-2026-11-15，18项双框架 CPU float64 检查全部通过，环境及耗时见第9.3节。HTML/PDF 已实际构建：4幅 SVG、189处公式、零位图，中文字体嵌入、书签与页码检查通过。1440/390宽度无溢出、断锚、公式错误或外部请求；全部页面和四图已目视检查。图形源与实验可复跑，验收记录在 `build/qa/chapter-01`。章节勾选及全书收录由总计划维护。
