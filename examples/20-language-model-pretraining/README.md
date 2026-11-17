@@ -10,6 +10,12 @@
 & ./.venv/Scripts/python.exe -B examples/20-language-model-pretraining/run.py
 ~~~
 
+Linux / WSL：
+
+~~~bash
+.venv-linux/bin/python -B examples/20-language-model-pretraining/run.py
+~~~
+
 依赖项目锁定环境：Python3.11.5、NumPy2.4.6、PyTorch2.15.0+cpu；无需下载数据或GPU。入口使用CPU、float64、单线程和seed20。结构探针只读导入第21章model.py，因此需要一并保留该文件；不加载或修改21基座检查点。
 
 结果写入build/experiments/20-language-model-pretraining，包括results.json、corpus-manifest.json、清理划分后的JSONL、两个NPZ计数模型和SVG。输出均可重建，不提交模型缓存。只想核对清理/分窗可阅读corpus.py。
@@ -44,6 +50,12 @@
 & ./.venv/Scripts/python.exe -B examples/20-language-model-pretraining/run.py --output-dir build/experiments/20-language-model-pretraining/repeated
 ~~~
 
+Linux / WSL：
+
+~~~bash
+.venv-linux/bin/python -B examples/20-language-model-pretraining/run.py --output-dir build/experiments/20-language-model-pretraining/repeated
+~~~
+
 固定环境应得到相同语料清单、候选验证结果、所有计数及概率和正式指标；时间/内存字段不要求相等。不同平台浮点库可能有极小差异。NPZ保存计数、概率和α，入口重新加载并逐元素验证。
 
 ## SVG与导出
@@ -51,6 +63,14 @@
 ~~~powershell
 node scripts/generate-chapter20-figures.mjs
 & ./.venv/Scripts/python.exe -B examples/20-language-model-pretraining/run.py --figure-dir docs/assets/20-language-model-pretraining
+& ./scripts/build.ps1 -Format all -Chapter 20
+~~~
+
+Linux / WSL：
+
+~~~bash
+node scripts/generate-chapter20-figures.mjs
+.venv-linux/bin/python -B examples/20-language-model-pretraining/run.py --figure-dir docs/assets/20-language-model-pretraining
 & ./scripts/build.ps1 -Format all -Chapter 20
 ~~~
 

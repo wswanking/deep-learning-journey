@@ -61,14 +61,14 @@ def hand_checks(require):
     return {'beta':beta,'margin':float(margin.detach()),'loss':float(loss.detach()),'preference_probability':1/(1+math.exp(-expected)),'chosen_logprob_derivative':float(chosen.grad),'rejected_logprob_derivative':float(rejected.grad),'two_response_optimum':optimal.tolist(),'two_response_kl':float(kl),'two_response_objective':float(objective)}
 
 def train(base,reference,splits,reference_logs,beta,flip,folder,name,protocol):
-    model=copy.deepcopy(base);optimizer=torch.optim.AdamW(model.parameters(),lr=.0005,weight_decay=0.,foreach=False);rng=torch.Generator().manual_seed(2401);history=[]
+    model=copy.deepcopy(base);optimizer=torch.optim.AdamW(model.parameters(),lr=.0001,weight_decay=0.,foreach=False);history=[]
     def record(step):
         row={'step':step}
         for split in ['train','validation']:row[split]=evaluate(model,splits[split],reference_logs[split],beta,flip)
         history.append(row)
     record(0)
     for step in range(1,301):
-        indexes=torch.randint(len(splits['train']),(12,),generator=rng);records=[splits['train'][i] for i in indexes.tolist()];batch=collate(records,model.config.context_length);model.train();optimizer.zero_grad(set_to_none=True);logs=response_logprobs(model,batch);base_logs=reference_logs['train'][indexes];margin=beta*((logs[:,0]-logs[:,1])-(base_logs[:,0]-base_logs[:,1]));loss=F.softplus(margin if flip else -margin).mean();loss.backward();torch.nn.utils.clip_grad_norm_(model.parameters(),1,error_if_nonfinite=True);optimizer.step()
+        indexes=torch.arange(len(splits['train']));records=[splits['train'][i] for i in indexes.tolist()];batch=collate(records,model.config.context_length);model.train();optimizer.zero_grad(set_to_none=True);logs=response_logprobs(model,batch);base_logs=reference_logs['train'][indexes];margin=beta*((logs[:,0]-logs[:,1])-(base_logs[:,0]-base_logs[:,1]));loss=F.softplus(margin if flip else -margin).mean();loss.backward();torch.nn.utils.clip_grad_norm_(model.parameters(),1,error_if_nonfinite=True);optimizer.step()
         if step%25==0:record(step)
     target=folder/f'{name}.pt';torch.save(inference_checkpoint(model,{**protocol,'method':name,'beta':beta,'flipped_training_labels':flip}),target)
     return model,{'name':name,'beta':beta,'flipped_training_labels':flip,'history':history,'checkpoint':str(target.relative_to(ROOT))}
@@ -81,7 +81,7 @@ def main():
     frozen=folder/'sft-used.pt';shutil.copyfile(args.sft_checkpoint,frozen);base,metadata=load_checkpoint(frozen);reference=copy.deepcopy(base).eval();reference.requires_grad_(False);initial_hash=state_hash(reference);splits,data=load_splits();reference_logs={}
     with torch.no_grad():
         for split,records in splits.items():reference_logs[split]=response_logprobs(reference,collate(records,reference.config.context_length))
-    source_sha=hashlib.sha256(frozen.read_bytes()).hexdigest();protocol={'chapter':24,'sft_file_sha256':source_sha,'sft_state_sha256':initial_hash,'sft_protocol':metadata['protocol'],'data':data,'learning_rate':.0005,'optimizer':'AdamW weight_decay0 foreachFalse','steps':300,'batch_pairs':12,'pairs_processed_per_configuration':3600,'response_logprob':'sum over one answer byte and LF; prompt/padding excluded','reference':'frozen SFT clone, cached logprobs','checkpoint_selection':'fixed step300; validation diagnostic only','test_protocol':'all configurations declared before training; evaluate frozen final models once, no subsequent tuning'}
+    source_sha=hashlib.sha256(frozen.read_bytes()).hexdigest();protocol={'chapter':24,'sft_file_sha256':source_sha,'sft_state_sha256':initial_hash,'sft_protocol':metadata['protocol'],'data':data,'learning_rate':.0001,'optimizer':'AdamW weight_decay0 foreachFalse','steps':300,'batch_pairs':len(splits['train']),'sampling':'full training batch, no resampling','pairs_processed_per_configuration':300*len(splits['train']),'response_logprob':'sum over one answer byte and LF; prompt/padding excluded','reference':'frozen SFT clone, cached logprobs','checkpoint_selection':'fixed step300; validation diagnostic only','test_protocol':'all configurations declared before training; evaluate frozen final models once, no subsequent tuning'}
     checks=[]
     def require(condition,name):
         if not bool(condition):raise RuntimeError(name)
@@ -102,6 +102,8 @@ def main():
     models=[base];experiments=[{'name':'sft_reference','beta':1.,'flipped_training_labels':False,'history':[{'step':0,'train':evaluate(base,splits['train'],reference_logs['train'],1.),'validation':evaluate(base,splits['validation'],reference_logs['validation'],1.)}]}]
     for name,beta,flip in [('dpo_beta1',1.,False),('dpo_beta0_1',.1,False),('flipped_labels',1.,True)]:
         model,result=train(base,reference,splits,reference_logs,beta,flip,folder,name,protocol);models.append(model);experiments.append(result)
+        # Preserve training-only diagnostics even if a declared acceptance check fails.
+        (folder/f'{name}-training.json').write_text(json.dumps({'protocol':protocol,'result':result},ensure_ascii=False,indent=2,allow_nan=False)+'\n',encoding='utf-8')
         require(result['history'][-1]['train']['optimization_loss']<result['history'][0]['train']['optimization_loss'],f'own_training_objective_decreases_{name}')
         require(all(math.isfinite(r['train']['optimization_loss']) and math.isfinite(r['validation']['optimization_loss']) for r in result['history']),f'finite_losses_{name}')
     # All final policies and fixed budgets are locked before these held-out evaluations.

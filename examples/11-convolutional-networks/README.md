@@ -6,6 +6,12 @@
 & ./.venv/Scripts/python.exe -B examples/11-convolutional-networks/run.py
 ~~~
 
+Linux / WSL：
+
+~~~bash
+.venv-linux/bin/python -B examples/11-convolutional-networks/run.py
+~~~
+
 默认输出在build/experiments/11-convolutional-networks，不污染正式源码：
 
 - results.json：版本、16项检查、数据/标签SHA256、协议、模型选择与全部验证曲线、测试指标、耗时及受限的内存跟踪。
@@ -17,6 +23,13 @@
 ~~~powershell
 node scripts/generate-chapter11-figures.mjs
 & ./.venv/Scripts/python.exe -B examples/11-convolutional-networks/run.py --figure-dir docs/assets/11-convolutional-networks
+~~~
+
+Linux / WSL：
+
+~~~bash
+node scripts/generate-chapter11-figures.mjs
+.venv-linux/bin/python -B examples/11-convolutional-networks/run.py --figure-dir docs/assets/11-convolutional-networks
 ~~~
 
 ## 数据与协议

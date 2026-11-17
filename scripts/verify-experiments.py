@@ -55,6 +55,7 @@ def main():
         report['steps'].append(row)
         report_file.write_text(json.dumps(report, indent=2) + '\n', encoding='utf-8')
         if row['status'] != 'passed':
+            print(logfile.read_text(encoding='utf-8', errors='replace')[-6000:], flush=True)
             raise RuntimeError(label + ' failed; see ' + str(logfile))
 
     try:

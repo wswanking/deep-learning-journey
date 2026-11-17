@@ -10,6 +10,12 @@
 & ./.venv/Scripts/python.exe -B examples/23-parameter-efficient-tuning/run.py
 ~~~
 
+Linux / WSL：
+
+~~~bash
+.venv-linux/bin/python -B examples/23-parameter-efficient-tuning/run.py
+~~~
+
 Python3.11.5、NumPy2.4.6、PyTorch2.15.0+cpu；CPU float64单线程。无需新增依赖。只读导入21的model/tokenizer与22的sft_data，不覆盖它们。需保留22原始数据文件。
 
 默认build/experiments/23-parameter-efficient-tuning输出results.json、full-ft.pt、两种adapter.pt及一个故意不匹配基座的拒绝加载检查文件。模型/构建输出不作为源代码提交。
@@ -50,6 +56,14 @@ adapter文件存准确基座文件hash、目标层、rank/alpha、数据/词表/
 
 ~~~powershell
 & ./.venv/Scripts/python.exe -B examples/23-parameter-efficient-tuning/run.py --output-dir build/experiments/23-parameter-efficient-tuning/repeated --skip-figures
+& ./scripts/build.ps1 -Format all -Chapter 23
+node scripts/check-publication.mjs --name chapter-23 --capture
+~~~
+
+Linux / WSL：
+
+~~~bash
+.venv-linux/bin/python -B examples/23-parameter-efficient-tuning/run.py --output-dir build/experiments/23-parameter-efficient-tuning/repeated --skip-figures
 & ./scripts/build.ps1 -Format all -Chapter 23
 node scripts/check-publication.mjs --name chapter-23 --capture
 ~~~

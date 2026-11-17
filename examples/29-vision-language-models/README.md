@@ -10,6 +10,12 @@
 & ./.venv/Scripts/python.exe -B examples/29-vision-language-models/run.py
 ~~~
 
+Linux / WSL：
+
+~~~bash
+.venv-linux/bin/python -B examples/29-vision-language-models/run.py
+~~~
+
 只用项目Python3.11.5、NumPy2.4.6、PyTorch2.15.0+cpu；CPU float32单线程，无额外下载。只读加载21/28模型、28原创图像生成器，不改它们的代码/检查点。全局同名model.py/data.py通过独立模块名加载，避免导入冲突。
 
 默认输出build/experiments/29-vision-language-models/results.json、connector-only.pt、joint.pt、text-prior.pt及三个记录JSONL；图像由确定生成器复现，不保存外部图片或大数据缓存。
@@ -72,6 +78,14 @@ float32 padding有效logit差4.53e-6、容差1e-5；同权重float64交叉检查
 
 ~~~powershell
 & ./.venv/Scripts/python.exe -B examples/29-vision-language-models/run.py --output-dir build/experiments/29-vision-language-models/repeated --skip-figures
+& ./scripts/build.ps1 -Format all -Chapter 29
+node scripts/check-publication.mjs --name chapter-29 --capture
+~~~
+
+Linux / WSL：
+
+~~~bash
+.venv-linux/bin/python -B examples/29-vision-language-models/run.py --output-dir build/experiments/29-vision-language-models/repeated --skip-figures
 & ./scripts/build.ps1 -Format all -Chapter 29
 node scripts/check-publication.mjs --name chapter-29 --capture
 ~~~

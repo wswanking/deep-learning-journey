@@ -4,6 +4,12 @@
 & ./.venv/Scripts/python.exe -B examples/14-tokenization-and-embeddings/run.py
 ~~~
 
+Linux / WSL：
+
+~~~bash
+.venv-linux/bin/python -B examples/14-tokenization-and-embeddings/run.py
+~~~
+
 从仓库根目录执行，依赖项目现有NumPy和CPU PyTorch。默认输出build/experiments/14-tokenization-and-embeddings：
 
 - results.json：版本/Unicode数据库、17项检查、完整分词探针/合并计数、训练损失曲线、相似度及资源记录。
@@ -16,6 +22,13 @@
 ~~~powershell
 node scripts/generate-chapter14-figures.mjs
 & ./.venv/Scripts/python.exe -B examples/14-tokenization-and-embeddings/run.py --figure-dir docs/assets/14-tokenization-and-embeddings
+~~~
+
+Linux / WSL：
+
+~~~bash
+node scripts/generate-chapter14-figures.mjs
+.venv-linux/bin/python -B examples/14-tokenization-and-embeddings/run.py --figure-dir docs/assets/14-tokenization-and-embeddings
 ~~~
 
 ## 协议与边界
