@@ -1,7 +1,7 @@
 # 全部章节开发与草稿索引
 
 > 更新日期：2026-11-15。这里展示全部31章的开发入口；完成状态以章节计划为准。
-> 第00～28章已验收；其余章节并行完善或处于骨架阶段，草稿不进入默认全书。
+> 第00～29章已验收；其余章节并行完善或处于骨架阶段，草稿不进入默认全书。
 
 [正式阅读入口](../README.md) · [章节计划](chapter-plan.md) · [写作规范](authoring-guide.md) · [导航约定](navigation.md)
 
@@ -43,7 +43,7 @@
 - [26：检索增强生成](chapters/26-retrieval-augmented-generation.md)（已验收）
 - [27：模型评估与失败分析](chapters/27-model-evaluation.md)（已验收）
 - [28：多模态表示与 CLIP](chapters/28-multimodal-representations.md)（已验收）
-- [29：视觉语言模型与多模态指令](chapters/29-vision-language-models.md) — 草稿骨架
+- [29：视觉语言模型与多模态指令](chapters/29-vision-language-models.md)（已验收）
 - [30：综合实践与学习复盘](chapters/30-capstone.md) — 草稿骨架
 
 ## 如何逐步补全

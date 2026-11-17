@@ -442,3 +442,16 @@
 | 双向对比目标 | symmetric contrastive objective | 分别对图找文和文找图的候选分类交叉熵取平均 |
 | 假负例 | false negative | 被当作负候选的记录实际也与查询相关，需根据任务定义多正例关系 |
 | 查询命中率 | Hit@K | 前K项至少包含一个相关候选的查询比例，区别于找回全部相关项的比例 |
+
+
+### 第29章：图像条件生成与连续输入
+
+完整图文与实验见[第29章](../chapters/29-vision-language-models.md)。
+
+| 术语 | 英文 | 本教程含义 |
+| --- | --- | --- |
+| 连续视觉前缀 | continuous visual prefix | 视觉特征经映射后占据语言模型输入位置，无需对应文字词表ID |
+| 连接器 | connector / projector | 将视觉特征映射到语言输入宽度，并通过任务监督学习可用表示；形状一致不等于语义已对齐 |
+| 图像条件生成 | image-conditioned generation | 回答概率以实际图像、问题与已有回答历史为条件 |
+| 图像干预 | image intervention | 固定问题和模型替换图像，并分别按原答案和新图真值检查回答依赖 |
+| 视觉幻觉 | visual hallucination | 输出图像不支持的对象、属性或关系；本章简化属性错误及黑图诊断不冒称标准幻觉基准 |
