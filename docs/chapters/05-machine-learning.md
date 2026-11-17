@@ -267,7 +267,7 @@ p(y\mid\mathbf x)=p^y(1-p)^{1-y}.
 
 ### 6.3 梯度为什么变成“预测概率减标签”
 
-在 $`0<p<1`$ 内先对概率求导，再乘 sigmoid 的导数：
+在 $`0\lt p\lt 1`$ 内先对概率求导，再乘 sigmoid 的导数：
 
 ```math
 \frac{\partial\ell}{\partial p}

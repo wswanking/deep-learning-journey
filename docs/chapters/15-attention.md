@@ -137,9 +137,9 @@ A_{ij}=\frac{\exp(S_{ij})}{\sum_{r=1}^{n_k}\exp(S_{ir})},
 一个常用的初始化尺度分析假设：查询与键的各分量相互独立、均值 0、方差 1，且不同坐标的乘积不相关。则单个乘积均值为 0、方差为 1；点积是 $`d_k`$ 项之和，因此
 
 ```math
-\operatorname{Var}(\mathbf q^\top\mathbf k)=d_k,
+\mathop{\mathrm{Var}}\nolimits(\mathbf q^\top\mathbf k)=d_k,
 \qquad
-\operatorname{Var}\left(\frac{\mathbf q^\top\mathbf k}{\sqrt{d_k}}\right)=1.
+\mathop{\mathrm{Var}}\nolimits\left(\frac{\mathbf q^\top\mathbf k}{\sqrt{d_k}}\right)=1.
 ```
 
 未缩放时，较大维度更容易产生分数尺度较大的情况。softmax 若过度集中，很多坐标的局部导数会较小：
@@ -185,7 +185,7 @@ A_{ij}=\frac{\exp(S_{ij})}{\sum_{r=1}^{n_k}\exp(S_{ir})},
 ```math
 M_{ij}=\begin{cases}0,&j\in\mathcal J_i,\\-\infty,&j\notin\mathcal J_i,\end{cases}
 \qquad
-\mathbf A=\operatorname{softmax}_{\rm keys}(\mathbf S+\mathbf M).
+\mathbf A=\mathop{\mathrm{softmax}}\nolimits_{\rm keys}(\mathbf S+\mathbf M).
 ```
 
 禁止位置的指数变为 0，剩余位置重新归一化。不要先 softmax 再把禁用权重直接置零而不处理归一化，那会使行和小于 1。本章代码的布尔约定是 `True=允许`，以 `masked_fill(~allow, -inf)` 表达禁止位置。

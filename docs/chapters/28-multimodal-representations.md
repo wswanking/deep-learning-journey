@@ -192,11 +192,11 @@ loss = 0.5 * (
 
 检索（retrieval）给定查询，从有限候选中按相似度排序。图像到文字时，对一张图的九个文字分数排序；文字到图像时，对一条文字的216张图分数排序。两种方向的查询数量、候选数量和相关结果数都不同。[2]
 
-对于查询 $`q`$，令 $`\mathcal{R}_q`$ 为相关候选集合，$`\operatorname{TopK}(q)`$ 为返回的前K项。本实验使用查询命中率：
+对于查询 $`q`$，令 $`\mathcal{R}_q`$ 为相关候选集合，$`\mathop{\mathrm{TopK}}\nolimits(q)`$ 为返回的前K项。本实验使用查询命中率：
 
 ```math
-\operatorname{Hit@K}=\frac1Q\sum_{q=1}^{Q}
-\mathbb{1}\{\operatorname{TopK}(q)\cap\mathcal{R}_q\ne\varnothing\}.
+\mathop{\mathrm{Hit@K}}\nolimits=\frac1Q\sum_{q=1}^{Q}
+\mathbb{1}\{\mathop{\mathrm{TopK}}\nolimits(q)\cap\mathcal{R}_q\ne\varnothing\}.
 ```
 
 $`Q`$ 是查询数，不是批次大小。只有一个相关候选时，它也常按检索基准记作Recall@K；多个相关图像时，本章明确称“命中”，不把它和“找回全部相关结果的比例”混淆。

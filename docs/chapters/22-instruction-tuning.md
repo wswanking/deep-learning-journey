@@ -82,7 +82,7 @@ af
 本章回答监督掩码按**目标位置**定义：
 
 ```math
-m^{(i)}_r=\mathbf{1}\{p_i\leq r+1<L_i\},
+m^{(i)}_r=\mathbf{1}\{p_i\leq r+1\lt L_i\},
 \qquad
 M=\sum_{i=1}^{B}\sum_r m^{(i)}_r>0.
 ```

@@ -57,7 +57,7 @@
 本章复制/反转任务中，仅当按时停止且输出字节恰好等于参考字节加LF，才令 $`z_i=1`$，其余为0。严格EM为：
 
 ```math
-\operatorname{EM}=\frac1n\sum_{i=1}^{n}z_i.
+\mathop{\mathrm{EM}}\nolimits=\frac1n\sum_{i=1}^{n}z_i.
 ```
 
 生成最多8个新字节，遇换行LF停止。格式合格定义为恰好两个a..l的ASCII字母再换行；“de”格式对但顺序错，属于答案错误。“de”之后继续输出其他文字，也不满足严格EM。UTF-8是否合法、是否停止和格式是否合格另外报告，防止把不同错误压成同一个0。
@@ -74,9 +74,9 @@
 
 ```math
 \begin{aligned}
-\operatorname{Accuracy}&=\frac{\mathrm{TP}+\mathrm{TN}}n=\frac{14}{20}=0.7,\\
-\operatorname{Precision}&=\frac{\mathrm{TP}}{\mathrm{TP}+\mathrm{FP}}=\frac8{10}=0.8,\\
-\operatorname{Recall}&=\frac{\mathrm{TP}}{\mathrm{TP}+\mathrm{FN}}=\frac8{12}=\frac23.
+\mathop{\mathrm{Accuracy}}\nolimits&=\frac{\mathrm{TP}+\mathrm{TN}}n=\frac{14}{20}=0.7,\\
+\mathop{\mathrm{Precision}}\nolimits&=\frac{\mathrm{TP}}{\mathrm{TP}+\mathrm{FP}}=\frac8{10}=0.8,\\
+\mathop{\mathrm{Recall}}\nolimits&=\frac{\mathrm{TP}}{\mathrm{TP}+\mathrm{FN}}=\frac8{12}=\frac23.
 \end{aligned}
 ```
 
@@ -100,7 +100,7 @@ F_1&=\frac{2PR}{P+R}
 
 ```math
 \overline{\mathcal L}
-=-\frac{\sum_i\sum_t\ln\pi_\theta(y_{it}\mid x_i,y_{i,<t})}
+=-\frac{\sum_i\sum_t\ln\pi_\theta(y_{it}\mid x_i,y_{i,\lt t})}
 {\sum_i|y_i|}.
 ```
 
@@ -119,7 +119,7 @@ F_1&=\frac{2PR}{P+R}
 取正类概率[0.9,0.8,0.6,0.1]，真实标签[1,0,1,0]。预测类别正确3/4，但第二例错误且信心高。二元Brier定义为：
 
 ```math
-\operatorname{Brier}=\frac1n\sum_i(p_i-y_i)^2.
+\mathop{\mathrm{Brier}}\nolimits=\frac1n\sum_i(p_i-y_i)^2.
 ```
 
 本例为：
@@ -135,17 +135,17 @@ F_1&=\frac{2PR}{P+R}
 把预测类别信心分成两个桶。每桶的准确率和平均信心为：
 
 ```math
-\operatorname{acc}(B_b)=\frac1{|B_b|}\sum_{i\in B_b}\mathbf1\{\hat y_i=y_i\},
+\mathop{\mathrm{acc}}\nolimits(B_b)=\frac1{|B_b|}\sum_{i\in B_b}\mathbf1\{\hat y_i=y_i\},
 \qquad
-\operatorname{conf}(B_b)=\frac1{|B_b|}\sum_{i\in B_b}c_i.
+\mathop{\mathrm{conf}}\nolimits(B_b)=\frac1{|B_b|}\sum_{i\in B_b}c_i.
 ```
 
 有限样本的分桶估计为：
 
 ```math
-\widehat{\operatorname{ECE}}
+\widehat{\mathop{\mathrm{ECE}}\nolimits}
 =\sum_b\frac{|B_b|}{n}
-\left|\operatorname{acc}(B_b)-\operatorname{conf}(B_b)\right|.
+\left|\mathop{\mathrm{acc}}\nolimits(B_b)-\mathop{\mathrm{conf}}\nolimits(B_b)\right|.
 ```
 
 信心序列为[0.9,0.8,0.6,0.9]。桶[0.5,0.75)只有0.6那一例，准确率1，贡献0.25×0.4=0.1；桶[0.75,1]有3例，准确率2/3、平均信心2.6/3，贡献0.75×0.2=0.15。合计ECE=0.25。

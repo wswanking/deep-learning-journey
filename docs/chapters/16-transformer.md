@@ -72,7 +72,7 @@ s_{ij}=\frac{\mathbf{q}_i^\top\mathbf{k}_j}{\sqrt{d_h}}+M_{ij},
 \mathbf{Q}^{[a]}&=\mathbf{X}(\mathbf{W}^{[a]}_Q)^\top+\mathbf{1}_T(\mathbf{b}^{[a]}_Q)^\top,\\
 \mathbf{K}^{[a]}&=\mathbf{X}(\mathbf{W}^{[a]}_K)^\top+\mathbf{1}_T(\mathbf{b}^{[a]}_K)^\top,\\
 \mathbf{V}^{[a]}&=\mathbf{X}(\mathbf{W}^{[a]}_V)^\top+\mathbf{1}_T(\mathbf{b}^{[a]}_V)^\top,\\
-\mathbf{A}^{[a]}&=\operatorname{softmax}_{\mathrm{key}}\left(
+\mathbf{A}^{[a]}&=\mathop{\mathrm{softmax}}\nolimits_{\mathrm{key}}\left(
 \frac{\mathbf{Q}^{[a]}(\mathbf{K}^{[a]})^\top}{\sqrt{d_h}}+\mathbf{M}\right),\\
 \mathbf{O}^{[a]}&=\mathbf{A}^{[a]}\mathbf{V}^{[a]}.
 \end{aligned}
@@ -85,8 +85,8 @@ s_{ij}=\frac{\mathbf{q}_i^\top\mathbf{k}_j}{\sqrt{d_h}}+M_{ij},
 图16-2为本章原创形状图。每头在自己投影出的表示上算权重，再沿特征轴拼接：
 
 ```math
-\operatorname{MHA}(\mathbf{X})
-=\operatorname{Concat}_{\mathrm{feature}}(
+\mathop{\mathrm{MHA}}\nolimits(\mathbf{X})
+=\mathop{\mathrm{Concat}}\nolimits_{\mathrm{feature}}(
 \mathbf{O}^{[1]},\ldots,\mathbf{O}^{[H]})\mathbf{W}_O^\top
 +\mathbf{1}_T\mathbf{b}_O^\top.
 ```
@@ -123,10 +123,10 @@ $`\mathbf{W}_O\in\mathbb{R}^{d\times Hd_h}`$；本章 $`Hd_h=d`$。多头允许�
 对偶数宽度 $`d`$，原始方案使用零基位置 $`p=0,1,\ldots`$ 和频率编号 $`j=0,\ldots,d/2-1`$：
 
 ```math
-\operatorname{PE}_{p,2j}
+\mathop{\mathrm{PE}}\nolimits_{p,2j}
 =\sin\left(\frac{p}{10000^{2j/d}}\right),
 \qquad
-\operatorname{PE}_{p,2j+1}
+\mathop{\mathrm{PE}}\nolimits_{p,2j+1}
 =\cos\left(\frac{p}{10000^{2j/d}}\right).
 ```
 
@@ -143,8 +143,8 @@ $`\mathbf{W}_O\in\mathbb{R}^{d\times Hd_h}`$；本章 $`Hd_h=d`$。多头允许�
 注意力把不同位置的信息汇集到当前表示后，还需要非线性变换。前馈网络（feed-forward network，FFN）在每个位置应用同一套两层MLP：[1，§3.3；2，§11.7.2]
 
 ```math
-\operatorname{FFN}(\mathbf{x}_t)
-=\mathbf{W}_2\operatorname{ReLU}(\mathbf{W}_1\mathbf{x}_t+\mathbf{b}_1)+\mathbf{b}_2.
+\mathop{\mathrm{FFN}}\nolimits(\mathbf{x}_t)
+=\mathbf{W}_2\mathop{\mathrm{ReLU}}\nolimits(\mathbf{W}_1\mathbf{x}_t+\mathbf{b}_1)+\mathbf{b}_2.
 ```
 
 $`\mathbf{W}_1\in\mathbb{R}^{d_f\times d}`$、$`\mathbf{W}_2\in\mathbb{R}^{d\times d_f}`$，先扩展特征再投影回 $`d`$，以便参与残差相加。本章 $`d=8,d_f=16`$；原论文常用更大的中间宽度，但它不是由公式强制的常数。
@@ -163,7 +163,7 @@ FFN本身不把位置 $`t`$ 与位置 $`t+1`$ 相乘，位置间混合来自注�
 \begin{aligned}
 \mu_t&=\frac1d\sum_{j=1}^{d}x_{tj},\\
 \sigma_t^2&=\frac1d\sum_{j=1}^{d}(x_{tj}-\mu_t)^2,\\
-\operatorname{LN}(\mathbf{x}_t)
+\mathop{\mathrm{LN}}\nolimits(\mathbf{x}_t)
 &=\boldsymbol{\gamma}\odot
 \frac{\mathbf{x}_t-\mu_t\mathbf{1}_d}{\sqrt{\sigma_t^2+\epsilon}}
 +\boldsymbol{\beta}.
@@ -176,12 +176,12 @@ $`\boldsymbol{\gamma},\boldsymbol{\beta}\in\mathbb{R}^d`$ 为可学习参数，$
 
 ### 7.2 Pre-LN和Post-LN的顺序不同
 
-原始Post-LN子层写为 $`\operatorname{LN}(\mathbf{X}+F(\mathbf{X}))`$，即先加残差再归一化。本章实践使用Pre-LN，把归一化移到子层之前：
+原始Post-LN子层写为 $`\mathop{\mathrm{LN}}\nolimits(\mathbf{X}+F(\mathbf{X}))`$，即先加残差再归一化。本章实践使用Pre-LN，把归一化移到子层之前：
 
 ```math
 \begin{aligned}
-\mathbf{U}&=\mathbf{X}+\operatorname{MHA}(\operatorname{LN}_1(\mathbf{X})),\\
-\mathbf{Y}&=\mathbf{U}+\operatorname{FFN}(\operatorname{LN}_2(\mathbf{U})).
+\mathbf{U}&=\mathbf{X}+\mathop{\mathrm{MHA}}\nolimits(\mathop{\mathrm{LN}}\nolimits_1(\mathbf{X})),\\
+\mathbf{Y}&=\mathbf{U}+\mathop{\mathrm{FFN}}\nolimits(\mathop{\mathrm{LN}}\nolimits_2(\mathbf{U})).
 \end{aligned}
 ```
 
@@ -253,10 +253,10 @@ output = F.scaled_dot_product_attention(q, k, v,
 
 ```math
 p_{\boldsymbol{\theta}}(x_1,\ldots,x_T)
-=\prod_{t=1}^{T}p_{\boldsymbol{\theta}}(x_t\mid x_{<t}).
+=\prod_{t=1}^{T}p_{\boldsymbol{\theta}}(x_t\mid x_{\lt t}).
 ```
 
-$`x_{<t}`$ 表示之前的词元，起始位置可使用专门起始符。对本文实际四个预测位置，损失是四个目标词元负对数概率的平均；softmax沿词表维归一化，padding等无效位置另行排除。
+$`x_{\lt t}`$ 表示之前的词元，起始位置可使用专门起始符。对本文实际四个预测位置，损失是四个目标词元负对数概率的平均；softmax沿词表维归一化，padding等无效位置另行排除。
 
 训练时完整答案已知，可以右移后把多个位置一起计算，用因果掩码保证各位置只能使用合法前缀；这种做法称为教师强制（teacher forcing）。生成时真实下一个词未知，需要用模型给出的词继续扩展前缀。训练中位置并行，不等于推理时可以一次知道整段新文本。[1,4]
 
@@ -266,7 +266,7 @@ $`x_{<t}`$ 表示之前的词元，起始位置可使用专门起始符。对本
 
 ```math
 p_{\boldsymbol{\theta}}(y_1,\ldots,y_U\mid\mathbf{s})
-=\prod_{t=1}^{U}p_{\boldsymbol{\theta}}(y_t\mid y_{<t},\mathbf{s}).
+=\prod_{t=1}^{U}p_{\boldsymbol{\theta}}(y_t\mid y_{\lt t},\mathbf{s}).
 ```
 
 目标侧仍要因果，源侧通常完整可见，交叉注意力允许每个目标位置读取源表示。这适合输入输出长度不同的条件生成。它与decoder-only把源内容拼入前缀是两种数据流设计，不能仅凭都能生成文字就省略其条件来源。

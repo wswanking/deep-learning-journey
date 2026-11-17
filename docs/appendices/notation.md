@@ -135,7 +135,7 @@ $`\mathcal{B}`$ 表示本批次的样本索引集合，$`R`$ 是已定义的正�
 | $`p(y\mid\mathbf{x};\boldsymbol{\theta})`$ | 参数固定时，给定输入的条件分布；竖线表示条件，不是除法 |
 | $`X\sim p`$ | $`X`$ 按分布 $`p`$ 取值 |
 | $`\mathbb{E}_{X\sim p}[g(X)]`$ | 对指定分布取期望；省略下标时需在近处说明分布 |
-| $`\operatorname{Var}(X)`$ | $`\mathbb{E}[(X-\mathbb{E}[X])^2]`$，存在性条件在相关章节说明 |
+| $`\mathop{\mathrm{Var}}\nolimits(X)`$ | $`\mathbb{E}[(X-\mathbb{E}[X])^2]`$，存在性条件在相关章节说明 |
 | $`\log x`$ | 自然对数；信息量单位为 nat，使用以2为底的对数时显式标 $`\log_2`$ 并用 bit |
 
 无歧义处可将概率质量函数和密度统称为 $`p`$，但每次引入新分布时必须说明变量是离散还是连续。对观测数据固定、把参数作为自变量时，$`p(\mathcal{D};\boldsymbol{\theta})`$ 被视为似然；它通常不是关于参数的归一化概率分布。把联合似然拆成乘积前，说明采用的独立或条件独立假设。
@@ -202,7 +202,7 @@ $`\sum_c`$ 的范围必须由类别或状态空间定义；上述分布均归一
 | 主题 | 专用记号与布局 | 必须保留的协议 | 定义所在章 |
 | --- | --- | --- | --- |
 | 语言模型 | 输入ID为$`[B,T]`$，logits为$`[B,T,V]`$；$`V`$为词表大小 | 词表轴log-softmax；输入位置预测右移目标；回答、提示、补齐和终止符是否计分分别声明 | [第20～22章](../chapters/20-language-model-pretraining.md) |
-| 序列概率与NLL | $`\log\pi_\theta(y\mid x)=\sum_t\log\pi_\theta(y_t\mid x,y_{<t})`$ | 完整回答概率用求和；平均NLL/PPL的分母为声明的有效目标数，不能与序列和分数互换 | [第20章](../chapters/20-language-model-pretraining.md)、[第22章](../chapters/22-instruction-tuning.md)、[第24章](../chapters/24-preference-alignment.md) |
+| 序列概率与NLL | $`\log\pi_\theta(y\mid x)=\sum_t\log\pi_\theta(y_t\mid x,y_{\lt t})`$ | 完整回答概率用求和；平均NLL/PPL的分母为声明的有效目标数，不能与序列和分数互换 | [第20章](../chapters/20-language-model-pretraining.md)、[第22章](../chapters/22-instruction-tuning.md)、[第24章](../chapters/24-preference-alignment.md) |
 | 两种掩码 | attention mask控制上下文可见性；loss mask控制哪些输出目标计损失 | 忽略提示输出损失不等于删除提示输入；提示末位置可能需要监督首回答目标；ignore_index只在对应损失接口有意义 | [第22章§3～5](../chapters/22-instruction-tuning.md) |
 | LoRA | 第23章采用$`\mathbf W_0\in\mathbb R^{d\times k}`$，$`\mathbf A\in\mathbb R^{r\times k}`$，$`\mathbf B\in\mathbb R^{d\times r}`$，$`\Delta\mathbf W=s\mathbf B\mathbf A`$，$`s=\alpha/r`$ | 此处$`k`$是输入宽度、$`d`$是输出宽度、$`r`$是增量秩上界，需映射到基础节的输入/输出维度命名；$`s`$不是量化比例尺 | [第23章§3～7](../chapters/23-parameter-efficient-tuning.md) |
 | 量化 | 第23章用$`\delta_i`$记量化步长，第25章用$`s_r`$记行比例尺；$`q_{ij}`$为离散整数，$`\widehat{\mathbf W}`$为重建权重 | 这些$`q`$不是概率分布；NF4码本、均匀整数、零点和尺度元数据必须区分；存储dtype与计算dtype分别报告 | [第23章§8～9](../chapters/23-parameter-efficient-tuning.md)、[第25章§6](../chapters/25-language-model-inference.md) |
@@ -219,7 +219,7 @@ $`\sum_c`$ 的范围必须由类别或状态空间定义；上述分布均归一
 | 配对组统计 | $`n`$为样本数，$`G`$为组数，$`n_g`$为组大小，$`d_g`$为同组两模型正确率差 | 等权组均值只在各组同样大小时等于等权样本均值；按组共同重抽两模型结果，不把组内变体当独立样本 | [第27章§5](../chapters/27-model-evaluation.md) |
 | 视觉patch | 图像尺寸为$`H_I\times W_I\times C_I`$，patch边长$`P_I`$，patch数$`N=H_IW_I/P_I^2`$ | 第28章的$`N`$是每图patch数，不是全数据样本数；视觉序列$`[B,N,d]`$与图像级检索向量$`[B,d_e]`$不同 | [第28章§3](../chapters/28-multimodal-representations.md) |
 | 图文对比 | 单位列向量$`\mathbf u_i,\mathbf v_j\in\mathbb R^{d_e}`$；批次行矩阵$`\mathbf U,\mathbf V`$形成$`\mathbf S=\mathbf U\mathbf V^\top/\tau`$ | 行为图像、列为文字；两方向分别沿候选轴归一化，对查询平均后再对方向平均；此$`\mathbf S`$不是自注意力矩阵 | [第28章§4～5](../chapters/28-multimodal-representations.md) |
-| 检索命中 | $`\mathcal R_q`$为查询相关候选集合，$`\operatorname{TopK}(q)`$为返回前K项 | Hit@K统计至少命中一个相关项的查询比例，不等于找回全部相关项的比例；多正例需明确相关集合 | [第28章§6～7](../chapters/28-multimodal-representations.md) |
+| 检索命中 | $`\mathcal R_q`$为查询相关候选集合，$`\mathop{\mathrm{TopK}}\nolimits(q)`$为返回前K项 | Hit@K统计至少命中一个相关项的查询比例，不等于找回全部相关项的比例；多正例需明确相关集合 | [第28章§6～7](../chapters/28-multimodal-representations.md) |
 
 沿专章索引查阅时，优先核对输入/输出轴、局部字母含义与归约分母。索引给出查找入口，具体推导、图示、手算和代码检查仍在相应章节。
 

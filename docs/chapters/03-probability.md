@@ -183,7 +183,7 @@ P(Y=1)=\sum_{x\in\{0,1\}}P(Y=1\mid X=x)P(X=x)
 
 ```math
 \begin{aligned}
-\operatorname{Var}(X)
+\mathop{\mathrm{Var}}\nolimits(X)
 &=\mathbb E[(X-\mu)^2]\\
 &=\mathbb E[X^2-2\mu X+\mu^2]\\
 &=\mathbb E[X^2]-2\mu\mathbb E[X]+\mu^2\\
@@ -191,13 +191,13 @@ P(Y=1)=\sum_{x\in\{0,1\}}P(Y=1\mid X=x)P(X=x)
 \end{aligned}
 ```
 
-第二行展开平方；第三行使用期望的线性性质；最后代入 $`\mathbb E[X]=\mu`$。上例方差是 $`1.5-1^2=0.5`$。标准差（standard deviation）为 $`\sigma=\sqrt{\operatorname{Var}(X)}`$，与 $`X`$ 的单位相同，而方差带平方单位。
+第二行展开平方；第三行使用期望的线性性质；最后代入 $`\mathbb E[X]=\mu`$。上例方差是 $`1.5-1^2=0.5`$。标准差（standard deviation）为 $`\sigma=\sqrt{\mathop{\mathrm{Var}}\nolimits(X)}`$，与 $`X`$ 的单位相同，而方差带平方单位。
 
 ![图03-2：两个均值为1的离散分布，一个把更多概率放在中心，另一个放在两端](../assets/03-probability/distribution-moments.svg)
 
 图 03-2：相同均值，不同方差。图按本章两组固定概率原创绘制，不是采样直方图。分布 A 为 $`(0.25,0.50,0.25)`$，分布 B 为 $`(0.50,0,0.50)`$；B 的二阶矩为 2，方差为 1，说明单个均值不能描述全部分布。
 
-有限状态下这些量必然存在；推广到无限或连续状态时，有限期望通常要求 $`\mathbb E[|X|]<\infty`$，使用有限方差还需有限二阶矩。不能默认所有重尾分布都有可用的均值和方差。
+有限状态下这些量必然存在；推广到无限或连续状态时，有限期望通常要求 $`\mathbb E[|X|]\lt \infty`$，使用有限方差还需有限二阶矩。不能默认所有重尾分布都有可用的均值和方差。
 
 ### 5.3 理论量怎样与采样估计联系起来
 
@@ -207,7 +207,7 @@ P(Y=1)=\sum_{x\in\{0,1\}}P(Y=1\mid X=x)P(X=x)
 \bar x=\frac1N\sum_{i=1}^{N}x^{(i)}.
 ```
 
-它按出现次数等权平均，是对总体期望的估计。若样本独立同分布（independent and identically distributed，i.i.d.）且总体方差为有限的 $`\sigma^2`$，则 $`\mathbb E[\bar X]=\mu`$，$`\operatorname{Var}(\bar X)=\sigma^2/N`$；后一结论利用了独立样本方差可相加。它说明平均值的波动尺度随样本数减小，不保证每增加一次样本，实际误差都下降。
+它按出现次数等权平均，是对总体期望的估计。若样本独立同分布（independent and identically distributed，i.i.d.）且总体方差为有限的 $`\sigma^2`$，则 $`\mathbb E[\bar X]=\mu`$，$`\mathop{\mathrm{Var}}\nolimits(\bar X)=\sigma^2/N`$；后一结论利用了独立样本方差可相加。它说明平均值的波动尺度随样本数减小，不保证每增加一次样本，实际误差都下降。
 
 两种常见方差估计也要分清：
 
@@ -224,13 +224,13 @@ s^2=\frac1{N-1}\sum_{i=1}^{N}(x^{(i)}-\bar x)^2,
 
 ### 6.1 固定参数，看未来数据的概率
 
-Bernoulli 分布描述取值为 0 或 1 的一次试验。设 $`P(X=1;\theta)=\theta`$，则 $`P(X=0;\theta)=1-\theta`$。对 $`0<\theta<1`$，可以统一写成：
+Bernoulli 分布描述取值为 0 或 1 的一次试验。设 $`P(X=1;\theta)=\theta`$，则 $`P(X=0;\theta)=1-\theta`$。对 $`0\lt \theta\lt 1`$，可以统一写成：
 
 ```math
 P(X=x;\theta)=\theta^x(1-\theta)^{1-x},\qquad x\in\{0,1\}.
 ```
 
-当 $`\theta=0.75`$ 固定时，变化的是可能结果 $`x`$：结果 0 的概率是 0.25，结果 1 的概率是 0.75，两者相加为 1。由定义还能手算 $`\mathbb E[X]=\theta`$、$`\operatorname{Var}(X)=\theta-\theta^2=\theta(1-\theta)`$。[1，§3.9.1]
+当 $`\theta=0.75`$ 固定时，变化的是可能结果 $`x`$：结果 0 的概率是 0.25，结果 1 的概率是 0.75，两者相加为 1。由定义还能手算 $`\mathbb E[X]=\theta`$、$`\mathop{\mathrm{Var}}\nolimits(X)=\theta-\theta^2=\theta(1-\theta)`$。[1，§3.9.1]
 
 ### 6.2 固定观测，看不同参数怎样解释它
 
@@ -265,10 +265,10 @@ L(0.75;\mathcal D)=0.75^3\times0.25=0.10546875.
 
 ```math
 \ln L(\theta;\mathcal D)=3\ln\theta+\ln(1-\theta),
-\qquad 0<\theta<1.
+\qquad 0\lt \theta\lt 1.
 ```
 
-利用第 02 章的导数，导数为 $`3/\theta-1/(1-\theta)`$，令其为 0 得 $`\theta=3/4`$；二阶导数 $`-3/\theta^2-1/(1-\theta)^2<0`$，且两端似然均为 0，所以这是全局最大值。本例的最大似然估计等于观测中 1 的比例。
+利用第 02 章的导数，导数为 $`3/\theta-1/(1-\theta)`$，令其为 0 得 $`\theta=3/4`$；二阶导数 $`-3/\theta^2-1/(1-\theta)^2\lt 0`$，且两端似然均为 0，所以这是全局最大值。本例的最大似然估计等于观测中 1 的比例。
 
 这里数据是完整有序序列。若只观察“四次中恰好三次为 1”，这一事件包含四种序列，概率要乘以组合数 4；不能悄悄把两个观测事件当成同一个。该因子与 $`\theta`$ 无关，所以此例最大值位置相同，但似然数值不同。
 
@@ -473,7 +473,7 @@ else:
 ### 10.1 习题
 
 1. 从卡片联合表计算 $`P(Y=1\mid X=0)`$、$`P(X=0\mid Y=1)`$，并用 Bayes 核对后者。$`X,Y`$ 是否独立？给出一个反例格。
-2. 对 Bernoulli 参数 $`\theta=0.75`$，从定义求 $`\mathbb E[X]`$ 与 $`\operatorname{Var}(X)`$。样本恰为 $`(1,0,1,1)`$ 时，经验方差与 `ddof=1` 方差分别是多少？
+2. 对 Bernoulli 参数 $`\theta=0.75`$，从定义求 $`\mathbb E[X]`$ 与 $`\mathop{\mathrm{Var}}\nolimits(X)`$。样本恰为 $`(1,0,1,1)`$ 时，经验方差与 `ddof=1` 方差分别是多少？
 3. 对这四次有序观测，$`L(0.25;\mathcal D)`$ 是多少？平均负对数似然是多少？若观测事件改成“四次中恰好三次为 1”，似然如何变化？
 4. 取 $`p=(1,0)`$、$`q=(0.5,0.5)`$，计算 $`H(p)`$、$`H(p,q)`$、$`D_{\mathrm{KL}}(p\Vert q)`$ 和反向 KL。解释为什么两个方向的有限性不同。
 5. 同学把每项概率都加 $`10^{-6}`$，未重新归一化就使用 KL 公式，并说“这与原定义相等且必然非负”。应怎样指出问题？对 $`p=q=(1,0)`$，怎样直接处理零项？

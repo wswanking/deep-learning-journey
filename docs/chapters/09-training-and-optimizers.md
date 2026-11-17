@@ -107,8 +107,8 @@ J(\theta)=\frac a2\theta^2,\qquad a>0,
 完整梯度更新变成 $`\theta_k=(1-\eta a)\theta_{k-1}`$。要让非零初值的绝对值逐步缩小，需
 
 ```math
-|1-\eta a|<1
-\quad\Longleftrightarrow\quad 0<\eta<\frac2a.
+|1-\eta a|\lt 1
+\quad\Longleftrightarrow\quad 0\lt \eta\lt \frac2a.
 ```
 
 这是该二次目标的条件，不能当作任意神经网络的通用阈值。我们的二维演示第二个方向曲率为 10：当 SGD 学习率为 0.3 时，这个坐标每步乘 $`-2`$，符号来回变化且绝对值翻倍。脚本真实验证目标值迅速增大。[来源 1，§8.3.1](https://www.deeplearningbook.org/contents/optimization.html)
@@ -203,9 +203,9 @@ PyTorch 2.15 的 Adam 还提供 `decoupled_weight_decay` 参数；本实验显�
 ```math
 \eta_k=
 \begin{cases}
-\eta_{\max}(k+1)/T_w,&0\leq k<T_w,\\
+\eta_{\max}(k+1)/T_w,&0\leq k\lt T_w,\\
 \eta_{\min}+\dfrac{\eta_{\max}-\eta_{\min}}2
-\left[1+\cos(\pi r_k)\right],&T_w\leq k<T,
+\left[1+\cos(\pi r_k)\right],&T_w\leq k\lt T,
 \end{cases}
 ```
 

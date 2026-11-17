@@ -42,7 +42,7 @@
 
 ### 2.2 为什么不能只学会复制
 
-若允许网络轻易表示恒等函数 $`\widehat{\mathbf x}=\mathbf x`$，损失可以很低，却没有迫使代码形成有价值的约束。一个常见办法是让 $`r<d`$，称为**欠完备自编码器**；中间较窄的表示称为**瓶颈（bottleneck）**。[1，§14.1]
+若允许网络轻易表示恒等函数 $`\widehat{\mathbf x}=\mathbf x`$，损失可以很低，却没有迫使代码形成有价值的约束。一个常见办法是让 $`r\lt d`$，称为**欠完备自编码器**；中间较窄的表示称为**瓶颈（bottleneck）**。[1，§14.1]
 
 瓶颈限制的是连续坐标数，收益取决于数据结构、模型容量和优化。有限训练点仍可能被有足够容量的非线性网络记忆；它不自动等于一般化能力。反过来，$`r\ge d`$的模型也可以通过其他约束学习有用特征，不能把“有没有瓶颈”当作全部自编码器的定义。
 
@@ -146,7 +146,7 @@ F(\mathbf q,\lambda)
 
 实对称协方差有正交单位特征向量，且特征值非负。将候选方向写成这些方向的线性组合，单位长度使系数平方和为1，投影方差就是特征值的加权平均，因此最大值由最大特征值方向取得。这也解释了为何仅找一个任意特征向量还不够。
 
-手算例$`\mathbf C=\operatorname{diag}(4,0.25)`$。沿横轴的单位方向得到方差4，沿纵轴得到0.25，所以保留横轴。若把纵轴单位放大10倍后再做PCA，其方差变成25，主方向就会改变；PCA对单位与预处理敏感。
+手算例$`\mathbf C=\mathop{\mathrm{diag}}\nolimits(4,0.25)`$。沿横轴的单位方向得到方差4，沿纵轴得到0.25，所以保留横轴。若把纵轴单位放大10倍后再做PCA，其方差变成25，主方向就会改变；PCA对单位与预处理敏感。
 
 ### 4.3 从一个方向扩展到多个
 
@@ -227,7 +227,7 @@ g'(\mathbf z')=g(\mathbf A^{-1}\mathbf z'),
 用NumPy种子20261117依次独立生成128条训练、64条验证、64条测试输入：
 
 ```math
-t\sim\operatorname{Uniform}[-\pi,\pi],\qquad
+t\sim\mathop{\mathrm{Uniform}}\nolimits[-\pi,\pi],\qquad
 \mathbf x=(\cos t,\sin t,t/\pi)^\top+\boldsymbol\epsilon,
 \quad
 \boldsymbol\epsilon\sim\mathcal N(\mathbf0,0.02^2\mathbf I_3).
@@ -349,7 +349,7 @@ $`r=3`$时，PCA保留整个输入空间，重建误差只有浮点舍入量级�
 
 ### 题2：为什么要约束投影方向长度
 
-若直接最大化$`\mathbf q^\top\mathbf C\mathbf q`$却不限制$`\|\mathbf q\|`$，取$`\mathbf C=\operatorname{diag}(4,0.25)`$会怎样？
+若直接最大化$`\mathbf q^\top\mathbf C\mathbf q`$却不限制$`\|\mathbf q\|`$，取$`\mathbf C=\mathop{\mathrm{diag}}\nolimits(4,0.25)`$会怎样？
 
 **解析**：令$`\mathbf q=(a,0)^\top`$，目标为$`4a^2`$，可随$`a`$无限增大。单位长度限制排除了仅放大坐标就提高目标的做法，使问题真正比较方向；投影式$`\mathbf q\mathbf q^\top\mathbf u`$也依赖单位向量约定。
 

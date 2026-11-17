@@ -244,3 +244,62 @@ test('普通围栏内的GitHub行内公式演示仍是代码', t => {
   assert.ok(result.html.includes(example));
   assert.deepEqual(audit('# 测试章\n\n' + fence(example, 'text')).errors, []);
 });
+
+test('GitHub数学围栏诊断operatorname及裸小于号，保留精确源位置', () => {
+  const source = '# 测试章\n\n' + fence(String.raw`\operatorname{rank}(A)
+\operatorname*{argmin}_{r+1<L_i} f(r)`);
+  const result = audit(source);
+  assert.deepEqual(rules(result), [
+    'github-unsupported-operatorname', 'github-unsupported-operatorname', 'github-math-html-angle',
+  ]);
+  assert.deepEqual(result.errors.map(({ line, column }) => ({ line, column })), [
+    { line: 4, column: 1 }, { line: 5, column: 1 }, { line: 5, column: 28 },
+  ]);
+  assert.match(result.errors[0].message, /mathop/);
+  assert.match(result.errors[2].message, /\\lt/);
+});
+
+test('GitHub保护行内公式诊断operatorname和HTML截断，支持同行多个公式', () => {
+  const source = '# 测试章\n\n秩 $`' + String.raw`\operatorname{rank}(A)` + '`$；条件 $`r+1<L_i`$。\n' +
+    '极值 $`' + String.raw`\operatorname*{argmin}_x f(x)` + '`$。';
+  const result = audit(source);
+  assert.deepEqual(rules(result), [
+    'github-unsupported-operatorname', 'github-math-html-angle', 'github-unsupported-operatorname',
+  ]);
+  for (const error of result.errors) {
+    const tail = source.split('\n')[error.line - 1].slice(error.column - 1);
+    assert.ok(error.rule === 'github-math-html-angle' ? tail.startsWith('<') : tail.startsWith('\\operatorname'));
+  }
+});
+
+test('引用与列表中的数学兼容诊断保留容器前缀后的源列', () => {
+  const source = '# 测试章\n\n> ```math\n> x<y\n> ```\n\n- 条件\n\n  ```math\n  ' + String.raw`\operatorname{rank}(A)` + '\n  ```';
+  const result = audit(source);
+  assert.deepEqual(result.errors.map(({ rule, line, column }) => ({ rule, line, column })), [
+    { rule: 'github-math-html-angle', line: 4, column: 4 },
+    { rule: 'github-unsupported-operatorname', line: 10, column: 3 },
+  ]);
+});
+
+test('GitHub安全替代mathop、limits及lt在块和行内均合法且能严格渲染', t => {
+  const block = String.raw`\mathop{\mathrm{argmin}}\limits_{r+1\lt L_i} f(r)`;
+  const inline = String.raw`\mathop{\mathrm{rank}}\nolimits(A),\quad a\lt b,\quad\langle x,y\rangle`;
+  const source = '# 测试章\n\n' + fence(block) + '\n\n秩与内积 $`' + inline + '`$。';
+  assert.deepEqual(audit(source).errors, []);
+  const result = compileBook(fixture(t, source), config, entries);
+  assert.equal(result.metadata.math_expressions, 2);
+  assert.match(result.html, /class="math-block"/);
+});
+
+test('数学兼容护栏不检查普通代码、行内语法演示、注释或旧行内兼容写法', () => {
+  const bad = String.raw`\operatorname*{argmin}_{r+1<L_i}`;
+  const source = '# 测试章\n\n' + fence(bad + '\n$`' + bad + '`$', 'text') +
+    '\n\n````markdown\n```math\n' + bad + '\n```\n````\n\n' +
+    '    ' + bad + '\n\n' +
+    '普通代码 `' + bad + '`，官方语法演示 ``$`' + bad + '`$``。\n\n' +
+    '<!-- $`' + bad + '`$ -->\n\n' +
+    '兼容旧行内 $' + bad + '$，不在本护栏迁移范围。';
+  assert.deepEqual(audit(source).errors, []);
+  // A row-break command followed by letters is not an operatorname control sequence.
+  assert.deepEqual(audit('# 测试章\n\n' + fence(String.raw`a\\operatorname`)).errors, []);
+});

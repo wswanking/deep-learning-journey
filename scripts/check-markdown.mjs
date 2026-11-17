@@ -49,6 +49,22 @@ function maskCodeSpans(text) {
   return chars.join('');
 }
 
+/** GitHub's math sanitizer has a smaller source-safe set than local KaTeX. */
+function githubMathRisks(tex) {
+  const risks = [];
+  for (const match of tex.matchAll(/\\operatorname(?:\*)?(?![A-Za-z])/g)) {
+    if (!escaped(tex, match.index)) risks.push({
+      rule: 'github-unsupported-operatorname', offset: match.index,
+      message: 'GitHub 数学不支持 \\operatorname/\\operatorname*；改用 \\mathop{\\mathrm{...}}\\nolimits，需要上下限时在独立公式中使用 \\limits。',
+    });
+  }
+  for (let offset = tex.indexOf('<'); offset >= 0; offset = tex.indexOf('<', offset + 1)) risks.push({
+    rule: 'github-math-html-angle', offset,
+    message: '数学中的字面 < 可能被 GitHub 当成 HTML 并截断；小于关系请写 \\lt，角括号请写 \\langle。',
+  });
+  return risks;
+}
+
 function stripContainers(line) {
   let value = line;
   while (/^ {0,3}>[ \t]?/.test(value)) value = value.replace(/^ {0,3}>[ \t]?/, '');
@@ -99,6 +115,12 @@ export function auditMarkdown(source, { filePath = '<markdown>', chapter = isCha
   const errors = [];
   const stats = { headings: 0, h1Count: 0, mathFences: 0, ordinaryFences: 0, legacyMathBlocks: 0, tables: 0 };
   const add = (rule, line, message, column = 1) => errors.push({ rule, line, column, message });
+  const checkGithubMath = (tex, locate) => {
+    for (const risk of githubMathRisks(tex)) {
+      const { line, column } = locate(risk.offset);
+      add(risk.rule, line, risk.message, column);
+    }
+  };
   const opaque = new Set();
   const h1 = [];
   let previousLevel = 0;
@@ -121,6 +143,15 @@ export function auditMarkdown(source, { filePath = '<markdown>', chapter = isCha
         stats.mathFences++;
         if (info !== 'math') add('math-fence-info', line, '数学围栏的语言标记须为小写 math，不附加其他参数。');
         if (!token.content.trim()) add('empty-math-fence', line, '数学围栏内容为空。');
+        const mathLines = token.content.split('\n');
+        checkGithubMath(token.content, offset => {
+          const before = token.content.slice(0, offset);
+          const row = (before.match(/\n/g) || []).length;
+          const sourceLine = token.map[0] + 1 + row;
+          // Container/list prefixes and fence indentation are absent in token.content.
+          const prefix = lines[sourceLine].length - mathLines[row].length;
+          return { line: sourceLine + 1, column: prefix + offset - before.lastIndexOf('\n') };
+        });
         for (let i = 0; i < token.content.length - 1; i++) {
           if (token.content.slice(i, i + 2) === '$$' && !escaped(token.content, i)) {
             const before = token.content.slice(0, i);
@@ -153,7 +184,18 @@ export function auditMarkdown(source, { filePath = '<markdown>', chapter = isCha
   }
 
   const visible = lines.map((line, index) => opaque.has(index) ? ' '.repeat(line.length) : line).join('\n');
-  const prose = maskCodeSpans(visible).split('\n');
+  const visibleProse = maskCodeSpans(visible);
+  // Only protected GitHub inline formulas are audited here; ordinary $TeX$ stays compatible.
+  // Ordinary code spans/fences and HTML comments have already been made opaque.
+  for (const match of visibleProse.matchAll(/\$`([^`]*?)`\$/g)) {
+    if (escaped(visibleProse, match.index)) continue;
+    checkGithubMath(match[1], offset => {
+      const absolute = match.index + 2 + offset;
+      const before = visibleProse.slice(0, absolute);
+      return { line: (before.match(/\n/g) || []).length + 1, column: absolute - before.lastIndexOf('\n') };
+    });
+  }
+  const prose = visibleProse.split('\n');
   let legacyOpen = false;
   for (let i = 0; i < prose.length; i++) {
     const value = stripContainers(prose[i]);

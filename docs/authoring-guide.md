@@ -66,6 +66,8 @@
 - 行内公式统一使用 ``$`...`$``，保护下标、星号和矩阵换行符不被 Markdown 改写；独立公式统一使用语言标记为 `math` 的三反引号围栏，内部只写 LaTeX，不再包裹 `$$`。这与 [GitHub 官方数学语法](https://docs.github.com/en/get-started/writing-on-github/working-with-advanced-formatting/writing-mathematical-expressions) 一致。
 - 多行推导必须放在 `math` 围栏内，避免单独的等号、下划线或星号被 Markdown 当成标题或强调。围栏外前后留空行；语法占位符应放在行内代码中。
 - 本地构建仍兼容历史美元分隔符，但新教材源文件由 `npm run check:markdown` 拒绝这类独立块；数学围栏与行内公式使用同一严格渲染器，错误公式必须终止构建。
+- GitHub 当前不接受 `\operatorname`。自定义直立算子使用标准 TeX 写法 `\mathop{\mathrm{Var}}\nolimits(X)`；展示式中的极值下标可用 `\mathop{\mathrm{arg\,min}}\limits_j`。算子含义与变量须照常定义。
+- 数学内容中的小于号使用 `\lt`，避免裸 `<` 被 GitHub 处理为 HTML 后截断公式；命令与后续字母之间留空格。不要把不可见的截断当作公式已通过。
 - 每章提供符号表；每个新符号在首次使用附近解释。
 - 清楚区分样本编号、层编号、时间步、维度和训练步；上标的含义不得混淆。
 - 写出中间推导，解释所用法则或假设；近似等号、期望及条件概率的含义要明确。

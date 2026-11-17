@@ -48,8 +48,8 @@ LoRA（Low-Rank Adaptation，低秩适配）提出一种不同参数化：保留
 乘积 $`\mathbf B\mathbf A`$ 的输出总在 $`\mathbf B`$ 的至多 $`r`$ 个列向量张成的空间内，因此
 
 ```math
-\operatorname{rank}(\mathbf B\mathbf A)
-\le\min\bigl(\operatorname{rank}(\mathbf B),\operatorname{rank}(\mathbf A)\bigr)
+\mathop{\mathrm{rank}}\nolimits(\mathbf B\mathbf A)
+\le\min\bigl(\mathop{\mathrm{rank}}\nolimits(\mathbf B),\mathop{\mathrm{rank}}\nolimits(\mathbf A)\bigr)
 \le r.
 ```
 
@@ -136,7 +136,7 @@ Linear沿最后一维变换，所以同一实现支持 $`N\times k`$ 和 $`B\tim
 
 一层完整权重有 $`dk`$ 个元素，两个因子有 $`rk+dr=r(d+k)`$ 个元素。若原权重冻结，训练该层支路只需为这部分新元素维护梯度与优化器状态。
 
-只有当 $`r(d+k)<dk`$ 时，因子元素才比整张权重少。比如 $`d=k=32,r=4`$，完整权重1024，因子256，是四分之一；若 $`r=32`$，因子反而有2048。因子还存在非唯一表示：对可逆 $`r\times r`$ 矩阵 $`\mathbf R`$，$`\mathbf B\mathbf R`$ 与 $`\mathbf R^{-1}\mathbf A`$ 的乘积不变，因此“可训练张量元素数”不应叫作独立函数自由度。
+只有当 $`r(d+k)\lt dk`$ 时，因子元素才比整张权重少。比如 $`d=k=32,r=4`$，完整权重1024，因子256，是四分之一；若 $`r=32`$，因子反而有2048。因子还存在非唯一表示：对可逆 $`r\times r`$ 矩阵 $`\mathbf R`$，$`\mathbf B\mathbf R`$ 与 $`\mathbf R^{-1}\mathbf A`$ 的乘积不变，因此“可训练张量元素数”不应叫作独立函数自由度。
 
 第21章有2个Transformer块；本章只在每块独立的q_proj、v_proj上添加支路，共4张32×32矩阵：
 
@@ -254,7 +254,7 @@ requires_grad=False控制参数是否需要积累梯度；eval()切换Dropout等
 量化将连续范围内的数近似映射到有限集合。对码本 $`\mathcal C=\{c_0,\ldots,c_{K-1}\}`$、正尺度 $`\delta`$，一种最邻近表示为
 
 ```math
-q=\operatorname*{arg\,min}_{j}|w/\delta-c_j|,
+q=\mathop{\mathrm{arg\,min}}\limits_{j}|w/\delta-c_j|,
 \qquad
 \widehat w=\delta c_q.
 ```
@@ -291,7 +291,7 @@ $`q`$存的是码索引，$`\widehat w`$是计算时近似恢复值；相等距�
 ```math
 \delta_i=\frac{\max_j|W_{ij}|}{7},
 \qquad
-q_{ij}=\operatorname{round}(W_{ij}/\delta_i)\in\{-7,\ldots,7\},
+q_{ij}=\mathop{\mathrm{round}}\nolimits(W_{ij}/\delta_i)\in\{-7,\ldots,7\},
 \qquad
 \widehat W_{ij}=\delta_iq_{ij}.
 ```

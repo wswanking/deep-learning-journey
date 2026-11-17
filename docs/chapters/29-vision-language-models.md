@@ -80,7 +80,7 @@
 本机使用共享于各视觉位置的两层MLP：
 
 ```math
-\mathbf z_p=\mathbf W_2\operatorname{GELU}(\mathbf W_1\mathbf f_p+\mathbf b_1)+\mathbf b_2.
+\mathbf z_p=\mathbf W_2\mathop{\mathrm{GELU}}\nolimits(\mathbf W_1\mathbf f_p+\mathbf b_1)+\mathbf b_2.
 ```
 
 尺寸为32→64→32，元素数 $`32\times64+64+64\times32+32=4192`$。16个位置共用同一组权重，不能再乘16作为参数数。MLP不压缩视觉位置数量；若要减少P，还需要池化、重采样或另一种连接结构。
@@ -174,7 +174,7 @@
 
 ```math
 p_{\theta,\phi}(a_1,\ldots,a_A\mid\mathbf I,q)
-=\prod_{t=1}^{A}p_{\theta,\phi}(a_t\mid\mathbf I,q,a_{<t}).
+=\prod_{t=1}^{A}p_{\theta,\phi}(a_t\mid\mathbf I,q,a_{\lt t}).
 ```
 
 在有效回答目标上计算平均负对数似然：

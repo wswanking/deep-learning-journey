@@ -177,7 +177,7 @@ PyTorch内部使用稳定的log-softmax/交叉熵，不必先把logit变成概�
  **困惑度（perplexity，PPL）**  是有效目标平均负对数概率的指数：
 
 ```math
-\operatorname{PPL}
+\mathop{\mathrm{PPL}}\nolimits
 =\exp\left(\frac SM\right)
 =\left(\prod_{m=1}^{M}p_m\right)^{-1/M}.
 ```
@@ -195,7 +195,7 @@ $`p_m`$ 是第 $`m`$ 个真实目标分到的概率，要求为正以得到有�
 ```math
 \overline\ell=\frac{\log2+3\log8}{4}
 =\frac52\log2,\qquad
-\operatorname{PPL}=\sqrt{32}\approx5.65685.
+\mathop{\mathrm{PPL}}\nolimits=\sqrt{32}\approx5.65685.
 ```
 
 直接平均两个批次损失后再指数会得到4；平均两个PPL会得到5；都不等于正确值。padding例子也一样：正确PPL为 $`\sqrt8\approx2.828`$，错误分母4给出约1.682。数字更低可能只是分母错了。

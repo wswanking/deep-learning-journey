@@ -79,16 +79,16 @@
 ```math
 \begin{aligned}
 \mathbf U^{[\ell]}&=\mathbf H^{[\ell-1]}+
- \operatorname{MHA}_{\mathrm{causal}}\!\left(\operatorname{LN}_1(\mathbf H^{[\ell-1]})\right),\\
+ \mathop{\mathrm{MHA}}\nolimits_{\mathrm{causal}}\!\left(\mathop{\mathrm{LN}}\nolimits_1(\mathbf H^{[\ell-1]})\right),\\
 \mathbf H^{[\ell]}&=\mathbf U^{[\ell]}+
- \operatorname{FFN}\!\left(\operatorname{LN}_2(\mathbf U^{[\ell]})\right).
+ \mathop{\mathrm{FFN}}\nolimits\!\left(\mathop{\mathrm{LN}}\nolimits_2(\mathbf U^{[\ell]})\right).
 \end{aligned}
 ```
 
 FFN在每个位置独立使用32→64→32的两层仿射变换，中间是GELU。这里先定义GELU，避免把新激活函数只当作名字。对标量a，
 
 ```math
-\operatorname{GELU}(a)=a\Phi(a),
+\mathop{\mathrm{GELU}}\nolimits(a)=a\Phi(a),
 \qquad \Phi(a)=\int_{-\infty}^{a}\frac{e^{-u^2/2}}{\sqrt{2\pi}}\,du.
 ```
 
@@ -164,7 +164,7 @@ p_\theta(y_{bt}\mid\mathbf x_{b,\le t})=
 逐字节困惑度定义为：
 
 ```math
-\operatorname{PPL}_{\mathrm{byte}}=\exp(\mathcal L).
+\mathop{\mathrm{PPL}}\nolimits_{\mathrm{byte}}=\exp(\mathcal L).
 ```
 
 它是目标概率几何平均数的倒数。均匀预测256种字节时，损失为 $`\ln256\approx5.545177`$，困惑度为256；这只是均匀基线，**不是困惑度的最大值**。给真实目标非常小的概率，困惑度可以任意大。不同tokenizer、不同上下文与不同计分位置的PPL不能直接排名；定义可参阅[D2L §9.3.2](https://d2l.ai/chapter_recurrent-neural-networks/language-model.html#perplexity)。
@@ -177,7 +177,7 @@ p_\theta(y_{bt}\mid\mathbf x_{b,\le t})=
 \begin{aligned}
 \mathcal L&=-\frac{\ln0.75+\ln0.25}{2}\\
 &=-\frac{\ln(3/16)}{2}\approx0.836988,\\
-\operatorname{PPL}&=\exp(0.836988)=\sqrt{16/3}\approx2.309401.
+\mathop{\mathrm{PPL}}\nolimits&=\exp(0.836988)=\sqrt{16/3}\approx2.309401.
 \end{aligned}
 ```
 

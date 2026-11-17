@@ -39,7 +39,7 @@
 语言模型并不直接输出整句的一个概率。它输出各位置的256维logits，通过词表轴log-softmax得到下一字节对数概率，再对回答位置求和：
 
 ```math
-\ln\pi_\theta(y\mid x)=\sum_{t=1}^{|y|}\ln\pi_\theta(y_t\mid x,y_{<t}).
+\ln\pi_\theta(y\mid x)=\sum_{t=1}^{|y|}\ln\pi_\theta(y_t\mid x,y_{\lt t}).
 ```
 
 这里 $`|y|`$ 是字节数。提示作为上下文参与计算，但不计入回答分数；补齐位置也不计分。终止换行属于回答，必须同时用于策略和参考。若只对一个模型加终止符，或一边取平均、一边求和，概率比便不再比较相同事件。
@@ -96,7 +96,7 @@ J_x(\pi)=\mathbb E_{y\sim\pi(\cdot\mid x)}[r(x,y)]
 
 ```math
 Z(x)=\sum_{y\in\mathcal Y}\pi_{\mathrm{ref}}(y\mid x)e^{r(x,y)/\beta},
-\qquad 0<Z(x)<\infty,
+\qquad 0\lt Z(x)\lt \infty,
 ```
 
 以及候选最优分布：
@@ -161,10 +161,10 @@ m_\theta={}&\beta\Delta_\theta.
 ```math
 \mathcal L_{\mathrm{DPO}}(\theta)
 =-\mathbb E_{\mathcal D}\ln\sigma(m_\theta)
-=\mathbb E_{\mathcal D}\operatorname{softplus}(-m_\theta).
+=\mathbb E_{\mathcal D}\mathop{\mathrm{softplus}}\nolimits(-m_\theta).
 ```
 
-其中 $`\operatorname{softplus}(a)=\ln(1+e^a)`$，实现使用稳定版本以避免先指数溢出。推导对应原论文§4与附录A.1、A.2；从理想分布解到有限网络拟合，还受模型容量、数据覆盖和优化误差限制。这个代换不表示任意有限数据上的DPO解必定满足所有实际人类偏好。[原始推导](https://arxiv.org/html/2305.18290v3#S4)。
+其中 $`\mathop{\mathrm{softplus}}\nolimits(a)=\ln(1+e^a)`$，实现使用稳定版本以避免先指数溢出。推导对应原论文§4与附录A.1、A.2；从理想分布解到有限网络拟合，还受模型容量、数据覆盖和优化误差限制。这个代换不表示任意有限数据上的DPO解必定满足所有实际人类偏好。[原始推导](https://arxiv.org/html/2305.18290v3#S4)。
 
 ### 5.3 β的两个角色需要一起理解
 

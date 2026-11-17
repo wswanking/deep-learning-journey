@@ -53,10 +53,10 @@
 
 文档很长时，整篇放入模型可能超出预算，也可能让目标事实被无关内容稀释。切分把文档变成可单独检索的片段。固定长度切分只是最容易分析的一种方法，段落、标题和语义边界也可以形成不同协议。
 
-设原文字符串长$`L`$，窗口宽度$`w`$，重叠$`o`$，要求$`0\le o<w`$。步幅为$`s=w-o`$，第$`j`$个起点为$`js`$，片段为：
+设原文字符串长$`L`$，窗口宽度$`w`$，重叠$`o`$，要求$`0\le o\lt w`$。步幅为$`s=w-o`$，第$`j`$个起点为$`js`$，片段为：
 
 ```math
-c_j=\operatorname{text}[js:\min(js+w,L)].
+c_j=\mathop{\mathrm{text}}\nolimits[js:\min(js+w,L)].
 ```
 
 下标从0开始，右端点不包含在内；已经到达文末就停止。只保存片段文字会丢失定位能力，实践同时保存：
@@ -108,7 +108,7 @@ s_j=\mathbf u^\top\mathbf v_j.
 余弦相似度为：
 
 ```math
-\operatorname{cos}(\mathbf u,\mathbf v)
+\mathop{\mathrm{cos}}\nolimits(\mathbf u,\mathbf v)
 =\frac{\mathbf u^\top\mathbf v}
 {\|\mathbf u\|_2\|\mathbf v\|_2},
 \quad \|\mathbf u\|_2,\|\mathbf v\|_2>0.
@@ -195,7 +195,7 @@ B_{\mathrm{template}}+B_q+\sum_{j=1}^{m}B_{c_j}
 
 ```math
 p_\theta(y\mid q,C(q))
-=\prod_{t=1}^{T}p_\theta(y_t\mid y_{<t},q,C(q)).
+=\prod_{t=1}^{T}p_\theta(y_t\mid y_{\lt t},q,C(q)).
 ```
 
 这里检索结果进入条件，模型参数没有因为一次检索自动更新。当前生成器是否学会利用这些条件，需要实际训练或评估来回答。
@@ -204,7 +204,7 @@ p_\theta(y\mid q,C(q))
 
 ```math
 p(y\mid q)\approx
-\sum_{c\in\operatorname{TopK}(q)}
+\sum_{c\in\mathop{\mathrm{TopK}}\nolimits(q)}
 p_\eta(c\mid q)\,p_\theta(y\mid q,c).
 ```
 
@@ -232,7 +232,7 @@ p_\eta(c\mid q)\,p_\theta(y\mid q,c).
 对$`q_i`$，令$`G_i`$是足以支持答案的片段集合，$`R_k(q_i)`$是第一阶段结果。通常可定义逐问题证据召回：
 
 ```math
-\operatorname{Recall@}k(q_i)=
+\mathop{\mathrm{Recall@}}\nolimits k(q_i)=
 \frac{|R_k(q_i)\cap G_i|}{|G_i|},
 \qquad |G_i|>0.
 ```
@@ -240,7 +240,7 @@ p_\eta(c\mid q)\,p_\theta(y\mid q,c).
 一份答案可能有多个等价证据，$`G_i`$需按任务标注。程序主要报告更简单的**证据命中率**：在可回答问题中，至少一个候选包含正确来源、实体、字段和完整答案的比例：
 
 ```math
-\operatorname{Hit@}k
+\mathop{\mathrm{Hit@}}\nolimits k
 =\frac1n\sum_{i=1}^{n}
 \mathbf1\{R_k(q_i)\text{含完整支持事实}\}.
 ```

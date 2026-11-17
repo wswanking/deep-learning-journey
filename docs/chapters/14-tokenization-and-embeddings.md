@@ -317,7 +317,7 @@ p(o\mid c)=
 对非零向量，余弦相似度为
 
 ```math
-\operatorname{cos}(\mathbf a,\mathbf b)
+\mathop{\mathrm{cos}}\nolimits(\mathbf a,\mathbf b)
 =\frac{\mathbf a^\top\mathbf b}{\|\mathbf a\|_2\|\mathbf b\|_2}.
 ```
 

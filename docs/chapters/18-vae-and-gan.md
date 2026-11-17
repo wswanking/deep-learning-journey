@@ -153,7 +153,7 @@ p(\mathbf z)=\mathcal N(\mathbf0,I),
 \qquad
 q_\phi(\mathbf z\mid\mathbf x)
 =\mathcal N\!\left(\boldsymbol\mu_\phi(\mathbf x),
-\operatorname{diag}(\boldsymbol\sigma_\phi^2(\mathbf x))\right).
+\mathop{\mathrm{diag}}\nolimits(\boldsymbol\sigma_\phi^2(\mathbf x))\right).
 ```
 
 网络输出对数方差 $`\mathbf l`$，因此标准差为 $`\exp(\mathbf l/2)`$，保证为正。为了对期望优化，先采一个与参数无关的噪声，再做确定性变换：

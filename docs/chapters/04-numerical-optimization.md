@@ -23,7 +23,7 @@
 
 | 符号 | 含义与约定 |
 | --- | --- |
-| $`\operatorname{fl}(x)`$ | 按指定浮点格式表示或计算出的近似值 |
+| $`\mathop{\mathrm{fl}}\nolimits(x)`$ | 按指定浮点格式表示或计算出的近似值 |
 | $`\epsilon_{\mathrm{mach}}`$ | 本章取1与其上方相邻浮点数之差，与NumPy `finfo.eps` 一致 |
 | $`\mathbf{z},\mathbf{p}`$ | 分类分数与概率，均为 $`C`$ 维列向量 |
 | $`m`$ | 当前样本最大分数，$`m=\max_c z_c`$；本章该字母表示标量 |
@@ -76,9 +76,9 @@ float32的最大有限数约 $`3.40\times10^{38}`$，float64约 $`1.80\times10^{
 在float32中取 $`a=10^8,b=-10^8,c=1`$。先算 $`a+b`$ 得到0，再加1得到1；先算 $`b+c`$ 时，1小于该尺度能保留的间隔，结果舍入回 $`-10^8`$，再加 $`a`$ 得到0。因此实际有：
 
 ```math
-\operatorname{fl}(\operatorname{fl}(a+b)+c)
+\mathop{\mathrm{fl}}\nolimits(\mathop{\mathrm{fl}}\nolimits(a+b)+c)
 \neq
-\operatorname{fl}(a+\operatorname{fl}(b+c)).
+\mathop{\mathrm{fl}}\nolimits(a+\mathop{\mathrm{fl}}\nolimits(b+c)).
 ```
 
 本机float64在这组特定数值中两种次序都得到1，但这不意味着提高精度后所有输入都满足实数的结合律。框架并行求和、分批计算和不同设备可能采用不同运算顺序，不能要求结果逐位一致。[4]
@@ -157,7 +157,7 @@ P = exponentials / S                       # (B, C)
 log-sum-exp（简称LSE）是“先求指数和，再取对数”：
 
 ```math
-\operatorname{LSE}(\mathbf{z})
+\mathop{\mathrm{LSE}}\nolimits(\mathbf{z})
 =\log\sum_{j=1}^{C}\exp(z_j).
 ```
 
@@ -165,7 +165,7 @@ log-sum-exp（简称LSE）是“先求指数和，再取对数”：
 
 ```math
 \begin{aligned}
-\operatorname{LSE}(\mathbf{z})
+\mathop{\mathrm{LSE}}\nolimits(\mathbf{z})
 &=\log\left(\exp(m)\sum_j\exp(z_j-m)\right)\\
 &=m+\log\sum_j\exp(z_j-m).
 \end{aligned}
@@ -175,7 +175,7 @@ log-sum-exp（简称LSE）是“先求指数和，再取对数”：
 
 ### 7.2 为什么不能先softmax再log
 
-由概率定义，$`\log p_c=z_c-\operatorname{LSE}(\mathbf{z})`$。为了继续控制中间值，本章直接用：
+由概率定义，$`\log p_c=z_c-\mathop{\mathrm{LSE}}\nolimits(\mathbf{z})`$。为了继续控制中间值，本章直接用：
 
 ```math
 \log p_c
@@ -256,9 +256,9 @@ t_k=(1-a\eta)^k t_0.
 如果初值非零，收敛到0要求乘数绝对值小于1：
 
 ```math
-|1-a\eta|<1
+|1-a\eta|\lt 1
 \quad\Longleftrightarrow\quad
-0<\eta<\frac{2}{a}.
+0\lt \eta\lt \frac{2}{a}.
 ```
 
 乘数在0与1之间时，同号逐渐缩小；在 $`-1`$ 与0之间时，左右交替但幅度仍缩小；小于 $`-1`$ 时，交替且幅度增大。等于 $`-1`$ 时振幅保持，不能宣称收敛。这个结论针对当前固定步长二次函数，不是所有网络的通用阈值。
@@ -273,7 +273,7 @@ t_k=(1-a\eta)^k t_0.
 \theta_{2,k}=(1-4\eta)^k.
 ```
 
-两个初始坐标都非零，因此要同时满足 $`|1-\eta|<1`$ 与 $`|1-4\eta|<1`$，合并为 $`0<\eta<0.5`$。第二个方向的曲率更大、梯度变化更快，限制了整体步长。
+两个初始坐标都非零，因此要同时满足 $`|1-\eta|\lt 1`$ 与 $`|1-4\eta|\lt 1`$，合并为 $`0\lt \eta\lt 0.5`$。第二个方向的曲率更大、梯度变化更快，限制了整体步长。
 
 ![图04-3：同一二次目标和初始点，四种学习率的实际更新路径](../assets/04-numerical-optimization/04-03-gradient-paths.svg)
 
@@ -383,7 +383,7 @@ for k in range(40):
 1. 第一行尾位权重为 $`2^{-2}=0.25`$；乘以 $`2^1`$ 后权重变为0.5。实际float32有效位为24，而且间距随指数区间变化，所以玩具图只解释机制，不能给出任意位置的数值间隔。
 2. 最大值100，移位后全0、指数全1、分母为3，概率全为 $`1/3`$。LSE为 $`100+\log3\approx101.0986`$。
 3. 最大值为 $`-1000`$，移位后为 $`(0,-1)`$，概率约 $`(0.73106,0.26894)`$。去掉负号会得到 $`(1000,1001)`$，颠倒相对大小，改变模型分数，不能称为稳定的等价变形。
-4. 导数 $`6t`$，更新乘数为 $`1-6\eta`$，要求其绝对值小于1，得到 $`0<\eta<1/3`$。在 $`\eta=1/3`$ 处，非零初值正负交替、幅度不变；$`\eta=0`$ 时没有更新。
+4. 导数 $`6t`$，更新乘数为 $`1-6\eta`$，要求其绝对值小于1，得到 $`0\lt \eta\lt 1/3`$。在 $`\eta=1/3`$ 处，非零初值正负交替、幅度不变；$`\eta=0`$ 时没有更新。
 5. 第2坐标乘数为 $`-1`$，所以为 $`(-1)^k`$，不收敛到0；第1坐标为 $`2(0.5)^k`$，趋近0。目标趋近2，而不是最小值0。
 6. 第2步目标约4.2292，已超过初值4；40步约 $`4.32\times10^6`$。固定二次函数的全部记录和闭式解都支持发散判断。它不能推出任意神经网络的最佳学习率，也没有验证数据泛化能力。
 

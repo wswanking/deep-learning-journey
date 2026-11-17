@@ -27,14 +27,14 @@
 ```math
 \begin{aligned}
 p_\theta(x_1,\ldots,x_T)
-&=\prod_{t=1}^{T}p_\theta(x_t\mid x_{<t}),\\
+&=\prod_{t=1}^{T}p_\theta(x_t\mid x_{\lt t}),\\
 \mathcal{L}(\theta)
 &=-\frac{1}{T}\sum_{t=1}^{T}
-\log p_\theta(x_t\mid x_{<t}).
+\log p_\theta(x_t\mid x_{\lt t}).
 \end{aligned}
 ```
 
-其中 $`T`$ 是序列长度，$`x_{<t}`$ 表示当前位置之前的序列，$`\theta`$ 是参数集合。这里只检查排版；自回归分解的条件和训练目标将在正式语言模型章节展开解释。
+其中 $`T`$ 是序列长度，$`x_{\lt t}`$ 表示当前位置之前的序列，$`\theta`$ 是参数集合。这里只检查排版；自回归分解的条件和训练目标将在正式语言模型章节展开解释。
 
 ## 4. 打印与缩放检查
 

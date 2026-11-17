@@ -17,7 +17,7 @@
 
 ```math
 y=f_*(x)+\varepsilon,
-\qquad x\sim\operatorname{Uniform}[-1,1],
+\qquad x\sim\mathop{\mathrm{Uniform}}\nolimits[-1,1],
 \quad\varepsilon\sim\mathcal{N}(0,0.2^2).
 ```
 
@@ -98,10 +98,10 @@ AdamW采用这种解耦方式。[5,6] 本章实际实验用AdamW，而不是把L
 
 ### 6.1 掩码与期望保持
 
-Dropout在训练时随机丢弃部分隐藏分量。采用PyTorch常用的inverted dropout定义，在给定隐藏值 $`h_j`$、$`0\leq p<1`$ 时：
+Dropout在训练时随机丢弃部分隐藏分量。采用PyTorch常用的inverted dropout定义，在给定隐藏值 $`h_j`$、$`0\leq p\lt 1`$ 时：
 
 ```math
-m_j\sim\operatorname{Bernoulli}(1-p),
+m_j\sim\mathop{\mathrm{Bernoulli}}\nolimits(1-p),
 \qquad
 h'_j=\frac{m_j h_j}{1-p}.
 ```
@@ -157,14 +157,14 @@ else:
 尺度也有影响。设某单元输入来自 $`d_{\mathrm{in}}`$ 个连接，权重独立、零均值，并采用必要的独立与对称近似。加权和的二阶矩约随连接数增加；对于对称输入的ReLU，有：
 
 ```math
-\mathbb{E}[\operatorname{ReLU}(z)^2]
+\mathbb{E}[\mathop{\mathrm{ReLU}}\nolimits(z)^2]
 =\frac12\mathbb{E}[z^2].
 ```
 
 因此把权重方差设为约 $`2/d_{\mathrm{in}}`$，有助于平衡这两种尺度变化。这是本章隐藏层Kaiming初始化的直觉；它保持的是近似二阶矩，不是对任意相关输入都精确保持方差。输出线性层使用Xavier均匀初始化（亦称Glorot初始化），偏置为0。[9] 若该层输入、输出连接数分别为 $`d_{\mathrm{in}},d_{\mathrm{out}}`$，本实验取缩放系数gain为1：
 
 ```math
-W_{ij}\sim\operatorname{Uniform}(-a,a),
+W_{ij}\sim\mathop{\mathrm{Uniform}}\nolimits(-a,a),
 \qquad
 a=\sqrt{\frac{6}{d_{\mathrm{in}}+d_{\mathrm{out}}}}.
 ```

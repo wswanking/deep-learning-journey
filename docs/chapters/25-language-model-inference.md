@@ -64,7 +64,7 @@
 
 ```math
 \boldsymbol{\alpha}
-=\operatorname{softmax}\!\left(\frac{\mathbf{K}\mathbf{q}}{\sqrt{d_h}}\right),
+=\mathop{\mathrm{softmax}}\nolimits\!\left(\frac{\mathbf{K}\mathbf{q}}{\sqrt{d_h}}\right),
 \qquad
 \mathbf{o}=\mathbf{V}_{\mathrm{cache}}^{\top}\boldsymbol{\alpha}.
 ```
@@ -188,7 +188,7 @@ q_{(i)}/\sum_{j=1}^{m}q_{(j)},&i\le m,\\
 
 ```math
 s_r=\frac{\max_j|w_{rj}|}{127},\qquad
-q_{rj}=\operatorname{clip}\!\left(\operatorname{round}(w_{rj}/s_r),-127,127\right),
+q_{rj}=\mathop{\mathrm{clip}}\nolimits\!\left(\mathop{\mathrm{round}}\nolimits(w_{rj}/s_r),-127,127\right),
 \qquad
 \widehat w_{rj}=s_rq_{rj}.
 ```

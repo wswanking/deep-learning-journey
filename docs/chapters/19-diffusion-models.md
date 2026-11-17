@@ -26,7 +26,7 @@
 | $`\mathbf{x}_0\in\mathbb{R}^D`$ | 原始数据列向量，本章 $`D=2`$ |
 | $`\mathbf{x}_t`$ | 扩散到第 $`t`$ 步的随机状态，与原数据同维 |
 | $`t,T`$ | 扩散时间与最大扩散步数，训练/采样使用 $`t=1,\ldots,T`$ |
-| $`\beta_t,\alpha_t`$ | 单步噪声方差与信号系数平方，$`0<\beta_t<1`$、$`\alpha_t=1-\beta_t`$ |
+| $`\beta_t,\alpha_t`$ | 单步噪声方差与信号系数平方，$`0\lt \beta_t\lt 1`$、$`\alpha_t=1-\beta_t`$ |
 | $`\bar\alpha_t`$ | 累积系数 $`\prod_{s=1}^t\alpha_s`$，约定 $`\bar\alpha_0=1`$ |
 | $`q,p_{\boldsymbol{\theta}}`$ | 固定前向分布、学习到的反向生成分布 |
 | $`\boldsymbol{\epsilon},\mathbf{z}`$ | 独立标准高斯噪声向量；使用处区分训练标签与采样新噪声 |
@@ -205,7 +205,7 @@ x_2=0.9+\sqrt{0.19}(0.5)\approx1.117945.
 \left\lVert\boldsymbol{\epsilon}
 -\boldsymbol{\epsilon}_{\boldsymbol{\theta}}(\mathbf{x}_t,t)
 \right\rVert_2^2\right],
-\quad t\sim\operatorname{Uniform}\{1,\ldots,T\}.
+\quad t\sim\mathop{\mathrm{Uniform}}\nolimits\{1,\ldots,T\}.
 ```
 
 批次代码在 $`B\times D`$ 个标量上取平均，无额外 $`1/2`$。原论文式(14)写平方范数，本章再除以固定维数 $`D`$；这个常数不改变理想极小点，但会缩放梯度，实际学习率仍按本章配置报告。[1，§3.4]
