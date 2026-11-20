@@ -80,3 +80,16 @@ Python3.11.5、PyTorch2.15.0+cpu、CPU、float32、单线程。两组同基座�
 
 
 2026-11-17整合复核：已修复共享模型导入导致的同名figures模块优先级，实际验证入口导入本章绘图文件并从已有实测报告重建五幅SVG。原训练、权重来源与15日数字保留。
+
+
+## Padding检查的数值精度
+
+训练仍使用原float32协议。批量与单条不同形状的计算存在舍入差异，确定性和单线程不保证两者逐位相同。当前检查同时要求float32最大绝对差小于1e-5、同权重float64交叉检查小于1e-11，并要求同形状下改变padding内容时真实token输出逐位相同。结果JSON记录各精度误差，不能只放宽float32阈值后省略语义检查。详见[PyTorch数值精度说明](https://docs.pytorch.org/docs/stable/notes/numerical_accuracy.html)。
+
+第21章生成基座后，可用Linux虚拟环境运行正反例回归：
+
+```bash
+.venv-linux/bin/python -B tests/padding.test.py
+```
+
+该测试须拒绝故意移除全部attention约束（因果及padding mask）以及只在float32批量输出注入偏差的模型。

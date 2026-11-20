@@ -44,3 +44,12 @@ Debian 13、Node.js 24.22.1、npm 11.9.0、Python 3.12.14；不是用户 Windows
 - [成功运行产物](https://github.com/wswanking/deep-learning-journey/actions/runs/44104896665/artifacts/14338622907)保留55步清单、独立日志、各章JSON与出版检查，不上传模型权重。后续图注修复及记录提交仍由相同CI重新验证，查看对应提交状态，不把旧提交成功冒充新提交成功。
 
 本地还在隔离临时CPU环境复现并验证21/22/24～30章训练（30章本地不导出）；浏览器导出证据来自上述Actions。仍未验证用户Windows/WSL原生、GPU、其他CPU架构、在线GitHub公式页及全书逐页目视效果。Windows PowerShell脚本没有删除或改写；Linux资源检测不实现Windows注册表/CIM或其网络代理诊断选项。
+
+
+## 2026-11-20：第22章padding精度复核
+
+README三条Bash命令修正提交的[CI 44679792523](https://github.com/wswanking/deep-learning-journey/actions/runs/44679792523)通过出版和CPU环境检查，但在第22章`padding changed real-token outputs`失败，不能称整套验收通过。
+
+本地用同版PyTorch2.15.0+cpu、NumPy2.5.5从21章重新训练基座，复现8个样本中1个超出旧`atol=2e-6, rtol=1e-5`逐元素阈值，float32最大绝对差5.1856041e-6，阈值比最大1.4836。1/2/4线程结果相同；同权重float64差仅4.4408921e-15。这是批量/单条形状造成的浮点舍入证据，不是通过增加线程得到的随机修复。
+
+修复仅调整验收设计，不改变模型、mask、训练精度或预算：float32绝对误差须小于1e-5，同时增加float64小于1e-11的严格语义检查、同形状padding内容扰动逐位不变检查；记录误差。真实训练基座正例通过，移除全部因果及padding attention约束、仅float32批量注入1e-3偏差的两个负例均被拒绝。第22章完整默认800步本地通过。新测试加入全实验CI，完整runner从55步增加为56步；本段为已完成本地验证，远端结果仍须查看对应提交的Actions，不能沿用历史成功。

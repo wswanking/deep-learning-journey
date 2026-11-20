@@ -29,6 +29,25 @@ def masked_loss(logits,labels):
  if count==0:raise ValueError('no supervised target bytes')
  return F.cross_entropy(logits.reshape(-1,logits.shape[-1]),labels.reshape(-1),ignore_index=-100,reduction='sum')/count
 
+def check_right_padding(model,batch):
+ # Batch/slice kernels can round differently even with one thread and deterministic
+ # algorithms. Keep an explicit float32 bound AND an independent strict float64
+ # semantic check; do not let a wider float32 tolerance hide a masking defect.
+ # https://docs.pytorch.org/docs/stable/notes/numerical_accuracy.html
+ measurements={}
+ with torch.no_grad():
+  for name,probe,tolerance in [('float32',model,1e-5),('float64',copy.deepcopy(model).double(),1e-11)]:
+   probe.eval();valid=batch['attention_mask'];batched=probe(batch['input_ids'],valid);maximum=0.
+   for i,e in enumerate(batch['encoded']):
+    n=len(e['input_ids']);single=probe(batch['input_ids'][i:i+1,:n]);error=float((single-batched[i:i+1,:n]).abs().max());maximum=max(maximum,error)
+    require(math.isfinite(error) and error<tolerance,f'padding changed real-token outputs ({name}, max_error={error}, tolerance={tolerance})')
+   # Same tensor shapes isolate padding contents from batch/slice rounding.
+   altered=batch['input_ids'].clone();altered[~valid]=(altered[~valid]+137)%probe.config.vocab_size
+   changed=probe(altered,valid)
+   require(torch.equal(batched[valid],changed[valid]),f'padding content leaked into real tokens ({name})')
+   measurements[name]={'max_logit_difference':maximum,'absolute_tolerance':tolerance,'padding_content_bitexact':True}
+ return {'right_padding_checks':measurements}
+
 def mechanics(model,records):
  batch=collate(records[:8],model.config.context_length);labels=batch['labels'];valid=batch['attention_mask']
  require(bool((labels[~valid]==-100).all()),'padding targets must be ignored')
@@ -49,11 +68,8 @@ def mechanics(model,records):
  require(ignored_gradient==0 and prompt_embedding_gradient>0,'loss mask is not context erasure')
  # At least two prompt lengths occur because the long verb has two additional Chinese characters.
  lengths=[len(e['input_ids']) for e in batch['encoded']];require(len(set(lengths))==2 and int((~valid).sum())>0,'actual right padding exercised')
- with torch.no_grad():
-  model.eval();batched=model(batch['input_ids'],valid)
-  for i,e in enumerate(batch['encoded']):
-   n=len(e['input_ids']);single=model(batch['input_ids'][i:i+1,:n]);require(torch.allclose(single,batched[i:i+1,:n],atol=2e-6,rtol=1e-5),'padding changed real-token outputs')
- return {'manual_ce':expected,'autograd_ce':float(loss.detach()),'ignored_output_gradient':ignored_gradient,'prompt_position_embedding_gradient_norm':prompt_embedding_gradient,'first_answer_target_aligned':True,'supervised_bytes_per_record':3,'right_padding_input_lengths':lengths,'padding_slots':int((~valid).sum()),'zero_target_rejected':rejected}
+ padding_checks=check_right_padding(model,batch)
+ return {'manual_ce':expected,'autograd_ce':float(loss.detach()),'ignored_output_gradient':ignored_gradient,'prompt_position_embedding_gradient_norm':prompt_embedding_gradient,'first_answer_target_aligned':True,'supervised_bytes_per_record':3,'right_padding_input_lengths':lengths,'padding_slots':int((~valid).sum()),'zero_target_rejected':rejected,**padding_checks}
 
 def evaluate_response(model,records):
  batch=collate(records,model.config.context_length);model.eval()

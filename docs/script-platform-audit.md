@@ -17,7 +17,7 @@ PowerShell环境检查的CIM、Windows注册表、Windows字体目录仅在Windo
 
 全量链路已由[Actions 44104896665](https://github.com/wswanking/deep-learning-journey/actions/runs/44104896665)实跑通过：55个步骤覆盖全部30章实验、9个静态生成器、10个独立绘图入口、综合报告导出/重放/质量门槛和重生成全书。每次后续提交仍重新执行整套CI，结果以对应提交为准。此轮详情见[Linux验收记录](appendices/linux-validation.md)。
 
-## 逐文件清单（97项）
+## 逐文件清单（98项）
 
 | 文件 | 类型与Linux处理 |
 | --- | --- |
@@ -118,3 +118,4 @@ PowerShell环境检查的CIM、Windows注册表、Windows字体目录仅在Windo
 | `tests/github-math.test.mjs` | Node回归测试；Windows专属模拟保留 |
 | `tests/linux.test.mjs` | Node回归测试；Windows专属模拟保留 |
 | `tests/markdown.test.mjs` | Node回归测试；Windows专属模拟保留 |
+| `tests/padding.test.py` | CPU正反例回归：真实训练基座、错误attention mask、仅float32批次漂移 |

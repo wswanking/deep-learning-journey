@@ -74,6 +74,7 @@ def main():
             if '--figure-dir' in text:
                 command += ['--figure-dir', str(Path('docs/assets') / script.parent.name)]
             run('chapter-' + script.parent.name, command)
+        run('padding-positive-negative-regression', [sys.executable, '-B', 'tests/padding.test.py'])
         # Standalone helpers get an actual CLI execution; other modules are exercised by run.py.
         for script in sorted((work / 'examples').glob('*/figures.py')):
             module = ast.parse(script.read_text(encoding='utf-8'))
