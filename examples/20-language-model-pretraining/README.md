@@ -71,7 +71,7 @@ Linux / WSL：
 ~~~bash
 node scripts/generate-chapter20-figures.mjs
 .venv-linux/bin/python -B examples/20-language-model-pretraining/run.py --figure-dir docs/assets/20-language-model-pretraining
-& ./scripts/build.ps1 -Format all -Chapter 20
+bash scripts/build.sh --format all --chapter 20
 ~~~
 
 3幅原理图由Node生成，2幅实际结果图来自run.py；图形、文字、曲线均为真正矢量，无嵌入位图。独立publication与PDF审计结果见章节末验收记录。

@@ -64,7 +64,7 @@ Linux / WSL：
 
 ~~~bash
 .venv-linux/bin/python -B examples/23-parameter-efficient-tuning/run.py --output-dir build/experiments/23-parameter-efficient-tuning/repeated --skip-figures
-& ./scripts/build.ps1 -Format all -Chapter 23
+bash scripts/build.sh --format all --chapter 23
 node scripts/check-publication.mjs --name chapter-23 --capture
 ~~~
 

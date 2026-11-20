@@ -86,7 +86,7 @@ Linux / WSL：
 
 ~~~bash
 .venv-linux/bin/python -B examples/29-vision-language-models/run.py --output-dir build/experiments/29-vision-language-models/repeated --skip-figures
-& ./scripts/build.ps1 -Format all -Chapter 29
+bash scripts/build.sh --format all --chapter 29
 node scripts/check-publication.mjs --name chapter-29 --capture
 ~~~
 
